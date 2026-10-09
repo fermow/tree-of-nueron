@@ -22,40 +22,43 @@ Use another port if needed:
 PORT=9000 make up
 ```
 
-## What is included
+## Explore the atlas
 
-- 47 milestones sorted chronologically from c. 700 BCE to 1962
-- six named research categories and an explicit branching graph; electrical stimulation, muscle physiology, and electric-fish investigations meet at Galvani's planned experiment
-- 16 smaller terminology branches with separate etymology pages (from ancient neûron and Latin nervus to soma, dendrite, axon, synapse, myelin, and saltatory conduction)
-- search by scientist, discovery, date, question, or concept
-- a dedicated detail page for every node
-- a visual evidence sketch for all 47 event pages and selected credited Wikimedia Commons historical images or modern diagrams; if an image cannot load, its illustration remains visible
-- question, method, experimental steps, observation, result/model, limitation, next question, and references
-- for every milestone: why the question arose, the evidence type, a source-grounded procedure, what the result answers, and a qualitative assessment of its limits
-- responsive keyboard and touch controls
-- no runtime dependencies or build step
+The homepage is a scrollable illustrated reading experience, designed for laptop trackpads, phones and keyboards.
 
-## Controls
+- **Timeline:** 47 chronological event cards, grouped into six historical periods.
+- **Parallel paths:** research columns within each period, plus three explicit meeting points (Galvani, Bernstein and propagation by 1952).
+- **Word origins:** 16 illustrated terminology histories with documented and approximate dates distinguished.
+- Search names, years, titles, research questions and concepts. Use `/` to focus search.
+- Combine historical-period, research-thread and milestone-type filters.
+- Choose the **12-stop essential journey** for a first reading; all other stories remain available.
+- Every event and term has a credited image, a dedicated reading page and references. Some related stories share an appropriate image.
+- Detail pages include section navigation, previous/next stories, and related research connections.
+- Recently opened stories and a continue-reading link are saved in browser-local storage. No account or tracking service is needed.
+- Images load online from Wikimedia Commons. An image-source link remains available if an image fails. All text and teaching sketches are local.
 
-- drag to move through the tree
-- scroll, pinch, use `+` / `-`, or adjust the on-screen zoom slider
-- choose one of six turning points in the left guide for a readable starting view
-- use the colored research-thread buttons to focus and highlight one line of inquiry
-- press `/` to search
-- press `0` to return to the beginning; use the home control or “Back to beginning” for the same action
-- click a card to open its full evidence page; use the back link to return
-- click a smaller pink word node for its origin, earlier names, dating caveats, and cited sources
-- on smaller screens, open the Explore drawer to navigate chapters and threads
+To update an existing clone:
+
+```bash
+git pull
+make up
+```
+
+The page assets use versioned URLs to avoid stale browser caches after this redesign. No runtime packages or build step are needed.
 
 ## Content architecture
 
-All historical content lives in [`assets/data.js`](assets/data.js). Add another object to the `events` array and supply an `era` plus one or more reference IDs. For placement on the map, add its id and approximate horizontal coordinate to `xById` in [`assets/tree.js`](assets/tree.js). Define meaningful connections and optional position or topic overrides in [`assets/graph.js`](assets/graph.js). Coordinates reflect approximate order, not a proportional time scale. Solid paths show related evidence, the three-way branch before Galvani shows concurrent research contexts, and dotted bridges represent conceptual synthesis, not direct ancestry or proof of personal influence.
+Historical content lives in `assets/data.js`, research explanations in `assets/research.js`, and word histories in `assets/terms.js`. `assets/atlas.js` renders the chronological index, filters and parallel views; `assets/atlas.css` styles the homepage. The reading pages share `assets/reader.css` and `assets/reader.js`.
+
+`assets/graph.js` preserves the research relationships, including branching and convergence. Connections relate evidence and questions; they are not proof of direct personal influence. The earlier pan-and-zoom renderer remains in `assets/tree.js` for reference but is not loaded by the reading-first homepage.
+
+Curated image assignments and captions are in `assets/media.js`, extending `assets/visuals.js`. Every image links to its Commons description page for provenance and reuse terms. The catalogue is in [IMAGE_SOURCES.md](IMAGE_SOURCES.md). Captions distinguish original apparatus, later portraits, micrographs and modern explanatory diagrams. Images are not represented as evidence of a naming date or as a different investigator’s original experiment.
 
 The supplied PDFs are the core source corpus, supplemented where needed by linked historical scholarship and primary works. The pre-Galvani context, Galvani's 1780 laboratory program, and the 1781 distant-spark account rely especially on Piccolino's historical study and Galvani's 1791 publication. The PDFs are not duplicated in this repository; detail pages identify relevant PDF pages where applicable and link the cited primary and secondary references. The extra research notes are in [`assets/research.js`](assets/research.js). A historical reconstruction or summarized evidence sequence is not a complete laboratory replication protocol. Confidence statements distinguish support for a narrow observation from support for a broader historical model; they are qualitative, not numerical probabilities.
 
-Terminology history lives in [`assets/terms.js`](assets/terms.js). Its nodes are smaller branches attached to related observations; their dates track documented usage or approximate periods, rather than implying every word was coined in one moment. In particular, the historical sources used here do not establish a precise first neuronal use of *soma*.
+Terminology history lives in [`assets/terms.js`](assets/terms.js). Its entries are linked to related observations; their dates track documented usage or approximate periods, rather than implying every word was coined in one moment. In particular, the historical sources used here do not establish a precise first neuronal use of *soma*.
 
-The event page illustrations and image credits live in [`assets/visuals.js`](assets/visuals.js). Historical images load from Wikimedia Commons when online; captions distinguish original sources, later depictions and modern reconstructions. Each links to its Commons page for provenance and license. The three-part sketches are teaching abstractions, not facsimiles of historical apparatus.
+The event page illustrations and image credits live in [`assets/visuals.js`](assets/visuals.js). Historical and explanatory images load from Wikimedia Commons when online; captions distinguish original sources, later depictions and modern reconstructions. Each links to its Commons page for provenance and license. The three-part sketches are teaching abstractions, not facsimiles of historical apparatus.
 
 The osmosis and cell-boundary strand now starts with Nollet's natural-membrane observation (1748), continues through Dutrochet's endosmometer (1826), Nägeli and Cramer's plant-cell plasmolysis (1855), and Pfeffer's supported artificial membrane (1877), then reaches Overton's permeability comparisons (1895–1899). These are related questions, not one continuous experiment; especially, an animal bladder and an artificial copper-ferrocyanide film are not the living cell's lipid membrane.
 
@@ -68,5 +71,7 @@ The myelin strand follows Virchow's 1854 name, Ranvier's gaps, Thudichum's chemi
 ```bash
 make check
 ```
+
+Checks cover all 63 detail pages and image assignments, reference integrity, chronology, search, combined filters, parallel views, deep links, and the essential journey. They do not test remote image delivery or replace visual browser QA.
 
 The project is intentionally buildless: plain HTML, CSS, SVG, and JavaScript.

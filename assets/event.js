@@ -16,13 +16,18 @@
   const next = events[index + 1];
   const linkedTerms = window.NEURON_TERMS?.items.filter(term => term.anchor === event.id) || [];
   const scene = window.NEURON_VISUALS.scenes[event.id];
-  const media = window.NEURON_VISUALS.archive[event.id];
+  const media = window.NEURON_MEDIA.event(event.id);
   document.title = `${event.person} · ${event.date} · Tree of Neuron`;
   document.querySelectorAll?.('.detail-topbar .brand, .detail-topbar .back-link').forEach(link => {
     link.href = `index.html#event-${encodeURIComponent(event.id)}`;
   });
   document.documentElement.style.setProperty("--hero-color", era.color);
 
+  const graph = window.NEURON_GRAPH;
+  const edges = [...graph.strands.flatMap(s => s.links), ...graph.bridges, ...graph.fork.branches.map(id => [id, graph.fork.join])];
+  const predecessors = [...new Set(edges.filter(([a,b]) => b === event.id).map(([a]) => a))].map(id => events.find(e => e.id === id));
+  const successors = [...new Set(edges.filter(([a,b]) => a === event.id).map(([,b]) => b))].map(id => events.find(e => e.id === id));
+  const relations = (list, label) => list.length ? `<div><h3>${label}</h3>${list.map(e => `<a href="event.html?id=${e.id}"><small>${escapeHtml(e.date)} · ${escapeHtml(e.person)}</small><b>${escapeHtml(e.title)} ↗</b></a>`).join("")}</div>` : "";
   const refs = event.refs.map(refId => {
     const ref = references[refId];
     return `<li><a href="${ref.url}" target="_blank" rel="noopener noreferrer"><span>${escapeHtml(ref.label)}</span><b>${refId} ↗</b></a></li>`;
@@ -43,9 +48,9 @@
   }
   const visualMark = motif(scene[3]);
   const image = media ? `<figure class="archive-figure"><div class="archive-mat">
-    <img src="https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(media.file)}?width=1000" alt="${escapeHtml(media.caption)}" loading="eager" referrerpolicy="no-referrer">
+    <img src="${window.NEURON_MEDIA.url(media,1000)}" alt="${escapeHtml(media.caption)}" loading="eager" referrerpolicy="no-referrer">
     <div class="archive-fallback">${visualMark}<span>Illustrated evidence</span></div></div>
-    <figcaption>${escapeHtml(media.caption)} <a href="https://commons.wikimedia.org/wiki/File:${encodeURIComponent(media.file.replaceAll(" ", "_"))}" target="_blank" rel="noopener noreferrer">${escapeHtml(media.credit)} · image source and license ↗</a></figcaption></figure>`
+    <figcaption><span class="image-type">${escapeHtml(media.type)}</span>${escapeHtml(media.caption)} <a href="${window.NEURON_MEDIA.source(media)}" target="_blank" rel="noopener noreferrer">${escapeHtml(media.credit)} · image source and license ↗</a></figcaption></figure>`
     : `<figure class="archive-figure illustrated"><div class="archive-mat">${visualMark}<span>Conceptual illustration</span></div><figcaption>No event-specific historical image is used. This visual explains the idea, not the original apparatus.</figcaption></figure>`;
 
   root.innerHTML = `
@@ -65,7 +70,8 @@
         ${image}
       </header>
 
-      <section class="evidence-map" aria-label="Visual summary of this historical milestone">
+      <nav class="reader-tabs" aria-label="On this page"><a href="#overview">At a glance</a><a href="#context">Why this question?</a><a href="#method">The investigation</a><a href="#answer">What changed?</a><a href="#connections">Related paths</a><a href="#sources">Sources</a></nav>
+      <section id="overview" class="evidence-map" aria-label="Visual summary of this historical milestone">
         <div class="map-heading"><b>THE IDEA AT A GLANCE</b><span>A simplified teaching sketch · not an original apparatus diagram</span></div>
         <div class="scene-steps">
           ${scene.slice(0, 3).map((label, i) => `<div class="scene-step"><small>0${i + 1} · ${["starting point", "inquiry", "what emerged"][i]}</small><span class="scene-symbol">${motif(scene[3])}</span><strong>${escapeHtml(label)}</strong></div>`).join("")}
@@ -89,7 +95,7 @@
 
       <div class="story-grid">
         <div class="story-main">
-          ${research ? `<section class="story-section">
+          ${research ? `<section class="story-section" id="context">
             <div class="section-label"><span>00</span>Historical context</div>
             <h2>Why did this question arise?</h2>
             <p>${escapeHtml(research.background)}</p>
@@ -100,7 +106,7 @@
             <p>${escapeHtml(event.question)}</p>
           </section>
 
-          <section class="story-section">
+          <section class="story-section" id="method">
             <div class="section-label"><span>02</span>Method & evidence</div>
             <h2>How did they investigate it?</h2>
             <p>${escapeHtml(event.method)}</p>
@@ -109,7 +115,7 @@
             <ol class="experiment-steps">${event.steps.map(step => `<li>${escapeHtml(step)}</li>`).join("")}</ol>
           </section>
 
-          <section class="story-section">
+          <section class="story-section" id="answer">
             <div class="section-label"><span>03</span>Answer and interpretation</div>
             <h2>What did the evidence answer?</h2>
             ${research ? `<p>${escapeHtml(research.answer)}</p>` : ""}
@@ -134,7 +140,8 @@
         <div>${linkedTerms.map(term => `<a href="term.html?id=${encodeURIComponent(term.id)}"><small>${escapeHtml(term.date)} · ${escapeHtml(term.kind)}</small><b>${escapeHtml(term.word)} ↗</b><span>${escapeHtml(term.former)} → ${escapeHtml(term.current)}</span></a>`).join("")}</div>
       </section>` : ""}
 
-      <section class="sources">
+      <section id="connections" class="reader-connections"><p class="eyebrow">FOLLOW THE RESEARCH QUESTION</p><h2>Part of a bigger story.</h2><p>These links connect related evidence and questions. They do not imply direct influence from every predecessor.</p><div class="connection-columns">${relations(predecessors, "Earlier related work")}${relations(successors, "Where this question leads")}</div><a class="parallel-link" href="index.html?view=paths">Compare the parallel research paths ↗</a></section>
+      <section id="sources" class="sources">
         <p class="eyebrow">References carried by this node</p>
         <h2>Source trail</h2>
         ${research ? `<p class="source-context">Reading trail: ${escapeHtml(research.source)}. The steps above explain the cited evidence; they are not a complete replication protocol. Evidence strength is a qualitative assessment, not a measured probability.</p>` : ""}
@@ -142,8 +149,8 @@
       </section>
 
       <nav class="event-nav" aria-label="Adjacent milestones">
-        ${previous ? `<a href="event.html?id=${encodeURIComponent(previous.id)}"><small>← Earlier · ${escapeHtml(previous.date)}</small><b>${escapeHtml(previous.title)}</b></a>` : `<a href="index.html"><small>At the roots</small><b>Explore the whole tree</b></a>`}
-        ${next ? `<a href="event.html?id=${encodeURIComponent(next.id)}"><small>Later · ${escapeHtml(next.date)} →</small><b>${escapeHtml(next.title)}</b></a>` : `<a href="index.html"><small>The canopy</small><b>Return to the full tree</b></a>`}
+        ${previous ? `<a href="event.html?id=${encodeURIComponent(previous.id)}"><small>← Earlier · ${escapeHtml(previous.date)}</small><b>${escapeHtml(previous.title)}</b></a>` : `<a href="index.html"><small>At the roots</small><b>Explore the full history</b></a>`}
+        ${next ? `<a href="event.html?id=${encodeURIComponent(next.id)}"><small>Later · ${escapeHtml(next.date)} →</small><b>${escapeHtml(next.title)}</b></a>` : `<a href="index.html"><small>The canopy</small><b>Return to the history</b></a>`}
       </nav>
     </article>`;
 

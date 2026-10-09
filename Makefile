@@ -10,6 +10,9 @@ serve:
 	@python3 -m http.server $(PORT) --bind $(HOST)
 
 check:
+	@node --check assets/atlas.js
+	@node --check assets/media.js
+	@node --check assets/reader.js
 	@node --check assets/data.js
 	@node --check assets/graph.js
 	@node --check assets/visuals.js
@@ -19,6 +22,7 @@ check:
 	@node --check assets/terms.js
 	@node --check assets/term.js
 	@node scripts/check-content.js
+	@node scripts/check-atlas.js
 
 help:
 	@echo "make up       Start the site on http://127.0.0.1:8989"
