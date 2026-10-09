@@ -68,6 +68,15 @@ for (let i = 1; i < osmoticPath.length; i++) {
     throw new Error(`Broken osmosis pathway: ${osmoticPath[i - 1]} → ${osmoticPath[i]}`);
   }
 }
+for (const path of [["virchow-myelin", "ranvier-nodes", "lillie-model", "tasaki-saltatory", "huxley-stampfli", "myelin-wave-1952"], ["rio-oligodendrocytes", "bunge-central"], ["ben-geren", "bunge-central"]]) {
+  for (let i = 1; i < path.length; i++) {
+    if (!edges.some(([from, to]) => from === path[i - 1] && to === path[i])) throw new Error(`Broken myelin pathway: ${path[i - 1]} → ${path[i]}`);
+  }
+}
+for (const id of ["medullary-sheath", "myelin-1854", "ranvier-node", "saltatory-conduction"]) {
+  if (!termIds.has(id)) throw new Error(`Missing myelin terminology history: ${id}`);
+}
+if (!edges.some(([from,to]) => from === "hodgkin-huxley-1952" && to === "myelin-wave-1952")) throw new Error("Missing 1952 conceptual bridge");
 for (const [from, to] of [["du-bois-reymond", "bernstein-rheotome"], ["bernstein-rheotome", "bernstein"], ["nernst", "bernstein"], ["overton", "bernstein"]]) {
   if (!edges.some(edge => edge[0] === from && edge[1] === to)) throw new Error(`Broken Bernstein synthesis: ${from} → ${to}`);
 }

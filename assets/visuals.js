@@ -22,6 +22,11 @@ window.NEURON_VISUALS = {
     "dutrochet-osmosis": { file: "Dutrochet, Nouvelles Recherches, 1828 Wellcome L0019035.jpg", credit: "Dutrochet, 1828 / Wellcome Collection", caption: "An engraving from Dutrochet's later publication on endosmosis and exosmosis; the milestone here is dated 1826." },
     "nageli-cramer": { file: "Plasmolysed Plant Cell.jpg", credit: "Nicholas.H.Hale / Wikimedia Commons", caption: "Modern micrograph of plant-cell plasmolysis, illustrating the effect studied in the nineteenth century." },
     "pfeffer-membrane": { file: "Pfeffer Osmotische Untersuchungen-1-3.jpg", credit: "Wilhelm Pfeffer, 1877", caption: "A diagram of Pfeffer's apparatus from his 1877 osmotic investigations." },
+    "ranvier-nodes": { file: "Ranvier 1882.jpg", credit: "Louis Ranvier, later portrait", caption: "A portrait of Ranvier, dated after his 1871–1872 description of the regular constrictions." },
+    "tasaki-saltatory": { file: "Saltatory conduction along a myelinated axonw.svg", credit: "Wikimedia Commons, modern teaching diagram", caption: "Modern schematic of nodal conduction; it is not Tasaki's original 1939 recording." },
+    "huxley-stampfli": { file: "Propagation of action potential along myelinated nerve fiber en.svg", credit: "Wikimedia Commons, modern teaching diagram", caption: "A modern diagram illustrating the nodal mechanism tested in 1949, not the original apparatus." },
+    "ben-geren": { file: "Myelin sheath (1).svg", credit: "Wikimedia Commons, modern diagram", caption: "Modern depiction of a myelin sheath; not an electron micrograph from Ben Geren's study." },
+    "bunge-central": { file: "Neuron with oligodendrocyte and myelin sheath.svg", credit: "Wikimedia Commons, modern diagram", caption: "Modern illustration of oligodendrocyte and central myelin; not a 1962 micrograph." },
     "hodgkin-huxley-1952": { file: "Spike HH.png", credit: "Wikimedia Commons, modern plot", caption: "A modern visualization of the action-potential shape explained by the 1952 model." }
   },
   // A compact visual vocabulary for each question. These are teaching
@@ -62,6 +67,17 @@ window.NEURON_VISUALS = {
     bernstein: ["K⁺ enriched inside", "vary muscle temperature", "resting voltage model", "membrane"],
     "hodgkin-huxley-1939": ["squid giant axon", "record from inside", "positive overshoot", "wave"],
     "hodgkin-katz-1949": ["squid axon", "lower external Na⁺", "smaller spike", "membrane"],
-    "hodgkin-huxley-1952": ["squid axon", "clamp voltage", "Na⁺ and K⁺ currents", "membrane"]
+    "hodgkin-huxley-1952": ["squid axon", "clamp voltage", "Na⁺ and K⁺ currents", "membrane"],
+    "virchow-myelin": ["pale nerve substance", "compare tissues + name", "myelin, 1854", "fibers"],
+    "ranvier-nodes": ["coated nerve fiber", "trace periodic gaps", "nodes of Ranvier", "fibers"],
+    "thudichum-lipids": ["brain tissue", "extract chemical fractions", "varied nervous lipids", "membrane"],
+    "rio-oligodendrocytes": ["small glial cells", "selective silver stain", "oligodendrocytes", "neuron"],
+    "lillie-model": ["iron-wire analogy", "separate active regions", "jumping hypothesis", "wave"],
+    "schmitt-diffraction": ["oriented nerve", "X-ray diffraction", "ordered sheath layers", "membrane"],
+    "tasaki-saltatory": ["myelinated fiber", "intervene near a node", "nodes matter", "wave"],
+    "huxley-stampfli": ["single peripheral fiber", "bridge an air gap", "internodal current spread", "wave"],
+    "myelin-wave-1952": ["adjacent nodes", "follow potential spread", "next node excites", "wave"],
+    "ben-geren": ["developing chick nerve", "electron microscopy", "Schwann membrane wraps", "membrane"],
+    "bunge-central": ["developing CNS tissue", "trace glial connections", "central myelin origin", "membrane"]
   }
 };

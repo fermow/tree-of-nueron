@@ -13,9 +13,9 @@
 
   const eraMap = Object.fromEntries(eras.map(era => [era.id, era]));
   const graph = window.NEURON_GRAPH;
-  // Five concurrent lines of inquiry. Horizontal position follows approximate
+  // Concurrent lines of inquiry. Horizontal position follows approximate
   // chronology; vertical position shows which kind of evidence was developing.
-  const laneY = { roots: 240, anatomy: 560, electricity: 880, cell: 1200, ions: 1520 };
+  const laneY = { roots: 240, anatomy: 560, electricity: 880, cell: 1200, ions: 1520, myelin: 1840 };
   const xById = {
     "word-before-cell": 370, alcmaeon: 690, "sacred-disease": 1010,
     aristotle: 1330, herophilus: 1650, galen: 1970,
@@ -30,9 +30,14 @@
     "nageli-cramer": 6590, "bernstein-rheotome": 6610, golgi: 6770, "pfeffer-membrane": 7090,
     "cajal-waldeyer": 7090, names: 7410, nernst: 7440, overton: 7730,
     bernstein: 8050, "hodgkin-huxley-1939": 8370,
-    "hodgkin-katz-1949": 8690, "hodgkin-huxley-1952": 9010
+    "hodgkin-katz-1949": 8690, "hodgkin-huxley-1952": 9010,
+    "virchow-myelin": 6260, "ranvier-nodes": 6760,
+    "thudichum-lipids": 7180, "rio-oligodendrocytes": 8000,
+    "lillie-model": 8260, "schmitt-diffraction": 8670,
+    "tasaki-saltatory": 8660, "huxley-stampfli": 9160,
+    "myelin-wave-1952": 9600, "ben-geren": 10100, "bunge-central": 10500
   };
-  const world = { width: 9400, height: 1840 };
+  const world = { width: 10900, height: 2820 };
   const card = { width: 276, height: 210 };
   const points = events.map((event, index) => ({
     event, index, x: graph.positions[event.id]?.x ?? xById[event.id],

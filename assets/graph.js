@@ -7,7 +7,18 @@ window.NEURON_GRAPH = {
     "haller-irritability": { y: 1200 },
     "walsh-electric-fish": { y: 560 },
     "bernstein-rheotome": { x: 6610, y: 880 },
-    nernst: { x: 7440, y: 1520 }
+    nernst: { x: 7440, y: 1520 },
+    "virchow-myelin": { x: 6260, y: 1840 },
+    "ranvier-nodes": { x: 6760, y: 1840 },
+    "thudichum-lipids": { x: 7180, y: 1840 },
+    "schmitt-diffraction": { x: 8670, y: 1840 },
+    "rio-oligodendrocytes": { x: 8000, y: 2460 },
+    "lillie-model": { x: 8260, y: 2150 },
+    "tasaki-saltatory": { x: 8660, y: 2150 },
+    "huxley-stampfli": { x: 9160, y: 2150 },
+    "myelin-wave-1952": { x: 9600, y: 2150 },
+    "ben-geren": { x: 10100, y: 2460 },
+    "bunge-central": { x: 10500, y: 2460 }
   },
   colors: {
     "electrical-medicine": "#B88A2D",
@@ -27,7 +38,18 @@ window.NEURON_GRAPH = {
     "pfeffer-membrane": "Selective boundary",
     "bernstein-rheotome": "Impulse timing",
     nernst: "Ion equilibrium",
-    bernstein: "Research paths converge"
+    bernstein: "Research paths converge",
+    "virchow-myelin": "Naming the sheath",
+    "ranvier-nodes": "The gaps",
+    "thudichum-lipids": "Nerve chemistry",
+    "schmitt-diffraction": "Layered structure",
+    "rio-oligodendrocytes": "Central glia",
+    "lillie-model": "A physical analogy",
+    "tasaki-saltatory": "Active nodes",
+    "huxley-stampfli": "Current across internodes",
+    "myelin-wave-1952": "Nodal excitation",
+    "ben-geren": "Peripheral origin",
+    "bunge-central": "Central origin"
   },
   // The three investigations are concurrent context for Galvani, not a
   // literal single predecessor. Their branches share a question marker.
@@ -67,9 +89,28 @@ window.NEURON_GRAPH = {
       ["bernstein", "hodgkin-huxley-1939"],
       ["hodgkin-huxley-1939", "hodgkin-katz-1949"],
       ["hodgkin-katz-1949", "hodgkin-huxley-1952"]
+    ] },
+    { id: "myelin-anatomy", color: "myelin", links: [
+      ["virchow-myelin", "ranvier-nodes"],
+      ["ranvier-nodes", "thudichum-lipids"],
+      ["thudichum-lipids", "schmitt-diffraction"]
+    ] },
+    { id: "myelin-conduction", color: "myelin", links: [
+      ["ranvier-nodes", "lillie-model"],
+      ["lillie-model", "tasaki-saltatory"],
+      ["tasaki-saltatory", "huxley-stampfli"],
+      ["huxley-stampfli", "myelin-wave-1952"]
+    ] },
+    { id: "myelin-origin", color: "myelin", links: [
+      ["rio-oligodendrocytes", "bunge-central"],
+      ["virchow-myelin", "ben-geren"],
+      ["ben-geren", "bunge-central"]
     ] }
   ],
   // Dotted links mean related evidence came together, without asserting a
   // direct lineage of influence or a single uninterrupted experiment.
-  bridges: [["bernstein-rheotome", "bernstein"], ["helmholtz", "bernstein-rheotome"]]
+  bridges: [["bernstein-rheotome", "bernstein"], ["helmholtz", "bernstein-rheotome"],
+    ["leeuwenhoek-fontana", "virchow-myelin"], ["remak-schwann", "virchow-myelin"],
+    ["schmitt-diffraction", "huxley-stampfli"],
+    ["hodgkin-huxley-1952", "myelin-wave-1952"]]
 };

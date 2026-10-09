@@ -7,7 +7,10 @@ window.NEURON_TERMS = {
     T5: { label: "UTHealth Neuroscience Online: cell body, soma, perikaryon.", url: "https://nba.uth.tmc.edu/neuroscience/s1/chapter08.html" },
     T6: { label: "Liddell–Scott Greek–English Lexicon: σῶμα (sōma).", url: "https://atlas.perseus.tufts.edu/lemma/6013/" },
     T7: { label: "Tansey. The synapse: people, words and connections (2022).", url: "https://pubmed.ncbi.nlm.nih.gov/35813266/" },
-    T8: { label: "Boullerne. The history of myelin: Fontana's microscopic descriptions (2016).", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC5010938/" }
+    T8: { label: "Boullerne. The history of myelin: Fontana's microscopic descriptions (2016).", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC5010938/" },
+    T9: { label: "Boullerne. The history of myelin: early names and Virchow (2016).", url: "https://pubmed.ncbi.nlm.nih.gov/27288241/" },
+    T10: { label: "FENS. Louis Ranvier and the constrictions of nerve fibers.", url: "https://www.fens.org/wp-content/uploads/2020/11/Ranvier-Louis.pdf" },
+    T11: { label: "Huxley & Stämpfli. Evidence for saltatory conduction (1949).", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC1392492/" }
   },
   items: [
     {
@@ -119,6 +122,46 @@ window.NEURON_TERMS = {
       caution: "Kölliker named an already studied structure. 1896 is a terminology milestone, not the first observation of a long cell process.",
       lineage: [{when:"Remak / Deiters",term:"primitive band / axis cylinder",meaning:"Long process attached to cell body"},{when:"Kölliker, 1896",term:"neuraxon / axon",meaning:"Dedicated name for the long process"},{when:"Today",term:"axon",meaning:"The neuron's long output process"}],
       refs: ["T2", "T3", "T1"], related: ["axis-cylinder", "dendrite-1889"]
+    },
+    {
+      id: "myelin-1854", word: "Myelin", date: "1854", sort: 1854, x: 6260, y: 2020, anchor: "virchow-myelin",
+      former: "Nerve marrow / medullary sheath", current: "Myelin", kind: "Name of a sheath substance", exactDate: true,
+      origin: "Virchow introduced myelin in 1854 from Greek myelós, marrow, for marrow-like material in animal tissues. Earlier anatomists described a medullary coating without this name.",
+      story: "The word originally labeled a material more broadly; later staining and microscopy narrowed its histological association with the layered nerve-fiber sheath. Calling an early observer's image 'myelin' is a modern interpretation, not their vocabulary.",
+      transition: "Medullary substance / nerve marrow → Virchow's myelin (1854) → myelin sheath around many axons.",
+      caution: "1854 dates Virchow's proposed name, not the first sighting or the discovery of saltatory conduction. Myelin is not identical to the outer Schwann-cell sheath (neurilemma).",
+      lineage: [{when:"Before 1854",term:"nerve marrow / medullary sheath",meaning:"Pale coating or substance associated with a fiber"},{when:"Virchow, 1854",term:"Myelin",meaning:"Name proposed for medullary-like material"},{when:"Later histology",term:"myelin sheath",meaning:"Layered glial membrane around many axons"}],
+      refs: ["T9", "T8"], related: ["medullary-sheath", "ranvier-node", "saltatory-conduction"]
+    },
+    {
+      id: "medullary-sheath", word: "Medullary sheath", date: "1830s–1850s", sort: 1839, x: 5810, y: 1390, anchor: "remak-schwann",
+      former: "Nerve marrow / white substance", current: "Myelin sheath", kind: "Historical descriptive label", exactDate: false,
+      origin: "Medullary refers to marrow-like, pale substance. Early observers contrasted a central axis cylinder with its surrounding white or medullary material, before its composition and glial origin were known.",
+      story: "Remak and Schwann studied fibers and their associated sheaths, but the term neurilemma for an outer Schwann-cell boundary must not be collapsed into the inner compact myelin layers.",
+      transition: "White or medullary substance → myelin (1854) → layered myelin sheath in later histology.",
+      caution: "The date is a period of anatomical description; it is not a precise first coinage. Some nerve fibers have no myelin sheath.",
+      lineage: [{when:"Early microscopy",term:"nerve marrow / white substance",meaning:"Visible pale material around fibers"},{when:"19th-century anatomy",term:"medullary sheath",meaning:"Coating distinguished from the central cylinder"},{when:"After 1854",term:"myelin sheath",meaning:"More specific name for the multilayered coating"}],
+      refs: ["T9", "T8"], related: ["myelin-1854", "axis-cylinder"]
+    },
+    {
+      id: "ranvier-node", word: "Node of Ranvier", date: "1871–1872", sort: 1871, x: 6760, y: 2020, anchor: "ranvier-nodes",
+      former: "Annular constriction / gap", current: "Node of Ranvier", kind: "Eponym for a structure", exactDate: false,
+      origin: "Ranvier described regular constrictions of peripheral nerve fibers; the later eponym names the narrow gap between neighboring myelin segments.",
+      story: "The microscopic finding preceded the functional account. The name refers to the anatomist, not to the date when electrical activity was localized at the node.",
+      transition: "Constriction / interruption of medullary sheath → Ranvier's constriction → node of Ranvier.",
+      caution: "The cited history discusses 1871 and later detailed accounts; the date is the observation window, not a single universal naming day.",
+      lineage: [{when:"Before Ranvier",term:"medullary sheath",meaning:"Coating often pictured as continuous"},{when:"1871–1872",term:"constriction / interruption",meaning:"Repeated gaps seen under the microscope"},{when:"Later nomenclature",term:"node of Ranvier",meaning:"Active unmyelinated gap between internodes"}],
+      refs: ["T10", "T9"], related: ["myelin-1854", "saltatory-conduction"]
+    },
+    {
+      id: "saltatory-conduction", word: "Saltatory conduction", date: "1939–1949", sort: 1949, x: 9160, y: 2360, anchor: "huxley-stampfli",
+      former: "Rapid propagation in medullated fibers", current: "Saltatory conduction", kind: "Functional name", exactDate: false,
+      origin: "Saltatory comes from Latin saltare, to leap. Tasaki used electro-saltatory in his 1939 paper; the functional account was strengthened by Huxley and Stämpfli in 1949.",
+      story: "The term is a useful shorthand: charge and voltage spread continuously through the intervening region, while a large action potential is renewed at successive nodes.",
+      transition: "Mysteriously fast myelinated-fiber propagation → electro-saltatory transmission → saltatory conduction.",
+      caution: "The impulse does not teleport across an internode. The date range tracks growing experimental support, not the first appearance of every word in the phrase.",
+      lineage: [{when:"Before direct tests",term:"medullated-fiber conduction",meaning:"Observed rapid signal travel"},{when:"Tasaki, 1939",term:"electro-saltatory transmission",meaning:"Node-dependent account"},{when:"1949 and after",term:"saltatory conduction",meaning:"Passive spread between active nodal renewals"}],
+      refs: ["T9", "T11"], related: ["ranvier-node", "myelin-1854"]
     },
     {
       id: "synapse-1897", word: "Synapse", date: "1897", sort: 1897, x: 7760, y: 1040, anchor: "names",

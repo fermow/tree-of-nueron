@@ -367,6 +367,8 @@ kbd { padding: 2px 6px; border: 1px solid var(--line); border-radius: 5px; color
 .synthesis-model { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 24px; margin-top: 24px; padding-top: 23px; border-top: 1px solid rgba(32,48,40,.17); }
 .synthesis-model strong { display: block; margin-top: 12px; font: 600 clamp(19px,2.3vw,27px)/1.25 var(--serif); overflow-wrap: anywhere; }
 .synthesis-model p { margin-bottom: 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
+.synthesis-footnote { margin: 24px 0 0; padding-top: 18px; border-top: 1px solid rgba(32,48,40,.17); color: var(--muted); line-height: 1.55; }
+.synthesis-footnote a, .synthesis-model a { color: var(--hero-color); text-underline-offset: 3px; }
 
 .visual-event .story-grid { display: block; padding: 55px 0 20px; }
 .visual-event .story-main { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 18px; }

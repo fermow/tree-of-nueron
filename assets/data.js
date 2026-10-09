@@ -2,7 +2,7 @@ window.NEURON_HISTORY = {
   meta: {
     title: "Tree of Neuron",
     subtitle: "How a cord became a cell, and a cell became an electrical mechanism",
-    range: "c. 700 BCE - 1952",
+    range: "c. 700 BCE - 1962",
     sourceNote: "Adapted from the two supplied historical reviews and linked historical scholarship. Ancient dates are approximate and several priority claims remain debated."
   },
   eras: [
@@ -10,6 +10,7 @@ window.NEURON_HISTORY = {
     { id: "anatomy", label: "Anatomy & function", range: "129-1781", color: "#54705A" },
     { id: "electricity", label: "Bioelectricity", range: "1740s-1850", color: "#B88A2D" },
     { id: "cell", label: "The neuron as a cell", range: "1836-1897", color: "#7B5F95" },
+    { id: "myelin", label: "Myelin: anatomy, conduction & origin", range: "1854–1962", color: "#A46147" },
     { id: "ions", label: "Osmosis, membrane & spike", range: "1748-1952", color: "#2F7180" }
   ],
   references: {
@@ -55,7 +56,16 @@ window.NEURON_HISTORY = {
     B1: { label: "Bernstein. Ueber den zeitlichen Verlauf der negativen Schwankung des Nervenstroms (1868), discussed in Schickore (2022).", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC9114097/" },
     B2: { label: "Nernst. Die elektromotorische Wirksamkeit der Ionen (1889); Electrochemistry Encyclopedia historical entry.", url: "https://knowledge.electrochem.org/encycl/art-n02-nernst.htm" },
     B3: { label: "Bernstein. Untersuchungen zur Thermodynamik der bioelektrischen Ströme (1902); historical analysis by Schickore (2022).", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC9114097/" },
-    B4: { label: "De Palma & Pareti. Bernstein's long path to membrane theory (2011).", url: "https://pubmed.ncbi.nlm.nih.gov/22003859/" }
+    B4: { label: "De Palma & Pareti. Bernstein's long path to membrane theory (2011).", url: "https://pubmed.ncbi.nlm.nih.gov/22003859/" },
+    MY1: {"label": "Boullerne. The history of myelin (2016), historical overview.", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5010938/"},
+    MY2: {"label": "Thudichum. A Treatise on the Chemical Constitution of the Brain (1884).", "url": "https://wellcomecollection.org/works/zcf2rr7p"},
+    MY3: {"label": "Schmitt et al. X-Ray Diffraction Studies on Nerve (1935).", "url": "https://pubs.rsna.org/doi/10.1148/25.2.131"},
+    MY4: {"label": "Tasaki. The electro-saltatory transmission of the nerve impulse (1939); historical review.", "url": "https://pubmed.ncbi.nlm.nih.gov/27288241/"},
+    MY5: {"label": "Huxley & Stämpfli. Evidence for saltatory conduction in peripheral myelinated nerve fibres (1949).", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1392492/"},
+    MY6: {"label": "Hodler, Stämpfli & Tasaki. Role of potential wave spreading along myelinated nerve fiber (1952).", "url": "https://pubmed.ncbi.nlm.nih.gov/12985906/"},
+    MY7: {"label": "Ben Geren. Formation from the Schwann cell surface of myelin (1954).", "url": "https://pubmed.ncbi.nlm.nih.gov/13220597/"},
+    MY8: {"label": "Bunge, Bunge & Pappas. EM connections between glia and central myelin (1962).", "url": "https://pubmed.ncbi.nlm.nih.gov/13874658/"},
+    MY9: {"label": "FENS. Louis Ranvier: microscopy and physiology, historical study.", "url": "https://www.fens.org/wp-content/uploads/2020/11/Ranvier-Louis.pdf"}
   },
   events: [
     {
@@ -335,6 +345,23 @@ window.NEURON_HISTORY = {
       next: "What complete cellular structure carries this signal?", refs: ["R16"]
     },
     {
+      id: "virchow-myelin",
+      sort: 1854,
+      date: "1854",
+      person: "Rudolf Virchow",
+      era: "myelin",
+      title: "The white nerve substance gets a name",
+      summary: "Myelin named an already noticed medullary substance; its cell origin and function remained unknown.",
+      question: "What should the marrow-like material in nerve tissue be called?",
+      method: "Comparative light-microscopic and pathological description of a medullary material in animal tissues.",
+      steps: ["Examine the pale material associated with nervous tissue.", "Compare it with similarly behaving material in other tissues.", "Introduce Myelin from Greek myelós, marrow."],
+      observation: "A distinctive medullary substance had been recognized before its name was stabilized.",
+      result: "The word myelin gave a label to the substance, not a demonstrated mechanism of electrical insulation.",
+      limitation: "Earlier nerve sheaths were observed in different ways; a modern compact myelin sheath cannot be read into every earlier drawing.",
+      next: "Where does the coating stop along a nerve fiber?",
+      refs: ["MY1", "R10"]
+    },
+    {
       id: "nageli-cramer", sort: 1855, date: "1855", person: "Carl von Nägeli & Karl Cramer", era: "ions",
       title: "Living cells reveal a pliable boundary",
       summary: "Plant-cell contents shrank away from the wall in concentrated solutions and expanded again in dilute ones.",
@@ -371,6 +398,23 @@ window.NEURON_HISTORY = {
       next: "What physical mechanism gives rise to the voltage that changes during an impulse?", refs: ["B1", "R16", "A1"]
     },
     {
+      id: "ranvier-nodes",
+      sort: 1871,
+      date: "1871–1872",
+      person: "Louis-Antoine Ranvier",
+      era: "myelin",
+      title: "The sheath has regular gaps",
+      summary: "Microscopy revealed repeated constrictions interrupting the medullary sheath.",
+      question: "Is the coating continuous from one end of a fiber to the other?",
+      method: "Microscopic study of peripheral nerve fibers, including histological preparations and close observation of constrictions.",
+      steps: ["Prepare and examine individual myelinated fibers.", "Follow a fiber along its length.", "Identify recurring narrow gaps between medullary segments."],
+      observation: "A regular series of constrictions separated coated internodes.",
+      result: "The gaps, later called nodes of Ranvier, became a structural clue for conduction studies.",
+      limitation: "Ranvier did not establish saltatory electrical conduction in 1871.",
+      next: "Could these gaps be the active sites of excitation?",
+      refs: ["MY1", "MY9"]
+    },
+    {
       id: "golgi", sort: 1873, date: "1873", person: "Camillo Golgi", era: "cell",
       title: "The black reaction reveals whole cells",
       summary: "Sparse silver staining exposed almost complete neurons inside dense tissue.",
@@ -393,6 +437,23 @@ window.NEURON_HISTORY = {
       result: "Selective transport could be tested quantitatively; Pfeffer also argued for a plasma membrane covering living protoplasm.",
       limitation: "Traube developed earlier precipitation membranes. Pfeffer's artificial copper-ferrocyanide film was a model, not the chemical composition of a living cell membrane.",
       next: "What is the living barrier made of, and why do some solutes cross more easily?", refs: ["M3", "M4", "M5"]
+    },
+    {
+      id: "thudichum-lipids",
+      sort: 1884,
+      date: "1884",
+      person: "J. L. W. Thudichum",
+      era: "myelin",
+      title: "Nervous tissue contains varied lipids",
+      summary: "Chemical fractionation made the fatty composition of brain and myelin-related matter more concrete.",
+      question: "What chemical substances contribute to nervous tissue?",
+      method: "Extraction, chemical separation and characterization of brain constituents described in his 1884 treatise.",
+      steps: ["Extract and fractionate brain tissue.", "Compare properties of separated fatty substances.", "Publish the distinct groups and proposed chemical names."],
+      observation: "Multiple distinct lipid-rich fractions were recovered rather than one uniform substance.",
+      result: "The chemical thread made lipid-rich insulation plausible, while leaving the layered architecture unresolved.",
+      limitation: "Whole-brain chemistry does not quantify a particular myelin sheath or establish its electrical role.",
+      next: "How are these components arranged around an axon?",
+      refs: ["MY2", "MY1"]
     },
     {
       id: "nernst", sort: 1889, date: "1889", person: "Walther Nernst", era: "ions",
@@ -455,6 +516,57 @@ window.NEURON_HISTORY = {
       next: "Does the real action potential stop at zero or briefly become positive?", refs: ["B3", "B4", "R22", "R23", "A1"]
     },
     {
+      id: "rio-oligodendrocytes",
+      sort: 1921,
+      date: "1919–1921",
+      person: "Pío del Río-Hortega",
+      era: "myelin",
+      title: "A new central glial cell is distinguished",
+      summary: "Oligodendrocytes were distinguished in the central nervous system before their myelin-forming role was proven.",
+      question: "Are all small glial cells the same kind?",
+      method: "Refined silver-based tissue staining, microscopic morphology and mapping of glial cells.",
+      steps: ["Stain nervous tissue so individual glial forms can be followed.", "Distinguish their short processes from other glia.", "Map their association with central nerve fibers."],
+      observation: "A distinct small branching cell type was documented near nerve fibers.",
+      result: "This identified the cell later implicated in central myelin formation.",
+      limitation: "Proximity was not proof that its own membrane forms the sheath.",
+      next: "Can the anatomical gaps explain faster conduction?",
+      refs: ["MY1"]
+    },
+    {
+      id: "lillie-model",
+      sort: 1925,
+      date: "1925",
+      person: "Ralph S. Lillie",
+      era: "myelin",
+      title: "A physical model suggests jumping excitation",
+      summary: "An iron-wire analogue helped frame excitation at separated active regions as a testable possibility.",
+      question: "Can an excitable process propagate with inactive segments between active sites?",
+      method: "Use an electrochemical iron-wire nerve analogue and reason about spread between excitable regions.",
+      steps: ["Observe traveling excitation in a physical model.", "Consider the effect of separating active sites by less excitable intervals.", "Predict that the next site can be activated by a local current."],
+      observation: "The model showed a possible route to discontinuous-looking propagation.",
+      result: "A conceptual proposal preceded decisive tests on living myelinated fibers.",
+      limitation: "A physical analogue is not direct proof of nodal action potentials in real nerves.",
+      next: "Does actual myelin show regular layered organization?",
+      refs: ["MY1", "MY5"]
+    },
+    {
+      id: "schmitt-diffraction",
+      sort: 1935,
+      date: "1935",
+      person: "Francis O. Schmitt and colleagues",
+      era: "myelin",
+      title: "Myelin reveals ordered layers",
+      summary: "X-ray diffraction supplied structural evidence for a repeating, ordered sheath.",
+      question: "Is the pale nerve coating molecularly disordered or regularly organized?",
+      method: "Collect X-ray diffraction patterns from nerve preparations and interpret regular reflections.",
+      steps: ["Prepare nerve material with aligned fibers.", "Expose it to X-rays and record the diffraction pattern.", "Infer repeating radial order from the reflections."],
+      observation: "A regular pattern supported a highly organized layered material.",
+      result: "The anatomical sheath now had evidence of orderly multilayer architecture.",
+      limitation: "Diffraction constrained spacing and order; it did not identify every molecule or prove how cells assemble myelin.",
+      next: "Are the nodes the sites that regenerate impulses?",
+      refs: ["MY3", "MY1"]
+    },
+    {
       id: "hodgkin-huxley-1939", sort: 1939, date: "21 October 1939", person: "A. L. Hodgkin & A. F. Huxley", era: "ions",
       title: "Record the spike from inside the axon",
       summary: "The squid giant axon revealed that membrane voltage briefly overshoots zero.",
@@ -465,6 +577,23 @@ window.NEURON_HISTORY = {
       result: "Simple loss of K+ selectivity was insufficient; another ionic equilibrium had to dominate during excitation.",
       limitation: "The recording showed the overshoot but did not identify the ion responsible.",
       next: "Which positive ion drives the rising phase?", refs: ["A2", "A3"]
+    },
+    {
+      id: "tasaki-saltatory",
+      sort: 1939,
+      date: "1939",
+      person: "Ichiji Tasaki",
+      era: "myelin",
+      title: "Nodes carry the active impulse",
+      summary: "Localized interruption and recordings of myelinated fibers gave early experimental support for node-based conduction.",
+      question: "Are internodes excitable throughout, or do nodes have a special role?",
+      method: "Study individual myelinated nerve fibers and vary the placement of local anesthetic or electrical polarization relative to nodes and internodes.",
+      steps: ["Isolate a myelinated fiber and identify neighboring nodes.", "Compare the effect of locally blocking a node versus an internodal segment.", "Test whether excitation can traverse the intervening coated segment."],
+      observation: "Nodal interference was especially effective, consistent with node-to-node propagation.",
+      result: "Myelin’s role in saltatory conduction gained direct physiological support.",
+      limitation: "Interpretation depended on local treatment and preparation; the complete ionic and membrane-current mechanism was not measured.",
+      next: "Can another preparation reveal current flow over an internode?",
+      refs: ["MY4", "MY1"]
     },
     {
       id: "hodgkin-katz-1949", sort: 1949, date: "1 March 1949", person: "A. L. Hodgkin & Bernard Katz", era: "ions",
@@ -479,6 +608,23 @@ window.NEURON_HISTORY = {
       next: "How can each ionic current be isolated while voltage is controlled?", refs: ["A4"]
     },
     {
+      id: "huxley-stampfli",
+      sort: 1949,
+      date: "1949",
+      person: "A. F. Huxley & R. Stämpfli",
+      era: "myelin",
+      title: "Current spreads between active nodes",
+      summary: "Single-fiber experiments strengthened the case that local currents bridge internodes and regenerate excitation at nodes.",
+      question: "Can an impulse cross an insulated internode without a full spike at every point?",
+      method: "Record and manipulate peripheral myelinated fibers with separated saline compartments and an air gap.",
+      steps: ["Place a myelinated fiber across compartments so an internode spans the gap.", "Stimulate one side and register responses on the other.", "Alter the electrical route and compare conduction across the intervening segment."],
+      observation: "Conduction persisted in ways predicted by current spread between nodes.",
+      result: "Saltatory conduction gained a strong independent experimental test.",
+      limitation: "The experiment did not identify individual channel proteins or describe every type of myelinated nerve.",
+      next: "How does the potential wave recruit the next node?",
+      refs: ["MY5", "MY1"]
+    },
+    {
       id: "hodgkin-huxley-1952", sort: 1952, date: "1952", person: "A. L. Hodgkin & A. F. Huxley", era: "ions",
       title: "Voltage clamp turns the spike into a model",
       summary: "Controlled voltage separated fast Na+ and delayed K+ currents and yielded a predictive action-potential equation.",
@@ -490,6 +636,58 @@ window.NEURON_HISTORY = {
       limitation: "The model inferred conductance gates before voltage-gated channel proteins were directly identified.",
       next: "What molecular structures make these conductances, and how does one neuron signal to another?", refs: ["A8", "A5", "A6", "A7"],
       equation: "I = C_m dV/dt + g_Na(V-E_Na) + g_K(V-E_K) + g_leak(V-E_leak)"
-    }
+    },
+    {
+      id: "myelin-wave-1952",
+      sort: 1952,
+      date: "1952",
+      person: "J. Hodler, R. Stämpfli & I. Tasaki",
+      era: "myelin",
+      title: "How the next node is excited",
+      summary: "Further study addressed the spread of potential along a myelinated fiber and its role in excitation.",
+      question: "Can a local voltage change over the covered segment excite the next node?",
+      method: "Physiological measurements and analysis of potential-wave spread along a myelinated nerve fiber.",
+      steps: ["Study the spread of an electrical potential wave along a myelinated fiber.", "Relate the local spread to threshold and excitation of downstream sites.", "Compare the observations with a node-to-node current-spread account."],
+      observation: "Spread between nodes was linked to excitation at the next active region.",
+      result: "By 1952 the main physiological picture of saltatory conduction was established alongside the ionic work on unmyelinated squid axon.",
+      limitation: "This was a separate 1952 paper from Hodgkin–Huxley and did not resolve cellular assembly of myelin.",
+      next: "Which cells physically build the layered sheath?",
+      refs: ["MY6", "MY5"]
+    },
+    {
+      id: "ben-geren",
+      sort: 1954,
+      date: "1954",
+      person: "Betty Ben Geren",
+      era: "myelin",
+      title: "Schwann membrane wraps a peripheral axon",
+      summary: "Electron microscopy connected peripheral myelin layers with the Schwann-cell surface.",
+      question: "Does peripheral myelin arise from the wrapping membrane of a glial cell?",
+      method: "Electron microscopy of developing peripheral nerves in chick embryos.",
+      steps: ["Prepare developing chick peripheral-nerve tissue for electron microscopy.", "Follow continuity between Schwann-cell surface membrane and early wraps.", "Compare progressively wrapped axons."],
+      observation: "The layers could be traced to the Schwann-cell surface around an axon.",
+      result: "Peripheral myelin became understood as specialized wrapped glial membrane.",
+      limitation: "The study addressed peripheral nervous system development, not directly the origin of central myelin.",
+      next: "Does the central nervous system use the same cell type?",
+      refs: ["MY7", "MY1"]
+    },
+    {
+      id: "bunge-central",
+      sort: 1962,
+      date: "1962",
+      person: "Mary B. Bunge, Richard P. Bunge & George D. Pappas",
+      era: "myelin",
+      title: "Central myelin connects to glia",
+      summary: "Electron microscopy linked developing central myelin to glial processes, strengthening the oligodendrocyte origin.",
+      question: "Which glial cells produce myelin in the central nervous system?",
+      method: "Electron microscopy of developing mammalian central nervous system; trace glial connections with the sheath.",
+      steps: ["Examine developing central nerve fibers in thin electron-microscope sections.", "Follow the continuity of a glial process into a myelin sheath.", "Compare repeated contacts with oligodendroglial morphology."],
+      observation: "Developing central sheaths were physically connected to glial processes.",
+      result: "The evidence supported oligodendrocytes as the makers of CNS myelin.",
+      limitation: "One structural study does not close questions about molecular regulation, maintenance or repair.",
+      next: "How is myelination regulated throughout life?",
+      refs: ["MY8", "MY1"]
+    },
+
   ]
 };

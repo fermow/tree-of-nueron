@@ -24,12 +24,12 @@ PORT=9000 make up
 
 ## What is included
 
-- 34 milestones sorted chronologically from c. 700 BCE to 1952
-- five named research categories and an explicit branching graph; electrical stimulation, muscle physiology, and electric-fish investigations meet at Galvani's planned experiment
+- 47 milestones sorted chronologically from c. 700 BCE to 1962
+- six named research categories and an explicit branching graph; electrical stimulation, muscle physiology, and electric-fish investigations meet at Galvani's planned experiment
 - 12 smaller terminology branches with separate etymology pages (from ancient neûron and Latin nervus to soma, dendrite, neuron, axon, and synapse)
 - search by scientist, discovery, date, question, or concept
 - a dedicated detail page for every node
-- a visual evidence sketch for all 34 event pages and selected credited Wikimedia Commons historical images; if an image cannot load, its illustration remains visible
+- a visual evidence sketch for all 47 event pages and selected credited Wikimedia Commons historical images or modern diagrams; if an image cannot load, its illustration remains visible
 - question, method, experimental steps, observation, result/model, limitation, next question, and references
 - for every milestone: why the question arose, the evidence type, a source-grounded procedure, what the result answers, and a qualitative assessment of its limits
 - responsive keyboard and touch controls
@@ -58,6 +58,8 @@ The event page illustrations and image credits live in [`assets/visuals.js`](ass
 The osmosis and cell-boundary strand now starts with Nollet's natural-membrane observation (1748), continues through Dutrochet's endosmometer (1826), Nägeli and Cramer's plant-cell plasmolysis (1855), and Pfeffer's supported artificial membrane (1877), then reaches Overton's permeability comparisons (1895–1899). These are related questions, not one continuous experiment; especially, an animal bladder and an artificial copper-ferrocyanide film are not the living cell's lipid membrane.
 
 Bernstein's differential rheotome study (1868) and membrane hypothesis (1902) are separate milestones. The 1902 page maps three contributing paths: earlier electrical recordings, work on selective cell boundaries, and Nernst's electrochemical relation (1889). The temperature experiment measured a cut-to-intact frog-muscle injury current; it did not directly measure the intracellular resting voltage. The displayed K⁺ equilibrium equation is a modern teaching form under simplified assumptions, and the later positive overshoot exposed the limit of Bernstein's excitation proposal.
+
+The myelin strand follows Virchow's 1854 name, Ranvier's gaps, Thudichum's chemical investigation, Schmitt's diffraction evidence, Tasaki's 1939 node-based findings, Huxley and Stämpfli's 1949 test, and a separate 1952 study by Hodler, Stämpfli and Tasaki. Parallel glial work identifies oligodendrocytes before their central-myelin role was demonstrated. Electron microscopy by Ben Geren (1954) and Bunge, Bunge and Pappas (1962) traces peripheral and central myelin origins respectively. The 1952 Hodgkin–Huxley squid-axon model and saltatory conduction in myelinated peripheral fibers are complementary findings from distinct preparations. Four dedicated word-history nodes distinguish earlier medullary terms, the 1854 name *myelin*, Ranvier's eponym and saltatory conduction.
 
 ## Validation
 

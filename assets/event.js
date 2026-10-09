@@ -78,6 +78,11 @@
         </div>
         <div class="synthesis-model"><div><small>Modern ideal K⁺ equilibrium form · inside relative to outside</small><strong>Eₖ = (RT/F) ln([K⁺]out / [K⁺]in)</strong><p>T is absolute temperature; actual ion activities replace concentrations in the precise relation. This approximation assumes K⁺ dominates permeability.</p></div><div><small>Where the 1902 excitation model failed</small><strong>Negative rest → zero?</strong><p>Bernstein's simple loss-of-selectivity model stopped at zero. The later measured spike briefly went above zero; subsequent sodium experiments explained that peak.</p></div></div>
       </section>` : ""}
+      ${event.id === "myelin-wave-1952" ? `<section class="bernstein-synthesis" aria-label="Two parallel explanations of nerve impulse propagation">
+        <div class="map-heading"><b>TWO PHYSIOLOGICAL PATHS · BY 1952</b><span>Separate experimental preparations and linked questions</span></div>
+        <div class="synthesis-model"><div><small>Unmyelinated squid giant axon</small><strong>Hodgkin & Huxley · 1952</strong><p><a href="event.html?id=hodgkin-huxley-1952">Voltage clamp</a> resolved time-dependent Na⁺ and K⁺ currents and a quantitative spike model.</p></div><div><small>Peripheral myelinated fibers</small><strong>Tasaki → Huxley & Stämpfli → Hodler et al.</strong><p>Experiments established the active role of nodes and spread of current across internodes. The spike is renewed at successive nodes; the signal does not literally leap through empty space.</p></div></div>
+        <p class="synthesis-footnote">The question of how the sheath itself is made continues separately: <a href="event.html?id=ben-geren">Schwann cells, 1954</a> and <a href="event.html?id=bunge-central">central glia, 1962</a>.</p>
+      </section>` : ""}
 
       <div class="story-grid">
         <div class="story-main">
