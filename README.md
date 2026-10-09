@@ -4,7 +4,7 @@ An interactive, source-backed history of how the modern neuron concept emerged -
 
 ## Live website
 
-**[Open the public Tree of Neuron atlas](https://fermow.github.io/tree-of-nueron/)**
+**[Open the public Tree of Neuron atlas](https://fermow.github.io/tree-of-neuron/)**
 
 The site is hosted free with GitHub Pages. Every push to `main` is published automatically by the workflow in `.github/workflows/pages.yml`.
 
@@ -13,8 +13,8 @@ The site is hosted free with GitHub Pages. Every push to `main` is published aut
 Requirements: Python 3 and Make.
 
 ```bash
-git clone https://github.com/fermow/tree-of-nueron.git
-cd tree-of-nueron
+git clone https://github.com/fermow/tree-of-neuron.git
+cd tree-of-neuron
 make up
 ```
 
