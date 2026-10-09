@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="An interactive, source-backed history of the neuron from ancient anatomy to the ionic action-potential model.">
+  <title>Tree of Neuron</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body class="explorer-page">
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="Tree of Neuron home">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span><b>Tree of Neuron</b><small>an experimental history</small></span>
+    </a>
+    <div class="topbar-actions">
+      <label class="search-box">
+        <span class="sr-only">Search discoveries or scientists</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.35-4.35m2.35-5.65a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"/></svg>
+        <input id="search" type="search" autocomplete="off" placeholder="Search scientist or discovery...">
+        <kbd>/</kbd>
+      </label>
+      <button class="icon-button" id="aboutButton" type="button" aria-label="About this project">i</button>
+    </div>
+  </header>
+
+  <main id="explorer" class="explorer" aria-label="Interactive history tree">
+    <section class="intro-card" id="introCard">
+      <p class="eyebrow">An evidence tree · c. 700 BCE-1952</p>
+      <h1>How did a <em>cord</em><br>become a <em>neuron?</em></h1>
+      <p>Follow the experiments that changed the model - from ancient anatomy to the ionic action potential.</p>
+      <button id="beginButton" class="primary-button" type="button">Begin at the roots <span>→</span></button>
+      <p class="microcopy">Drag to explore · Scroll to zoom · Click any node for the full experiment</p>
+    </section>
+
+    <svg id="tree" class="tree-canvas" viewBox="0 0 3200 1800" role="img" aria-labelledby="treeTitle treeDesc">
+      <title id="treeTitle">Chronological tree of discoveries that formed the modern concept of the neuron</title>
+      <desc id="treeDesc">Twenty-five historical nodes arranged from ancient Greek terminology to the Hodgkin-Huxley model in 1952.</desc>
+      <defs>
+        <filter id="softShadow" x="-40%" y="-40%" width="180%" height="180%">
+          <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#1c2a24" flood-opacity=".16"/>
+        </filter>
+        <filter id="branchGlow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="12" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <linearGradient id="trunkGradient" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#7A4A32"/>
+          <stop offset="33%" stop-color="#4D6752"/>
+          <stop offset="64%" stop-color="#69527C"/>
+          <stop offset="100%" stop-color="#2E6F7B"/>
+        </linearGradient>
+        <pattern id="paperGrain" width="100" height="100" patternUnits="userSpaceOnUse">
+          <filter id="noise"><feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="2" stitchTiles="stitch"/></filter>
+          <rect width="100" height="100" filter="url(#noise)" opacity=".035"/>
+        </pattern>
+      </defs>
+      <rect width="3200" height="1800" fill="#F2EDE2"/>
+      <rect width="3200" height="1800" fill="url(#paperGrain)"/>
+      <g id="viewport">
+        <g id="branches"></g>
+        <g id="eraLabels"></g>
+        <g id="nodes"></g>
+      </g>
+    </svg>
+
+    <nav class="era-rail" id="eraRail" aria-label="Historical eras"></nav>
+
+    <div class="controls" aria-label="Map controls">
+      <button id="homeButton" type="button" aria-label="Reset view" title="Reset view">⌂</button>
+      <button id="zoomIn" type="button" aria-label="Zoom in" title="Zoom in">+</button>
+      <button id="zoomOut" type="button" aria-label="Zoom out" title="Zoom out">−</button>
+    </div>
+
+    <aside class="mini-guide" aria-hidden="true">
+      <span class="pulse-dot"></span>
+      <div><b>25 milestones</b><small>Sorted chronologically</small></div>
+    </aside>
+
+    <section id="searchResults" class="search-results" aria-live="polite" hidden></section>
+  </main>
+
+  <dialog id="aboutDialog" class="about-dialog">
+    <button class="dialog-close" type="button" aria-label="Close">×</button>
+    <p class="eyebrow">About the project</p>
+    <h2>Not a family tree - an evidence tree.</h2>
+    <p>Each branch records a question, method, observation, model shift, limitation, and the next question it created. The historical claims and references come from the two supplied source PDFs.</p>
+    <p>Ancient evidence is incomplete, and several “first discovery” claims are disputed. The wording preserves those cautions instead of forcing a hero-only story.</p>
+  </dialog>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/tree.js"></script>
+</body>
+</html>
