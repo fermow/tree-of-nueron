@@ -14,6 +14,7 @@
   const era = eras.find(item => item.id === event.era);
   const previous = events[index - 1];
   const next = events[index + 1];
+  const linkedTerms = window.NEURON_TERMS?.items.filter(term => term.anchor === event.id) || [];
   document.title = `${event.person} · ${event.date} · Tree of Neuron`;
   document.documentElement.style.setProperty("--hero-color", era.color);
 
@@ -81,6 +82,12 @@
           <div class="question-card"><span class="card-label">The next question</span><p>${escapeHtml(event.next)}</p></div>
         </aside>
       </div>
+
+      ${linkedTerms.length ? `<section class="event-terms">
+        <p class="eyebrow">Language at this point in history</p>
+        <h2>What did they call it?</h2>
+        <div>${linkedTerms.map(term => `<a href="term.html?id=${encodeURIComponent(term.id)}"><small>${escapeHtml(term.date)} · ${escapeHtml(term.kind)}</small><b>${escapeHtml(term.word)} ↗</b><span>${escapeHtml(term.former)} → ${escapeHtml(term.current)}</span></a>`).join("")}</div>
+      </section>` : ""}
 
       <section class="sources">
         <p class="eyebrow">References carried by this node</p>

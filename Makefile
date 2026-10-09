@@ -14,6 +14,8 @@ check:
 	@node --check assets/tree.js
 	@node --check assets/event.js
 	@node --check assets/research.js
+	@node --check assets/terms.js
+	@node --check assets/term.js
 	@node scripts/check-content.js
 
 help:

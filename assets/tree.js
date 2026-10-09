@@ -3,6 +3,8 @@
   const svg = document.getElementById("tree");
   const branchLayer = document.getElementById("branches");
   const nodeLayer = document.getElementById("nodes");
+  const termLinkLayer = document.getElementById("termLinks");
+  const termNodeLayer = document.getElementById("termNodes");
   const eraLabelLayer = document.getElementById("eraLabels");
   const eraRail = document.getElementById("eraRail");
   const searchInput = document.getElementById("search");
@@ -28,6 +30,7 @@
   const card = { width: 276, height: 210 };
   const points = events.map((event, index) => ({ event, index, x: xById[event.id], y: laneY[event.era], color: eraMap[event.era].color }));
   const pointMap = Object.fromEntries(points.map(point => [point.event.id, point]));
+  const terms = window.NEURON_TERMS.items;
 
   const create = (name, attrs = {}, text = "") => {
     const element = document.createElementNS(ns, name);
@@ -105,6 +108,36 @@
     nodeLayer.append(foreign);
   });
 
+  // A small branch connects a historical label with the observation or
+  // synthesis that gives it context. Its date remains independent of that card.
+  terms.forEach(term => {
+    const anchor = pointMap[term.anchor];
+    const above = term.y < anchor.y;
+    const startY = anchor.y + (above ? -1 : 1) * card.height / 2;
+    const endY = term.y + (above ? 1 : -1) * 40;
+    termLinkLayer.append(create("path", {
+      d: `M ${anchor.x} ${startY} Q ${(anchor.x + term.x) / 2} ${(startY + endY) / 2} ${term.x} ${endY}`,
+      class: "term-branch"
+    }));
+    const foreign = create("foreignObject", {
+      x: term.x - 104, y: term.y - 40, width: 208, height: 80, class: "node-foreign"
+    });
+    const link = document.createElementNS("http://www.w3.org/1999/xhtml", "a");
+    link.className = "term-card event-link";
+    link.href = `term.html?id=${encodeURIComponent(term.id)}`;
+    link.dataset.id = term.id;
+    link.setAttribute("aria-label", `${term.word}, ${term.date}. Explore the word's history.`);
+    const date = document.createElementNS("http://www.w3.org/1999/xhtml", "span");
+    date.className = "term-date";
+    date.textContent = term.date;
+    const title = document.createElementNS("http://www.w3.org/1999/xhtml", "strong");
+    title.className = "term-word";
+    title.textContent = term.word;
+    link.append(date, title);
+    foreign.append(link);
+    termNodeLayer.append(foreign);
+  });
+
   eras.forEach(era => {
     const first = points.find(point => point.event.era === era.id);
     const label = create("g", { class: "thread-label", transform: `translate(${first.x - card.width / 2} ${first.y - 155})` });
@@ -129,6 +162,19 @@
     });
     eraRail.append(chip);
   });
+  const wordChip = document.createElement("button");
+  wordChip.type = "button";
+  wordChip.className = "era-chip word-chip";
+  wordChip.style.setProperty("--era-color", "#b15a72");
+  wordChip.innerHTML = "<i></i><span>Words & names</span>";
+  wordChip.title = "Jump to the terminology branches";
+  wordChip.addEventListener("click", () => {
+    document.querySelectorAll(".era-chip").forEach(el => el.classList.remove("active"));
+    wordChip.classList.add("active");
+    focusAt(5500, 1100, 1750);
+    document.getElementById("introCard").classList.add("dismissed");
+  });
+  eraRail.append(wordChip);
 
   let camera = { x: 100, y: 35, w: 2100, h: 1100 };
   let animationFrame = null;
@@ -239,23 +285,26 @@
 
   function runSearch(query) {
     const normalized = query.trim().toLowerCase();
-    const nodeEls = [...document.querySelectorAll(".history-card")];
+    const nodeEls = [...document.querySelectorAll(".history-card, .term-card")];
     if (!normalized) {
       searchResults.hidden = true;
       nodeEls.forEach(node => node.classList.remove("dimmed", "match"));
       return;
     }
     const matches = events.filter(event => [event.date, event.person, event.title, event.summary, event.question].join(" ").toLowerCase().includes(normalized));
-    const ids = new Set(matches.map(event => event.id));
+    const termMatches = terms.filter(term => [term.date, term.word, term.former, term.current, term.origin, term.transition, ...term.lineage.map(item => item.term)].join(" ").toLowerCase().includes(normalized));
+    const ids = new Set([...matches, ...termMatches].map(item => item.id));
     nodeEls.forEach(node => {
       node.classList.toggle("dimmed", !ids.has(node.dataset.id));
       node.classList.toggle("match", ids.has(node.dataset.id));
     });
     searchResults.hidden = false;
-    searchResults.innerHTML = matches.length ? matches.slice(0, 8).map(event => {
+    const eventResults = matches.map(event => {
       const era = eraMap[event.era];
       return `<a class="search-result" href="event.html?id=${encodeURIComponent(event.id)}" style="--result-color:${era.color}"><b class="result-year">${escapeHtml(event.date)}</b><span><b>${escapeHtml(event.title)}</b><small>${escapeHtml(event.person)}</small></span><b class="arrow">→</b></a>`;
-    }).join("") : `<div class="empty-results">No branch matches “${escapeHtml(query)}”.</div>`;
+    });
+    const wordResults = termMatches.map(term => `<a class="search-result" href="term.html?id=${encodeURIComponent(term.id)}" style="--result-color:#b15a72"><b class="result-year">${escapeHtml(term.date)}</b><span><b>${escapeHtml(term.word)}</b><small>Word history · ${escapeHtml(term.former)} → ${escapeHtml(term.current)}</small></span><b class="arrow">→</b></a>`);
+    searchResults.innerHTML = eventResults.length || wordResults.length ? [...wordResults, ...eventResults].slice(0, 10).join("") : `<div class="empty-results">No branch matches “${escapeHtml(query)}”.</div>`;
   }
 
   searchInput.addEventListener("input", () => runSearch(searchInput.value));
@@ -284,4 +333,12 @@
 
   window.addEventListener("resize", applyCamera);
   applyCamera();
+  const selectedTerm = decodeURIComponent(window.location.hash.slice(1));
+  if (selectedTerm.startsWith("term-")) {
+    const term = terms.find(item => item.id === selectedTerm.slice(5));
+    if (term) {
+      document.getElementById("introCard").classList.add("dismissed");
+      focusAt(term.x, term.y, 1050);
+    }
+  }
 })();

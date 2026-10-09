@@ -2,13 +2,15 @@ const fs = require("node:fs");
 const vm = require("node:vm");
 
 const context = { window: {} };
-for (const file of ["assets/data.js", "assets/research.js"]) {
+for (const file of ["assets/data.js", "assets/research.js", "assets/terms.js"]) {
   vm.runInNewContext(fs.readFileSync(file, "utf8"), context, { filename: file });
 }
 
 const { events, eras, references } = context.window.NEURON_HISTORY;
 const research = context.window.NEURON_RESEARCH;
+const terminology = context.window.NEURON_TERMS;
 const detailCode = fs.readFileSync("assets/event.js", "utf8");
+const termCode = fs.readFileSync("assets/term.js", "utf8");
 const ids = new Set();
 const eraIds = new Set(eras.map(era => era.id));
 for (const [index, event] of events.entries()) {
@@ -23,7 +25,7 @@ for (const [index, event] of events.entries()) {
   }
   const root = { innerHTML: "" };
   const page = {
-    window: { NEURON_HISTORY: context.window.NEURON_HISTORY, NEURON_RESEARCH: research, location: { search: `?id=${encodeURIComponent(event.id)}` } },
+    window: { NEURON_HISTORY: context.window.NEURON_HISTORY, NEURON_RESEARCH: research, NEURON_TERMS: terminology, location: { search: `?id=${encodeURIComponent(event.id)}` } },
     document: { getElementById: () => root, documentElement: { style: { setProperty() {} } }, title: "" },
     URLSearchParams
   };
@@ -33,4 +35,22 @@ for (const [index, event] of events.entries()) {
   }
 }
 for (const id of Object.keys(research)) if (!ids.has(id)) throw new Error(`Unknown research entry: ${id}`);
-console.log(`${events.length} chronological events have analysis, evidence assessments, and valid references.`);
+const termIds = new Set();
+for (const term of terminology.items) {
+  if (termIds.has(term.id)) throw new Error(`Duplicate terminology id: ${term.id}`);
+  termIds.add(term.id);
+  if (!ids.has(term.anchor)) throw new Error(`Unknown terminology anchor: ${term.id}`);
+  if (!Number.isFinite(term.x) || !Number.isFinite(term.y)) throw new Error(`Missing map position: ${term.id}`);
+  if (!term.lineage?.length || !term.refs?.length || term.refs.some(ref => !terminology.references[ref])) throw new Error(`Incomplete word history: ${term.id}`);
+  const root = { innerHTML: "" };
+  const back = { href: "" };
+  const page = {
+    window: { NEURON_HISTORY: context.window.NEURON_HISTORY, NEURON_TERMS: terminology, location: { search: `?id=${encodeURIComponent(term.id)}` } },
+    document: { getElementById: name => name === "termBack" ? back : root, documentElement: { style: { setProperty() {} } }, title: "" },
+    URLSearchParams
+  };
+  vm.runInNewContext(termCode, page, { filename: "assets/term.js" });
+  if (!["Where did the word come from?", "Names across the periods", "References"].every(label => root.innerHTML.includes(label))) throw new Error(`Incomplete word page: ${term.id}`);
+}
+for (const term of terminology.items) for (const related of term.related) if (!termIds.has(related)) throw new Error(`Broken word cross-link: ${term.id} → ${related}`);
+console.log(`${events.length} events and ${terminology.items.length} word histories have complete detail pages and valid references.`);
