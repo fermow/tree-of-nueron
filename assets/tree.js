@@ -19,14 +19,16 @@
     "word-before-cell": 370, alcmaeon: 690, "sacred-disease": 1010,
     aristotle: 1330, herophilus: 1650, galen: 1970,
     vesalius: 2300, willis: 2620, "leeuwenhoek-fontana": 2940,
-    galvani: 3260, volta: 3580, nobili: 3900,
-    "remak-schwann": 4210, matteucci: 4210, "du-bois-reymond": 4530,
-    helmholtz: 4850, deiters: 4850, golgi: 5170,
-    "cajal-waldeyer": 5490, names: 5810, overton: 6130,
-    bernstein: 6450, "hodgkin-huxley-1939": 6770,
-    "hodgkin-katz-1949": 7090, "hodgkin-huxley-1952": 7410
+    "electrical-medicine": 3260, "haller-irritability": 3580,
+    "walsh-electric-fish": 3900, "galvani-deliberate": 4220,
+    "galvani-distant-spark": 4540, galvani: 4860, volta: 5180,
+    nobili: 5500, "remak-schwann": 5810, matteucci: 5810,
+    "du-bois-reymond": 6130, helmholtz: 6450, deiters: 6450,
+    golgi: 6770, "cajal-waldeyer": 7090, names: 7410,
+    overton: 7730, bernstein: 8050, "hodgkin-huxley-1939": 8370,
+    "hodgkin-katz-1949": 8690, "hodgkin-huxley-1952": 9010
   };
-  const world = { width: 7800, height: 1840 };
+  const world = { width: 9400, height: 1840 };
   const card = { width: 276, height: 210 };
   const points = events.map((event, index) => ({ event, index, x: xById[event.id], y: laneY[event.era], color: eraMap[event.era].color }));
   const pointMap = Object.fromEntries(points.map(point => [point.event.id, point]));
@@ -54,7 +56,8 @@
     }
   });
   const crossLinks = [
-    ["herophilus", "galen"], ["nobili", "matteucci"],
+    ["herophilus", "galen"], ["willis", "electrical-medicine"],
+    ["nobili", "matteucci"],
     ["remak-schwann", "deiters"], ["du-bois-reymond", "bernstein"],
     ["overton", "bernstein"], ["bernstein", "hodgkin-huxley-1939"]
   ];
@@ -171,7 +174,7 @@
   wordChip.addEventListener("click", () => {
     document.querySelectorAll(".era-chip").forEach(el => el.classList.remove("active"));
     wordChip.classList.add("active");
-    focusAt(5500, 1100, 1750);
+    focusAt(7100, 1100, 1750);
     document.getElementById("introCard").classList.add("dismissed");
   });
   eraRail.append(wordChip);

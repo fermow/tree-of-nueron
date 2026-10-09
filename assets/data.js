@@ -3,12 +3,12 @@ window.NEURON_HISTORY = {
     title: "Tree of Neuron",
     subtitle: "How a cord became a cell, and a cell became an electrical mechanism",
     range: "c. 700 BCE - 1952",
-    sourceNote: "Adapted from the two supplied historical reviews. Ancient dates are approximate and several priority claims remain debated."
+    sourceNote: "Adapted from the two supplied historical reviews and linked historical scholarship. Ancient dates are approximate and several priority claims remain debated."
   },
   eras: [
     { id: "roots", label: "Words & early brain theories", range: "c. 700-260 BCE", color: "#A96B45" },
     { id: "anatomy", label: "Anatomy & function", range: "129-1781", color: "#54705A" },
-    { id: "electricity", label: "Bioelectricity", range: "1791-1850", color: "#B88A2D" },
+    { id: "electricity", label: "Bioelectricity", range: "1740s-1850", color: "#B88A2D" },
     { id: "cell", label: "The neuron as a cell", range: "1836-1897", color: "#7B5F95" },
     { id: "ions", label: "Membrane, ions & spike", range: "1895-1952", color: "#2F7180" }
   ],
@@ -44,7 +44,9 @@ window.NEURON_HISTORY = {
     A5: { label: "Hodgkin & Huxley. Sodium and potassium currents in squid giant axon (1952).", url: "https://doi.org/10.1113/jphysiol.1952.sp004717" },
     A6: { label: "Hodgkin & Huxley. Components of membrane conductance (1952).", url: "https://doi.org/10.1113/jphysiol.1952.sp004718" },
     A7: { label: "Hodgkin & Huxley. A quantitative description of membrane current (1952).", url: "https://doi.org/10.1113/jphysiol.1952.sp004764" },
-    A8: { label: "Hodgkin, Huxley & Katz. Measurement of current-voltage relations in giant squid axon (1952).", url: "https://doi.org/10.1113/jphysiol.1952.sp004716" }
+    A8: { label: "Hodgkin, Huxley & Katz. Measurement of current-voltage relations in giant squid axon (1952).", url: "https://doi.org/10.1113/jphysiol.1952.sp004716" },
+    G1: { label: "Piccolino. Luigi Galvani's path to animal electricity. Comptes Rendus Biologies (2006).", url: "https://doi.org/10.1016/j.crvi.2006.03.002" },
+    G2: { label: "Galvani. De viribus electricitatis in motu musculari commentarius (1791). Smithsonian Libraries digitization.", url: "https://library.si.edu/digital-library/book/aloysiigalvanid00galv" }
   },
   events: [
     {
@@ -156,16 +158,76 @@ window.NEURON_HISTORY = {
       next: "Can electricity activate this nerve-fiber system?", refs: ["R10"]
     },
     {
-      id: "galvani", sort: 1791, date: "1780s / 1791", person: "Luigi Galvani", era: "electricity",
-      title: "Electricity activates a nerve",
-      summary: "Electrical stimulation of a frog nerve made the attached muscle contract.",
-      question: "Is nerve-muscle function related to electrical phenomena?",
-      method: "A detached frog hindlimb with sciatic nerve still connected to muscle.",
-      steps: ["Prepare nerve and muscle with the brain absent.", "Apply static or Leyden-jar stimulation to the nerve.", "Repeat with metal contact and with metal-free saline or tissue contact variants."],
-      observation: "Exciting the nerve reliably produced contraction in the connected muscle.",
-      result: "Nerve tissue was electrically excitable; Galvani proposed intrinsic animal electricity.",
-      limitation: "Muscle movement was only an indirect indicator; the electrical event in the nerve was not recorded.",
-      next: "Was the source truly biological, or created by the metals?", refs: ["R11"]
+      id: "electrical-medicine", sort: 1747, date: "1740s / 1747", person: "Electrical physicians; G. G. Veratti", era: "electricity",
+      title: "Electricity makes muscles move",
+      summary: "Electrical machines and Leyden jars already made muscle contractions visible in medical investigations.",
+      question: "Can externally applied electricity change movement or treat illness?",
+      method: "Apply discharges from electrical apparatus to animal or human preparations and observe bodily responses; Bologna's institute investigated electrical medicine in 1747.",
+      steps: ["Generate static electricity and store a discharge in a Leyden jar.", "Apply electrical stimulation to a prepared body part under varying contact conditions.", "Observe contraction and compare the therapeutic claims made for electrical treatments."],
+      observation: "A sufficiently strong external discharge could provoke movement, including muscle contraction.",
+      result: "Electricity became a plausible experimental tool for studying movement, before Galvani began his frog research.",
+      limitation: "These observations did not show that nerves normally signal electrically; many therapeutic claims were poorly reproducible. This node combines a field of work, not one controlled trial.",
+      next: "Does the contracting force belong to muscle itself?", refs: ["G1"]
+    },
+    {
+      id: "haller-irritability", sort: 1753, date: "1752–1753", person: "Albrecht von Haller", era: "electricity",
+      title: "Muscle has its own irritability",
+      summary: "Haller distinguished the muscle's ability to contract from the nerve's sensitivity to stimulation.",
+      question: "Is contraction an inherent property of muscle, or does a substance delivered by nerves cause it?",
+      method: "Compare how living animal muscles and nerves respond to direct mechanical and other stimulation in repeated physiological experiments.",
+      steps: ["Expose muscle and its connected nerve in animal preparations.", "Stimulate the muscle directly and observe its contraction.", "Stimulate the nerve and compare the response, separating muscle irritability from nerve sensibility."],
+      observation: "Muscle could contract when stimulated directly; stimulation of a connected nerve could also lead to contraction.",
+      result: "Intrinsic muscle irritability offered a serious rival to explanations based solely on a fluid carried by nerves.",
+      limitation: "These comparisons did not identify the physical nature of the nerve signal. Muscle excitability and electrical nerve signaling can both be true.",
+      next: "Can an animal itself produce electricity?", refs: ["G1"]
+    },
+    {
+      id: "walsh-electric-fish", sort: 1773, date: "1772–1775", person: "John Walsh", era: "electricity",
+      title: "Electric fish make real electricity",
+      summary: "Tests of torpedo rays and electric eels linked their shocks to familiar electrical effects.",
+      question: "Is the shock of an electric fish the same kind of phenomenon as ordinary electricity?",
+      method: "Investigate the shocks of electric fish and compare their transmission and electrical effects with artificial electricity.",
+      steps: ["Arrange contact with an electric fish and conductive paths through observers or objects.", "Compare when a shock is felt and when an interrupted path prevents it.", "Look for electrical effects beyond the subjective sensation of a shock."],
+      observation: "The animal's discharge behaved like electricity rather than a purely mechanical or mysterious force.",
+      result: "An animal could be a source of electricity, making a biological electrical hypothesis more plausible.",
+      limitation: "Electric organs are specialized. Their discharge did not prove that ordinary nerves generate or convey the same type of signal.",
+      next: "Can electrical stimulation of an ordinary nerve make a muscle contract?", refs: ["G1"]
+    },
+    {
+      id: "galvani-deliberate", sort: 1780, date: "Nov–Dec 1780", person: "Luigi Galvani", era: "electricity",
+      title: "A planned frog nerve experiment",
+      summary: "Galvani deliberately stimulated frog nerve–muscle preparations with artificial electricity before the famous spark.",
+      question: "If electricity acts on the nerve, will its attached muscle contract, and where does the sensitivity lie?",
+      method: "Keep the frog hindlimb's sciatic nerve connected to muscle; apply discharges from a friction machine or Leyden jar and compare arrangements.",
+      steps: ["Prepare a frog hindlimb with nerve and muscle connected.", "Apply external electrical stimuli to the nerve and watch the muscle.", "Vary stimulation and nerve conditions; compare ligated with unligated nerve preparations."],
+      observation: "Stimulation of the connected nerve produced muscle contraction; the response depended on preparation and contact.",
+      result: "The frog preparation became a visible assay for electrical excitability in a deliberate research program.",
+      limitation: "Movement was an indirect readout and did not reveal the normal signal's source or measure electricity in the nerve itself.",
+      next: "Can a spark act even when the machine is not wired to the frog?", refs: ["G1"]
+    },
+    {
+      id: "galvani-distant-spark", sort: 1781, date: "26 Jan 1781", person: "Luigi Galvani and laboratory collaborators", era: "electricity",
+      title: "The unexpected distant spark",
+      summary: "A frog leg twitched when a nearby machine sparked, although no wire joined machine and preparation.",
+      question: "Why does a distant spark cause a contraction, and does contact with the nerve matter?",
+      method: "Follow up an incidental observation by repeating distant sparks while changing conductive contact with the exposed nerve.",
+      steps: ["Keep the frog's nerve and leg prepared near a static-electricity machine without a direct wire.", "Make a spark while a conductor touches the nerve and watch the leg.", "Repeat while changing contact points and using insulating materials for comparison."],
+      observation: "A distant spark coincided with a twitch when the nerve was touched by a conductor; insulating contact did not give the same response.",
+      result: "The surprise prompted systematic tests of how a distant electrical disturbance excites a nerve–muscle preparation.",
+      limitation: "The observation did not establish that the electricity originated inside the animal. Descriptions of the person or particular metal tool should not be treated as fixed protocol details.",
+      next: "How did Galvani interpret the wider series of experiments?", refs: ["G1", "G2"]
+    },
+    {
+      id: "galvani", sort: 1791, date: "1791", person: "Luigi Galvani", era: "electricity",
+      title: "Galvani proposes animal electricity",
+      summary: "His 1791 synthesis interpreted a decade of frog experiments as evidence for electricity intrinsic to animals.",
+      question: "Are the electrical effects in frog nerve and muscle generated by the animal itself?",
+      method: "Synthesize experiments involving artificial discharges, atmospheric electricity, and contact between frog nerve and muscle.",
+      steps: ["Compare responses to artificial and atmospheric electricity in frog preparations.", "Observe contractions when conductive paths join nerve and muscle.", "Publish the experiments and an animal-electricity explanation in De viribus electricitatis (1791)."],
+      observation: "Several arrangements caused contraction; metal contacts and electrical stimuli made the nerve–muscle preparation responsive.",
+      result: "Galvani argued for an intrinsic animal electricity, with muscle and nerve playing different parts in the circuit.",
+      limitation: "The 1791 interpretation was debated: metal contacts could themselves generate voltage. Later metal-free tests belong to later years, and contraction did not directly record a nerve impulse.",
+      next: "Was the source truly biological, or created by the metals?", refs: ["G1", "G2", "R11"]
     },
     {
       id: "volta", sort: 1800, date: "1792-1800", person: "Alessandro Volta", era: "electricity",

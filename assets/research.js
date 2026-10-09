@@ -64,12 +64,47 @@ window.NEURON_RESEARCH = {
     answer: "The nerve could be understood as a bundle of fine fibers rather than a single solid cord.",
     caution: "This card combines investigations 64 years apart. An early hollow-tube description was mistaken, and microscopy alone did not show where the fibers came from.", source: "From ‘Fiber’ to ‘Neuron’, p. 6"
   },
+  "electrical-medicine": {
+    kind: "Historical research context", strength: "Strong that artificial electricity could provoke movement; weak for many proposed clinical benefits.",
+    background: "Electrical machines and Leyden jars were used in eighteenth-century medicine, including investigations in Bologna in 1747. An electrical stimulus was thus already a familiar intervention before Galvani's frog program.",
+    procedure: "Apply externally generated discharges to accessible tissues and observe contraction or other responses. This entry joins many investigators' practices and Veratti's Bologna context; the sources do not supply a single reproducible apparatus specification or one trial.",
+    answer: "Electricity could act as an external trigger for movement, but it was unknown whether endogenous electricity played any ordinary role in nerve function.",
+    caution: "A response to an electrical shock does not demonstrate normal electrical signaling. Reports of therapy were often unreliable and should not be read as validated treatments.", source: "Piccolino 2006, sections 2–3"
+  },
+  "haller-irritability": {
+    kind: "Comparative physiological experiments", strength: "Strong historical support for intrinsic muscle irritability; mechanism of nerve-to-muscle communication remained unsettled.",
+    background: "Some natural philosophers attributed movement to a fluid traveling through nerves. Haller argued that a muscle itself possesses the ability to respond to stimulation, a property he called irritability.",
+    procedure: "In many animal preparations, compare contractions following direct stimulation of exposed muscle with those following stimulation of a connected nerve. Haller's work was a program of experiments, not the one three-step protocol summarized here.",
+    answer: "The capacity to contract belonged to muscle tissue; stimulation arriving by a nerve could recruit that capacity. Galvani later tested nerve and muscle sensitivities against this background.",
+    caution: "Haller's distinction did not disprove electrical signaling in nerves. Treat irritability and proposed electrical fluid as contemporary explanations under debate, rather than mutually exclusive modern facts.", source: "Piccolino 2006, sections 2–3"
+  },
+  "walsh-electric-fish": {
+    kind: "Comparative electrical observations", strength: "Strong for the electrical nature of specialized fish discharge; indirect for ordinary nerves.",
+    background: "One objection to an electrical animal was that tissues supposedly could not maintain the imbalance needed to produce a shock. Electric fish made this experimentally testable.",
+    procedure: "Use torpedo rays and electric eels in contact arrangements, vary conductive continuity and compare their shocks with familiar artificial electrical phenomena. The node summarizes Walsh's investigations across 1772–1775, not an exact single-session protocol.",
+    answer: "Fish shocks had electrical properties, showing that a living animal could produce electricity and suggesting new questions about other animal tissues.",
+    caution: "The electric organ is specialized; no observation here directly recorded an impulse from an ordinary nerve.", source: "Piccolino 2006, section 2"
+  },
+  "galvani-deliberate": {
+    kind: "Planned frog nerve–muscle stimulation", strength: "Strong for an externally evoked contraction; limited for the natural source of nerve signaling.",
+    background: "Electrical medicine, Haller's irritability debate and electric fish supplied a research question and experimental precedent. Galvani's first notes on this program are dated 6 November 1780.",
+    procedure: "Keep frog nerve and hindlimb muscle connected; apply electricity from a friction machine or capacitor, later a Leyden jar. Compare responses under different contacts and nerve arrangements, including ligated and unligated nerve. These were successive experiments, not a single fixed recipe.",
+    answer: "Galvani intentionally investigated the relation of electricity, nerve and muscular contraction months before the incidental distant-spark observation.",
+    caution: "The notes support planned electrical tests, but not a measured electrical nerve signal. The reason for every particular preparation cannot be read directly from the records.", source: "Piccolino 2006, section 3, Galvani laboratory notes"
+  },
+  "galvani-distant-spark": {
+    kind: "Incidental observation followed by controlled comparisons", strength: "Strong for the dated observation and conductive-contact dependence; weak for an intrinsic electricity conclusion from this episode alone.",
+    background: "During the established frog experiment program, a spark from a machine at a distance coincided with leg movement despite the absence of a direct wire to the preparation. Galvani's record dates the event to 26 January 1781.",
+    procedure: "Repeat sparks with the exposed nerve touched by a conductor such as a metal instrument or fingers, then compare insulating contact such as glass or old bone and changes in contact position. The sequence summarizes follow-up tests, not a photographically certain reconstruction of one instant.",
+    answer: "The distant electrical disturbance could trigger contraction under suitable conductive contact conditions, leading to further systematic experiments.",
+    caution: "The coincident twitch did not prove animal electricity or that Galvani himself held one specific instrument at the first instant. Distinguish the chance observation from the deliberately designed follow-up.", source: "Piccolino 2006, section 3, analysis of Galvani's 26 January 1781 notes"
+  },
   galvani: {
-    kind: "Nerve–muscle stimulation", strength: "Strong for electrical excitability; mixed for Galvani's claim about the electricity's source.",
-    background: "The nature of the signal that links a nerve to movement was unknown. A frog hindlimb with nerve and muscle still connected let movement serve as a visible readout.",
-    procedure: "Prepare a detached frog hindlimb with the sciatic nerve attached to its muscle. Apply a Leyden-jar or static-electric stimulus to excite the nerve, observe contraction, then examine metal-contact arrangements and metal-free variants using moist tissue or saline.",
-    answer: "An electrical stimulus to the nerve could trigger connected muscle. This established excitability more securely than it established Galvani's broader animal-electricity explanation.",
-    caution: "Contraction is an indirect indicator of nerve excitation. Metal contacts can produce an electrical difference of their own; the source of electricity was contested by Volta.", source: "From ‘Fiber’ to ‘Neuron’, pp. 6–7"
+    kind: "Published experimental synthesis and hypothesis", strength: "Strong for electrically evoked contraction; disputed for the proposed source and model of intrinsic animal electricity.",
+    background: "By 1791 Galvani could draw on a decade of preparations involving artificial sparks, atmospheric electricity and nerve–muscle contact. The separate 1780 and 1781 cards explain how the program began.",
+    procedure: "Compare contraction across distinct frog nerve–muscle arrangements, report the observations in De viribus electricitatis (1791), and propose an explanation in which biological tissue supplied electricity. This is a synthesis of multiple experiments, not one laboratory run.",
+    answer: "Electrical excitation of the preparation was well supported. The claim that the animal was the source was contested by Volta's metal-contact explanation and refined in later work.",
+    caution: "Muscle movement was an indirect indicator. Do not project Galvani's later metal-free follow-ups back into the published 1791 protocol; historical animal electricity is not the complete modern action-potential model.", source: "Piccolino 2006, sections 3–4; Galvani 1791; From ‘Fiber’ to ‘Neuron’, pp. 6–7"
   },
   volta: {
     kind: "Materials comparison and battery demonstration", strength: "Strong for metal-generated electricity; does not exclude bioelectricity.",

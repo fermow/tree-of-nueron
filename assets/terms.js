@@ -51,7 +51,7 @@ window.NEURON_TERMS = {
       refs: ["T1"], related: ["nervus", "neuron-1891"]
     },
     {
-      id: "primitive-cylinders", word: "Primitive cylinders", date: "1781", sort: 1781, x: 2940, y: 720, anchor: "leeuwenhoek-fontana",
+      id: "primitive-cylinders", word: "Primitive cylinders", date: "1781", sort: 1781, x: 4540, y: 720, anchor: "leeuwenhoek-fontana",
       former: "A thick white cord", current: "Nerve fibers", kind: "Microscopic description", exactDate: true,
       origin: "Fontana separated a fresh nerve in water with fine needles and described transparent primitive nervous cylinders under the microscope.",
       story: "A nerve visible to the naked eye had looked like one thick cord. Mechanical separation and microscopy made its finer components visible. The descriptive name reflected appearance before cellular continuity was understood.",
@@ -61,7 +61,7 @@ window.NEURON_TERMS = {
       refs: ["T8", "T2"], related: ["axis-cylinder", "axon-1896"]
     },
     {
-      id: "soma-cell-body", word: "Cell body / soma", date: "By 1865 · term later", sort: 1865, x: 4660, y: 1040, anchor: "deiters",
+      id: "soma-cell-body", word: "Cell body / soma", date: "By 1865 · term later", sort: 1865, x: 6260, y: 1040, anchor: "deiters",
       former: "Ganglion cell / cell body", current: "Soma", kind: "Structure known; naming date uncertain", exactDate: false,
       origin: "Greek σῶμα (sōma) means body. In current neuroscience, soma is another name for the nucleated cell body. Deiters depicted a cell body with its processes in 1865, using descriptive language rather than a securely dated coinage of soma.",
       story: "The central body was observed before all its extensions were understood as parts of one cell. Once the long and short processes received their own names, cell body or soma gave the central part a distinct label.",
@@ -71,7 +71,7 @@ window.NEURON_TERMS = {
       refs: ["T1", "T5", "T6"], related: ["protoplasmic-processes", "axis-cylinder", "neuron-1891"]
     },
     {
-      id: "protoplasmic-processes", word: "Protoplasmic processes", date: "1865", sort: 1865, x: 4890, y: 1040, anchor: "deiters",
+      id: "protoplasmic-processes", word: "Protoplasmic processes", date: "1865", sort: 1865, x: 6490, y: 1040, anchor: "deiters",
       former: "Short branching processes", current: "Dendrites", kind: "Old anatomical label", exactDate: true,
       origin: "Deiters' cell drawings distinguished multiple branching protoplasmic extensions from a single longer axis-cylinder process.",
       story: "Before the branch-like extensions had their modern name, their appearance and relation to the cell body were described with broader words such as process or protoplasmic extension.",
@@ -81,7 +81,7 @@ window.NEURON_TERMS = {
       refs: ["T1", "T3"], related: ["dendrite-1889", "soma-cell-body"]
     },
     {
-      id: "axis-cylinder", word: "Axis cylinder", date: "By 1865", sort: 1865, x: 5120, y: 1040, anchor: "deiters",
+      id: "axis-cylinder", word: "Axis cylinder", date: "By 1865", sort: 1865, x: 6720, y: 1040, anchor: "deiters",
       former: "Nerve process / primitive band", current: "Axon", kind: "Old anatomical label", exactDate: false,
       origin: "The long process was described as an axis-cylinder process; Remak's Primitivband and related terms were also used before axon became standard.",
       story: "Deiters distinguished one long process from several shorter branching ones in his 1865 drawings. Researchers were seeing different parts before a stable common vocabulary existed.",
@@ -91,7 +91,7 @@ window.NEURON_TERMS = {
       refs: ["T1", "T2", "T3"], related: ["axon-1896", "protoplasmic-processes"]
     },
     {
-      id: "dendrite-1889", word: "Dendrite", date: "1889", sort: 1889, x: 5470, y: 1040, anchor: "names",
+      id: "dendrite-1889", word: "Dendrite", date: "1889", sort: 1889, x: 7070, y: 1040, anchor: "names",
       former: "Protoplasmic processes", current: "Dendrite", kind: "Modern naming milestone", exactDate: true,
       origin: "Wilhelm His proposed dendrite in 1889 for branching neuronal processes. The root is Greek δένδρον (déndron), tree, reflecting their branching shape.",
       story: "Cells with a central body, multiple short branches and a single long process were already being drawn. Naming the branches separately helped distinguish them from the long axis-cylinder process.",
@@ -101,7 +101,7 @@ window.NEURON_TERMS = {
       refs: ["T3"], related: ["protoplasmic-processes", "axon-1896", "soma-cell-body"]
     },
     {
-      id: "neuron-1891", word: "Neuron", date: "1891", sort: 1891, x: 5700, y: 1040, anchor: "names",
+      id: "neuron-1891", word: "Neuron", date: "1891", sort: 1891, x: 7300, y: 1040, anchor: "names",
       former: "Nerve cell / nerve unit", current: "Neuron", kind: "Modern naming milestone", exactDate: true,
       origin: "Waldeyer proposed das Neuron / die Neuronen in 1891 for the complete nerve unit: cell body, nerve process, collaterals and end branches. Alexander Hill's 1891 English translation used neuron in this sense.",
       story: "Microscopy by Deiters, Golgi and Cajal had made a whole cellular unit with processes increasingly plausible. Waldeyer synthesized this evidence under one name rather than discovering the cell alone.",
@@ -111,7 +111,7 @@ window.NEURON_TERMS = {
       refs: ["T1", "T3"], related: ["neuron-greek", "nervus", "soma-cell-body"]
     },
     {
-      id: "axon-1896", word: "Axon", date: "1896", sort: 1896, x: 5930, y: 1040, anchor: "names",
+      id: "axon-1896", word: "Axon", date: "1896", sort: 1896, x: 7530, y: 1040, anchor: "names",
       former: "Axis cylinder / primitive band", current: "Axon", kind: "Modern naming milestone", exactDate: true,
       origin: "Rudolf Albert von Kölliker introduced axon or neuraxon in 1896 for the long process previously called axis cylinder or, in Remak's terminology, primitive band. The name draws on the Greek word for an axis.",
       story: "Earlier dissections and drawings had separated one long extension from the short, branching protoplasmic extensions. Kölliker's new word made that distinction easier to teach and share.",
@@ -121,7 +121,7 @@ window.NEURON_TERMS = {
       refs: ["T2", "T3", "T1"], related: ["axis-cylinder", "dendrite-1889"]
     },
     {
-      id: "synapse-1897", word: "Synapse", date: "1897", sort: 1897, x: 6160, y: 1040, anchor: "names",
+      id: "synapse-1897", word: "Synapse", date: "1897", sort: 1897, x: 7760, y: 1040, anchor: "names",
       former: "Contact / nervous articulation", current: "Synapse", kind: "Modern naming milestone", exactDate: true,
       origin: "The term appeared in the 1897 seventh edition of Michael Foster's Textbook of Physiology. Sherrington developed and advocated the physiological concept; historical research credits Cambridge classicist Arthur Verrall with suggesting the word. It joins Greek syn- (together) and haptein (to clasp).",
       story: "Cajal's evidence favored distinct cells that came close rather than fused. A name was needed for the functional point of contact where one neural element influenced another.",
