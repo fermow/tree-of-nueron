@@ -12,6 +12,7 @@ serve:
 check:
 	@node --check assets/data.js
 	@node --check assets/graph.js
+	@node --check assets/visuals.js
 	@node --check assets/tree.js
 	@node --check assets/event.js
 	@node --check assets/research.js

@@ -2,7 +2,7 @@ const fs = require("node:fs");
 const vm = require("node:vm");
 
 const context = { window: {} };
-for (const file of ["assets/data.js", "assets/research.js", "assets/terms.js", "assets/graph.js"]) {
+for (const file of ["assets/data.js", "assets/research.js", "assets/terms.js", "assets/graph.js", "assets/visuals.js"]) {
   vm.runInNewContext(fs.readFileSync(file, "utf8"), context, { filename: file });
 }
 
@@ -10,6 +10,7 @@ const { events, eras, references } = context.window.NEURON_HISTORY;
 const research = context.window.NEURON_RESEARCH;
 const terminology = context.window.NEURON_TERMS;
 const graph = context.window.NEURON_GRAPH;
+const visuals = context.window.NEURON_VISUALS;
 const detailCode = fs.readFileSync("assets/event.js", "utf8");
 const termCode = fs.readFileSync("assets/term.js", "utf8");
 const ids = new Set();
@@ -20,13 +21,14 @@ for (const [index, event] of events.entries()) {
   if (index && events[index - 1].sort > event.sort) throw new Error(`Out of order: ${event.id}`);
   if (!eraIds.has(event.era)) throw new Error(`Unknown research thread: ${event.id}`);
   if (!research[event.id]) throw new Error(`Missing historical analysis: ${event.id}`);
+  if (visuals.scenes[event.id]?.length !== 4) throw new Error(`Missing visual sequence: ${event.id}`);
   if (!event.refs.length || event.refs.some(id => !references[id])) throw new Error(`Missing reference: ${event.id}`);
   for (const field of ["kind", "strength", "background", "procedure", "answer", "caution", "source"]) {
     if (!research[event.id][field]?.trim()) throw new Error(`Missing ${field}: ${event.id}`);
   }
-  const root = { innerHTML: "" };
+  const root = { innerHTML: "", querySelector: () => null };
   const page = {
-    window: { NEURON_HISTORY: context.window.NEURON_HISTORY, NEURON_RESEARCH: research, NEURON_TERMS: terminology, location: { search: `?id=${encodeURIComponent(event.id)}` } },
+    window: { NEURON_HISTORY: context.window.NEURON_HISTORY, NEURON_RESEARCH: research, NEURON_TERMS: terminology, NEURON_VISUALS: visuals, location: { search: `?id=${encodeURIComponent(event.id)}` } },
     document: { getElementById: () => root, documentElement: { style: { setProperty() {} } }, title: "" },
     URLSearchParams
   };
@@ -34,6 +36,10 @@ for (const [index, event] of events.entries()) {
   if (!["Why did this question arise?", "What the sources describe", "How certain is this conclusion?", "Source trail"].every(label => root.innerHTML.includes(label))) {
     throw new Error(`Incomplete detail page: ${event.id}`);
   }
+  if (!root.innerHTML.includes("THE IDEA AT A GLANCE")) throw new Error(`Missing evidence sketch: ${event.id}`);
+}
+for (const [id, image] of Object.entries(visuals.archive)) {
+  if (!ids.has(id) || !image.file || !image.credit || !image.caption) throw new Error(`Incomplete archival image: ${id}`);
 }
 for (const id of Object.keys(research)) if (!ids.has(id)) throw new Error(`Unknown research entry: ${id}`);
 const termIds = new Set();
