@@ -13,7 +13,8 @@ check:
 	@node --check assets/data.js
 	@node --check assets/tree.js
 	@node --check assets/event.js
-	@echo "JavaScript syntax checks passed."
+	@node --check assets/research.js
+	@node scripts/check-content.js
 
 help:
 	@echo "make up       Start the site on http://127.0.0.1:8989"

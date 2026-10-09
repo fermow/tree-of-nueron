@@ -29,6 +29,7 @@ PORT=9000 make up
 - search by scientist, discovery, date, question, or concept
 - a dedicated detail page for every node
 - question, method, experimental steps, observation, result/model, limitation, next question, and references
+- for every milestone: why the question arose, the evidence type, a source-grounded procedure, what the result answers, and a qualitative assessment of its limits
 - responsive keyboard and touch controls
 - no runtime dependencies or build step
 
@@ -45,7 +46,7 @@ PORT=9000 make up
 
 All historical content lives in [`assets/data.js`](assets/data.js). Add another object to the `events` array and supply an `era` plus one or more reference IDs. For placement on the map, also add its id and approximate horizontal coordinate to `xById` in [`assets/tree.js`](assets/tree.js); the detail view then updates automatically. Coordinates reflect approximate order, not a proportional time scale. Colored horizontal paths indicate overlapping research, and dashed cross-links are selected conceptual relationships, not direct ancestry.
 
-The supplied PDFs were used as the source corpus. They are not duplicated in this repository; the site contains the structured historical content and human-readable links to the cited primary and secondary references.
+The supplied PDFs were used as the source corpus. They are not duplicated in this repository; the detail pages identify the relevant PDF pages and link the cited primary and secondary references. The extra research notes are in [`assets/research.js`](assets/research.js). A historical reconstruction or summarized evidence sequence is not a complete laboratory replication protocol. Confidence statements distinguish support for a narrow observation from support for a broader historical model; they are qualitative, not numerical probabilities.
 
 ## Validation
 

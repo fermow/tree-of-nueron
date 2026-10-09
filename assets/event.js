@@ -10,6 +10,7 @@
   }
 
   const event = events[index];
+  const research = window.NEURON_RESEARCH?.[event.id];
   const era = eras.find(item => item.id === event.era);
   const previous = events[index - 1];
   const next = events[index + 1];
@@ -28,6 +29,7 @@
           <p class="detail-kicker"><i></i>${escapeHtml(era.label)} · milestone ${String(index + 1).padStart(2, "0")} of ${events.length}</p>
           <h1>${escapeHtml(event.title)}</h1>
           <p class="detail-summary">${escapeHtml(event.summary)}</p>
+          ${research ? `<p class="evidence-kind">${escapeHtml(research.kind)}</p>` : ""}
           <dl class="detail-facts">
             <div><dt>Researcher / tradition</dt><dd>${escapeHtml(event.person)}</dd></div>
             <div><dt>Date</dt><dd>${escapeHtml(event.date)}</dd></div>
@@ -41,6 +43,11 @@
 
       <div class="story-grid">
         <div class="story-main">
+          ${research ? `<section class="story-section">
+            <div class="section-label"><span>00</span>Historical context</div>
+            <h2>Why did this question arise?</h2>
+            <p>${escapeHtml(research.background)}</p>
+          </section>` : ""}
           <section class="story-section">
             <div class="section-label"><span>01</span>The question</div>
             <h2>What were they trying to understand?</h2>
@@ -51,19 +58,25 @@
             <div class="section-label"><span>02</span>Method & evidence</div>
             <h2>How did they investigate it?</h2>
             <p>${escapeHtml(event.method)}</p>
+            ${research ? `<div class="research-explanation"><b>What the sources describe</b><p>${escapeHtml(research.procedure)}</p></div>` : ""}
+            <h3 class="steps-heading">${research?.kind.includes("terminology") || research?.kind.includes("language") ? "Historical sequence" : "Summarized evidence sequence"}</h3>
             <ol class="experiment-steps">${event.steps.map(step => `<li>${escapeHtml(step)}</li>`).join("")}</ol>
           </section>
 
           <section class="story-section">
-            <div class="section-label"><span>03</span>Model shift</div>
-            <h2>What changed after this result?</h2>
+            <div class="section-label"><span>03</span>Answer and interpretation</div>
+            <h2>What did the evidence answer?</h2>
+            ${research ? `<p>${escapeHtml(research.answer)}</p>` : ""}
+            <h3 class="steps-heading">What changed in the model</h3>
             <p>${escapeHtml(event.result)}</p>
           </section>
         </div>
 
         <aside class="story-side">
           <div class="finding-card accent"><span class="card-label">Observation</span><p>${escapeHtml(event.observation)}</p></div>
+          ${research ? `<div class="finding-card confidence-card"><span class="card-label">How certain is this conclusion?</span><p>${escapeHtml(research.strength)}</p></div>` : ""}
           <div class="finding-card"><span class="card-label">Limitation</span><p>${escapeHtml(event.limitation)}</p></div>
+          ${research ? `<div class="finding-card"><span class="card-label">What the evidence does not show</span><p>${escapeHtml(research.caution)}</p></div>` : ""}
           ${event.equation ? `<div class="finding-card equation-card"><span class="card-label">Current balance</span><code>${escapeHtml(event.equation)}</code></div>` : ""}
           <div class="question-card"><span class="card-label">The next question</span><p>${escapeHtml(event.next)}</p></div>
         </aside>
@@ -72,6 +85,7 @@
       <section class="sources">
         <p class="eyebrow">References carried by this node</p>
         <h2>Source trail</h2>
+        ${research ? `<p class="source-context">Reading trail: ${escapeHtml(research.source)}. The steps above explain the cited evidence; they are not a complete replication protocol. Evidence strength is a qualitative assessment, not a measured probability.</p>` : ""}
         <ul class="reference-list">${refs}</ul>
       </section>
 

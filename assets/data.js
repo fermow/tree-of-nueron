@@ -43,7 +43,8 @@ window.NEURON_HISTORY = {
     A4: { label: "Hodgkin & Katz. Effect of sodium ions on the squid giant axon (1949).", url: "https://doi.org/10.1113/jphysiol.1949.sp004310" },
     A5: { label: "Hodgkin & Huxley. Sodium and potassium currents in squid giant axon (1952).", url: "https://doi.org/10.1113/jphysiol.1952.sp004717" },
     A6: { label: "Hodgkin & Huxley. Components of membrane conductance (1952).", url: "https://doi.org/10.1113/jphysiol.1952.sp004718" },
-    A7: { label: "Hodgkin & Huxley. A quantitative description of membrane current (1952).", url: "https://doi.org/10.1113/jphysiol.1952.sp004764" }
+    A7: { label: "Hodgkin & Huxley. A quantitative description of membrane current (1952).", url: "https://doi.org/10.1113/jphysiol.1952.sp004764" },
+    A8: { label: "Hodgkin, Huxley & Katz. Measurement of current-voltage relations in giant squid axon (1952).", url: "https://doi.org/10.1113/jphysiol.1952.sp004716" }
   },
   events: [
     {
@@ -344,7 +345,7 @@ window.NEURON_HISTORY = {
       observation: "A fast transient inward Na+ current appeared first; a delayed, sustained outward K+ current followed.",
       result: "The action potential became a quantitative ionic mechanism: capacitance plus time- and voltage-dependent Na+, K+, and leak conductances reproduced excitation and propagation.",
       limitation: "The model inferred conductance gates before voltage-gated channel proteins were directly identified.",
-      next: "What molecular structures make these conductances, and how does one neuron signal to another?", refs: ["A5", "A6", "A7"],
+      next: "What molecular structures make these conductances, and how does one neuron signal to another?", refs: ["A8", "A5", "A6", "A7"],
       equation: "I = C_m dV/dt + g_Na(V-E_Na) + g_K(V-E_K) + g_leak(V-E_leak)"
     }
   ]
