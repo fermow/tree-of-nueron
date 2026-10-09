@@ -6,6 +6,7 @@
   <meta name="description" content="An interactive, source-backed history of the neuron from ancient anatomy to the ionic action-potential model.">
   <title>Tree of Neuron</title>
   <link rel="stylesheet" href="assets/styles.css">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 </head>
 <body class="explorer-page">
   <header class="topbar">
@@ -28,35 +29,15 @@
     <section class="intro-card" id="introCard">
       <p class="eyebrow">An evidence tree · c. 700 BCE-1952</p>
       <h1>How did a <em>cord</em><br>become a <em>neuron?</em></h1>
-      <p>Follow the experiments that changed the model - from ancient anatomy to the ionic action potential.</p>
+      <p>Explore five overlapping lines of research - from ancient anatomy to the ionic action potential. The branches were not a single straight path.</p>
       <button id="beginButton" class="primary-button" type="button">Begin at the roots <span>→</span></button>
-      <p class="microcopy">Drag to explore · Scroll to zoom · Click any node for the full experiment</p>
+      <p class="microcopy">Drag to explore · Scroll or pinch to zoom · Click a card for the full experiment</p>
     </section>
 
-    <svg id="tree" class="tree-canvas" viewBox="0 0 3200 1800" role="img" aria-labelledby="treeTitle treeDesc">
+    <svg id="tree" class="tree-canvas" viewBox="100 35 2100 1100" role="group" aria-labelledby="treeTitle treeDesc">
       <title id="treeTitle">Chronological tree of discoveries that formed the modern concept of the neuron</title>
-      <desc id="treeDesc">Twenty-five historical nodes arranged from ancient Greek terminology to the Hodgkin-Huxley model in 1952.</desc>
-      <defs>
-        <filter id="softShadow" x="-40%" y="-40%" width="180%" height="180%">
-          <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#1c2a24" flood-opacity=".16"/>
-        </filter>
-        <filter id="branchGlow" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur stdDeviation="12" result="blur"/>
-          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-        <linearGradient id="trunkGradient" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stop-color="#7A4A32"/>
-          <stop offset="33%" stop-color="#4D6752"/>
-          <stop offset="64%" stop-color="#69527C"/>
-          <stop offset="100%" stop-color="#2E6F7B"/>
-        </linearGradient>
-        <pattern id="paperGrain" width="100" height="100" patternUnits="userSpaceOnUse">
-          <filter id="noise"><feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="2" stitchTiles="stitch"/></filter>
-          <rect width="100" height="100" filter="url(#noise)" opacity=".035"/>
-        </pattern>
-      </defs>
-      <rect width="3200" height="1800" fill="#F2EDE2"/>
-      <rect width="3200" height="1800" fill="url(#paperGrain)"/>
+      <desc id="treeDesc">Twenty-five historical events, ordered approximately from left to right, arranged in five overlapping research threads. Click a card for a full explanation.</desc>
+      <rect width="7800" height="1840" fill="#F2EDE2"/>
       <g id="viewport">
         <g id="branches"></g>
         <g id="eraLabels"></g>
@@ -64,17 +45,18 @@
       </g>
     </svg>
 
-    <nav class="era-rail" id="eraRail" aria-label="Historical eras"></nav>
+    <nav class="era-rail" id="eraRail" aria-label="Concurrent research threads"></nav>
 
     <div class="controls" aria-label="Map controls">
       <button id="homeButton" type="button" aria-label="Reset view" title="Reset view">⌂</button>
       <button id="zoomIn" type="button" aria-label="Zoom in" title="Zoom in">+</button>
       <button id="zoomOut" type="button" aria-label="Zoom out" title="Zoom out">−</button>
+      <label class="zoom-slider" title="Zoom level"><span class="sr-only">Zoom level</span><input id="zoomRange" type="range" min="0" max="100" value="58" aria-label="Zoom level"></label>
     </div>
 
     <aside class="mini-guide" aria-hidden="true">
       <span class="pulse-dot"></span>
-      <div><b>25 milestones</b><small>Sorted chronologically</small></div>
+      <div><b>25 milestones</b><small>5 overlapping research threads</small></div>
     </aside>
 
     <section id="searchResults" class="search-results" aria-live="polite" hidden></section>
@@ -84,7 +66,7 @@
     <button class="dialog-close" type="button" aria-label="Close">×</button>
     <p class="eyebrow">About the project</p>
     <h2>Not a family tree - an evidence tree.</h2>
-    <p>Each branch records a question, method, observation, model shift, limitation, and the next question it created. The historical claims and references come from the two supplied source PDFs.</p>
+    <p>Each card records a question, method, observation, model shift, limitation, and the next question it created. The horizontal axis is approximate historical order. Colored lanes show concurrent research threads; dashed connectors mark selected conceptual links, not literal ancestry. The historical claims and references come from the two supplied source PDFs.</p>
     <p>Ancient evidence is incomplete, and several “first discovery” claims are disputed. The wording preserves those cautions instead of forcing a hero-only story.</p>
   </dialog>
 

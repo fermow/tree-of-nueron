@@ -25,7 +25,7 @@ PORT=9000 make up
 ## What is included
 
 - 25 milestones sorted chronologically from c. 700 BCE to 1952
-- an organic, zoomable and pannable evidence tree inspired by OneZoom
+- five concurrent, zoomable research threads with approximate chronological order from left to right
 - search by scientist, discovery, date, question, or concept
 - a dedicated detail page for every node
 - question, method, experimental steps, observation, result/model, limitation, next question, and references
@@ -35,14 +35,15 @@ PORT=9000 make up
 ## Controls
 
 - drag to move through the tree
-- scroll or use `+` / `-` to zoom
+- scroll, pinch, use `+` / `-`, or adjust the on-screen zoom slider
+- use the colored thread buttons to jump between lines of inquiry
 - press `/` to search
 - press `0` to reset the view
-- click a node to open its full evidence page in a new tab
+- click a card to open its full evidence page; use the back link to return
 
 ## Content architecture
 
-All historical content lives in [`assets/data.js`](assets/data.js). Add another object to the `events` array and supply an `era` plus one or more reference IDs; the explorer and detail view update automatically.
+All historical content lives in [`assets/data.js`](assets/data.js). Add another object to the `events` array and supply an `era` plus one or more reference IDs. For placement on the map, also add its id and approximate horizontal coordinate to `xById` in [`assets/tree.js`](assets/tree.js); the detail view then updates automatically. Coordinates reflect approximate order, not a proportional time scale. Colored horizontal paths indicate overlapping research, and dashed cross-links are selected conceptual relationships, not direct ancestry.
 
 The supplied PDFs were used as the source corpus. They are not duplicated in this repository; the site contains the structured historical content and human-readable links to the cited primary and secondary references.
 

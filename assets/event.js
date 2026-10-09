@@ -28,6 +28,11 @@
           <p class="detail-kicker"><i></i>${escapeHtml(era.label)} · milestone ${String(index + 1).padStart(2, "0")} of ${events.length}</p>
           <h1>${escapeHtml(event.title)}</h1>
           <p class="detail-summary">${escapeHtml(event.summary)}</p>
+          <dl class="detail-facts">
+            <div><dt>Researcher / tradition</dt><dd>${escapeHtml(event.person)}</dd></div>
+            <div><dt>Date</dt><dd>${escapeHtml(event.date)}</dd></div>
+            <div><dt>Research thread</dt><dd>${escapeHtml(era.label)}</dd></div>
+          </dl>
         </div>
         <div class="hero-stamp" aria-label="${escapeHtml(event.date)}, ${escapeHtml(event.person)}">
           <div><div class="stamp-date">${escapeHtml(event.date)}</div><div class="stamp-person">${escapeHtml(event.person)}</div></div>
@@ -43,8 +48,8 @@
           </section>
 
           <section class="story-section">
-            <div class="section-label"><span>02</span>Method & experiment</div>
-            <h2>How was the question tested?</h2>
+            <div class="section-label"><span>02</span>Method & evidence</div>
+            <h2>How did they investigate it?</h2>
             <p>${escapeHtml(event.method)}</p>
             <ol class="experiment-steps">${event.steps.map(step => `<li>${escapeHtml(step)}</li>`).join("")}</ol>
           </section>

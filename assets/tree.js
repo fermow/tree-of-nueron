@@ -10,14 +10,24 @@
   const ns = "http://www.w3.org/2000/svg";
 
   const eraMap = Object.fromEntries(eras.map(era => [era.id, era]));
-  const points = events.map((event, index) => {
-    const x = 210 + index * 123;
-    const trunkY = 900 + Math.sin(index * .57) * 98 + Math.cos(index * .22) * 38;
-    const side = index % 2 === 0 ? -1 : 1;
-    const branchLength = 255 + ((index * 47) % 145);
-    const y = trunkY + side * branchLength;
-    return { event, index, x, trunkY, y, side, color: eraMap[event.era].color };
-  });
+  // Five concurrent lines of inquiry. Horizontal position follows approximate
+  // chronology; vertical position shows which kind of evidence was developing.
+  const laneY = { roots: 240, anatomy: 560, electricity: 880, cell: 1200, ions: 1520 };
+  const xById = {
+    "word-before-cell": 370, alcmaeon: 690, "sacred-disease": 1010,
+    aristotle: 1330, herophilus: 1650, galen: 1970,
+    vesalius: 2300, willis: 2620, "leeuwenhoek-fontana": 2940,
+    galvani: 3260, volta: 3580, nobili: 3900,
+    "remak-schwann": 4210, matteucci: 4210, "du-bois-reymond": 4530,
+    helmholtz: 4850, deiters: 4850, golgi: 5170,
+    "cajal-waldeyer": 5490, names: 5810, overton: 6130,
+    bernstein: 6450, "hodgkin-huxley-1939": 6770,
+    "hodgkin-katz-1949": 7090, "hodgkin-huxley-1952": 7410
+  };
+  const world = { width: 7800, height: 1840 };
+  const card = { width: 276, height: 210 };
+  const points = events.map((event, index) => ({ event, index, x: xById[event.id], y: laneY[event.era], color: eraMap[event.era].color }));
+  const pointMap = Object.fromEntries(points.map(point => [point.event.id, point]));
 
   const create = (name, attrs = {}, text = "") => {
     const element = document.createElementNS(ns, name);
@@ -26,65 +36,82 @@
     return element;
   };
 
-  const trunkPath = points.reduce((path, p, index) => {
-    if (!index) return `M ${p.x} ${p.trunkY}`;
-    const previous = points[index - 1];
-    const mid = (previous.x + p.x) / 2;
-    return `${path} C ${mid} ${previous.trunkY}, ${mid} ${p.trunkY}, ${p.x} ${p.trunkY}`;
-  }, "");
-
-  branchLayer.append(
-    create("path", { d: trunkPath, class: "trunk-under", "stroke-width": 112 }),
-    create("path", { d: trunkPath, class: "trunk", "stroke-width": 82 })
-  );
-
-  points.forEach((p, index) => {
-    const bendX = p.x + (index % 3 - 1) * 24;
-    const bendY = p.trunkY + (p.y - p.trunkY) * .58;
-    const twigPath = `M ${p.x} ${p.trunkY} Q ${bendX} ${bendY}, ${p.x} ${p.y}`;
-    const width = Math.max(15, 34 - index * .42);
-    branchLayer.append(
-      create("path", { d: twigPath, class: "twig-under", "stroke-width": width + 15 }),
-      create("path", { d: twigPath, class: "twig", stroke: p.color, "stroke-width": width })
-    );
-
-    const link = create("a", {
-      href: `event.html?id=${encodeURIComponent(p.event.id)}`,
-      target: "_blank",
-      rel: "noopener",
-      class: "event-link",
-      "aria-label": `${p.event.date}: ${p.event.title}. Open full milestone in a new page.`
-    });
-    const group = create("g", {
-      class: "event-node",
-      transform: `translate(${p.x} ${p.y})`,
-      "data-id": p.event.id,
-      "data-era": p.event.era,
-      style: `--node-color:${p.color}`
-    });
-    group.append(
-      create("circle", { r: 86, class: "node-halo", stroke: p.color }),
-      create("circle", { r: 73, class: "node-disc", stroke: p.color })
-    );
-
-    const year = shortDate(p.event.date);
-    group.append(create("text", { y: -28, class: "node-year" }, year));
-    wrapTitle(p.event.title, 19).forEach((line, lineIndex, all) => {
-      const y = all.length === 1 ? 4 : -1 + lineIndex * 17;
-      group.append(create("text", { y, class: "node-title" }, line));
-    });
-    const person = p.event.person.length > 28 ? `${p.event.person.slice(0, 26)}…` : p.event.person;
-    group.append(create("text", { y: 51, class: "node-person" }, person));
-    link.append(group);
-    nodeLayer.append(link);
+  // A thin connector within each lane denotes a research thread, while dashed
+  // cross-lane links denote selected conceptual influences, not ancestry.
+  eras.forEach(era => {
+    const y = laneY[era.id];
+    const lane = points.filter(point => point.event.era === era.id);
+    branchLayer.append(create("path", { d: `M 170 ${y} H ${world.width - 170}`, class: "lane-guide" }));
+    for (let i = 1; i < lane.length; i++) {
+      const before = lane[i - 1], after = lane[i];
+      branchLayer.append(create("path", {
+        d: `M ${before.x + card.width / 2 + 10} ${y} H ${after.x - card.width / 2 - 10}`,
+        class: "thread-link", stroke: era.color
+      }));
+    }
+  });
+  const crossLinks = [
+    ["herophilus", "galen"], ["nobili", "matteucci"],
+    ["remak-schwann", "deiters"], ["du-bois-reymond", "bernstein"],
+    ["overton", "bernstein"], ["bernstein", "hodgkin-huxley-1939"]
+  ];
+  crossLinks.forEach(([source, target]) => {
+    const a = pointMap[source], b = pointMap[target];
+    if (a.event.era === b.event.era) return;
+    const direction = Math.sign(b.y - a.y);
+    const startY = a.y + direction * (card.height / 2 + 8);
+    const endY = b.y - direction * (card.height / 2 + 8);
+    const midY = (startY + endY) / 2;
+    branchLayer.append(create("path", {
+      d: `M ${a.x} ${startY} C ${a.x + 30} ${midY}, ${b.x - 30} ${midY}, ${b.x} ${endY}`,
+      class: "cross-link"
+    }));
   });
 
-  eras.forEach((era, eraIndex) => {
+  points.forEach(p => {
+    const foreign = create("foreignObject", {
+      x: p.x - card.width / 2, y: p.y - card.height / 2,
+      width: card.width, height: card.height, class: "node-foreign"
+    });
+    const link = document.createElementNS("http://www.w3.org/1999/xhtml", "a");
+    link.className = "history-card event-link";
+    link.href = `event.html?id=${encodeURIComponent(p.event.id)}`;
+    link.dataset.id = p.event.id;
+    link.dataset.era = p.event.era;
+    link.style.setProperty("--node-color", p.color);
+    link.setAttribute("aria-label", `${p.event.date}: ${p.event.title} — ${p.event.person}. Read the full experiment.`);
+    const top = document.createElementNS("http://www.w3.org/1999/xhtml", "span");
+    top.className = "card-top";
+    const date = document.createElementNS("http://www.w3.org/1999/xhtml", "span");
+    date.className = "card-date";
+    date.textContent = p.event.date;
+    const number = document.createElementNS("http://www.w3.org/1999/xhtml", "span");
+    number.className = "card-number";
+    number.textContent = String(p.index + 1).padStart(2, "0");
+    top.append(date, number);
+    const title = document.createElementNS("http://www.w3.org/1999/xhtml", "strong");
+    title.className = "card-title";
+    title.textContent = p.event.title;
+    const bottom = document.createElementNS("http://www.w3.org/1999/xhtml", "span");
+    bottom.className = "card-bottom";
+    const person = document.createElementNS("http://www.w3.org/1999/xhtml", "span");
+    person.className = "card-scientist";
+    person.textContent = p.event.person;
+    const arrow = document.createElementNS("http://www.w3.org/1999/xhtml", "span");
+    arrow.textContent = "↗";
+    bottom.append(person, arrow);
+    link.append(top, title, bottom);
+    foreign.append(link);
+    nodeLayer.append(foreign);
+  });
+
+  eras.forEach(era => {
     const first = points.find(point => point.event.era === era.id);
-    const label = create("g", { class: "era-label", transform: `translate(${first.x - 20} ${eraIndex % 2 ? 1080 : 725})` });
+    const label = create("g", { class: "thread-label", transform: `translate(${first.x - card.width / 2} ${first.y - 155})` });
     label.append(
-      create("text", { class: "era-name" }, era.label),
-      create("text", { y: 24, class: "era-range" }, era.range)
+      create("circle", { r: 8, cx: 8, cy: -7, fill: era.color }),
+      create("text", { x: 25, class: "thread-name" }, era.label),
+      create("text", { x: 25, y: 22, class: "thread-range" }, era.range)
     );
     eraLabelLayer.append(label);
 
@@ -92,60 +119,44 @@
     chip.type = "button";
     chip.className = "era-chip";
     chip.style.setProperty("--era-color", era.color);
-    chip.innerHTML = `<i></i>${era.label}`;
+    chip.innerHTML = `<i></i><span>${era.label}</span>`;
+    chip.title = `${era.label} (${era.range})`;
     chip.addEventListener("click", () => {
       document.querySelectorAll(".era-chip").forEach(el => el.classList.remove("active"));
       chip.classList.add("active");
-      focusAt(first.x, first.trunkY, 1380, 780);
+      focusAt(first.x + 680, first.y, 1700);
       document.getElementById("introCard").classList.add("dismissed");
     });
     eraRail.append(chip);
   });
 
-  function shortDate(date) {
-    if (date.includes("BCE")) return date.replace("century", "c.").split("-")[0].replace("c. ", "") + " BCE";
-    const years = date.match(/\d{3,4}/g);
-    return years ? years[years.length - 1] : date;
-  }
-
-  function wrapTitle(text, max) {
-    const words = text.split(" ");
-    const lines = [];
-    let line = "";
-    words.forEach(word => {
-      const candidate = line ? `${line} ${word}` : word;
-      if (candidate.length > max && line) {
-        lines.push(line);
-        line = word;
-      } else line = candidate;
-    });
-    if (line) lines.push(line);
-    if (lines.length > 2) return [lines[0], `${lines.slice(1).join(" ").slice(0, max - 1)}…`];
-    return lines;
-  }
-
-  let camera = { x: 0, y: 80, w: 3200, h: 1600 };
+  let camera = { x: 100, y: 35, w: 2100, h: 1100 };
   let animationFrame = null;
-  const bounds = { minW: 620, maxW: 3550, minX: -120, maxX: 3350, minY: -80, maxY: 1880 };
+  const bounds = { minW: 670, maxW: world.width };
 
   function applyCamera() {
     const ratio = svg.clientWidth / Math.max(1, svg.clientHeight);
     camera.h = camera.w / ratio;
-    camera.x = Math.min(bounds.maxX - camera.w * .55, Math.max(bounds.minX - camera.w * .05, camera.x));
-    camera.y = Math.min(bounds.maxY - camera.h * .55, Math.max(bounds.minY - camera.h * .05, camera.y));
+    camera.x = Math.max(-140, Math.min(world.width - camera.w + 140, camera.x));
+    camera.y = Math.max(-70, Math.min(world.height - camera.h + 70, camera.y));
     svg.setAttribute("viewBox", `${camera.x} ${camera.y} ${camera.w} ${camera.h}`);
+    const zoomRange = document.getElementById("zoomRange");
+    if (zoomRange) {
+      const amount = Math.log(bounds.maxW / camera.w) / Math.log(bounds.maxW / bounds.minW);
+      zoomRange.value = String(Math.round(Math.max(0, Math.min(1, amount)) * 100));
+    }
   }
 
-  function focusAt(cx, cy, width = 1200, height = null) {
+  function focusAt(cx, cy, width = 1700) {
     const ratio = svg.clientWidth / Math.max(1, svg.clientHeight);
     const targetW = Math.max(bounds.minW, Math.min(bounds.maxW, width));
-    const targetH = height || targetW / ratio;
+    const targetH = targetW / ratio;
     const start = { ...camera };
     const target = { x: cx - targetW / 2, y: cy - targetH / 2, w: targetW, h: targetH };
     const started = performance.now();
     cancelAnimationFrame(animationFrame);
     const animate = now => {
-      const t = Math.min(1, (now - started) / 650);
+      const t = Math.min(1, (now - started) / 420);
       const eased = 1 - Math.pow(1 - t, 3);
       camera = {
         x: start.x + (target.x - start.x) * eased,
@@ -159,8 +170,11 @@
     animationFrame = requestAnimationFrame(animate);
   }
 
-  function zoom(factor, clientX = svg.clientWidth / 2, clientY = svg.clientHeight / 2) {
+  function zoom(factor, clientX, clientY) {
+    cancelAnimationFrame(animationFrame);
     const rect = svg.getBoundingClientRect();
+    clientX ??= rect.left + rect.width / 2;
+    clientY ??= rect.top + rect.height / 2;
     const fx = (clientX - rect.left) / rect.width;
     const fy = (clientY - rect.top) / rect.height;
     const oldW = camera.w;
@@ -176,14 +190,23 @@
 
   svg.addEventListener("wheel", event => {
     event.preventDefault();
-    zoom(event.deltaY > 0 ? 1.12 : .89, event.clientX, event.clientY);
+    if (Math.abs(event.deltaX) > Math.abs(event.deltaY) && !event.ctrlKey) {
+      camera.x += event.deltaX * camera.w / svg.clientWidth;
+      camera.y += event.deltaY * camera.h / svg.clientHeight;
+      applyCamera();
+      return;
+    }
+    const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? svg.clientHeight : 1;
+    const factor = Math.exp(Math.max(-180, Math.min(180, event.deltaY * unit)) * .0018);
+    zoom(factor, event.clientX, event.clientY);
   }, { passive: false });
 
   let drag = null;
-  let moved = false;
   svg.addEventListener("pointerdown", event => {
+    // Capturing the pointer on a link suppresses the native click event.
+    if (event.target.closest(".event-link")) return;
+    cancelAnimationFrame(animationFrame);
     drag = { x: event.clientX, y: event.clientY, cameraX: camera.x, cameraY: camera.y };
-    moved = false;
     svg.setPointerCapture(event.pointerId);
     svg.classList.add("dragging");
   });
@@ -191,7 +214,6 @@
     if (!drag) return;
     const dx = event.clientX - drag.x;
     const dy = event.clientY - drag.y;
-    if (Math.abs(dx) + Math.abs(dy) > 5) moved = true;
     camera.x = drag.cameraX - dx * camera.w / svg.clientWidth;
     camera.y = drag.cameraY - dy * camera.h / svg.clientHeight;
     applyCamera();
@@ -199,22 +221,25 @@
   const endDrag = () => { drag = null; svg.classList.remove("dragging"); };
   svg.addEventListener("pointerup", endDrag);
   svg.addEventListener("pointercancel", endDrag);
-  nodeLayer.addEventListener("click", event => { if (moved) event.preventDefault(); });
-
-  document.getElementById("zoomIn").addEventListener("click", () => zoom(.78));
-  document.getElementById("zoomOut").addEventListener("click", () => zoom(1.28));
+  document.getElementById("zoomIn").addEventListener("click", () => zoom(.72));
+  document.getElementById("zoomOut").addEventListener("click", () => zoom(1.39));
   document.getElementById("homeButton").addEventListener("click", () => {
-    focusAt(1600, 900, 3200, 1600);
+    focusAt(world.width / 2, world.height / 2, bounds.maxW);
     document.querySelectorAll(".era-chip").forEach(el => el.classList.remove("active"));
   });
   document.getElementById("beginButton").addEventListener("click", () => {
     document.getElementById("introCard").classList.add("dismissed");
-    focusAt(points[1].x + 180, points[1].trunkY, 1250, 730);
+    focusAt(1060, 400, 1700);
+  });
+  document.getElementById("zoomRange")?.addEventListener("input", event => {
+    const amount = Number(event.target.value) / 100;
+    const targetW = bounds.maxW * (bounds.minW / bounds.maxW) ** amount;
+    zoom(targetW / camera.w);
   });
 
   function runSearch(query) {
     const normalized = query.trim().toLowerCase();
-    const nodeEls = [...document.querySelectorAll(".event-node")];
+    const nodeEls = [...document.querySelectorAll(".history-card")];
     if (!normalized) {
       searchResults.hidden = true;
       nodeEls.forEach(node => node.classList.remove("dimmed", "match"));
@@ -229,7 +254,7 @@
     searchResults.hidden = false;
     searchResults.innerHTML = matches.length ? matches.slice(0, 8).map(event => {
       const era = eraMap[event.era];
-      return `<a class="search-result" href="event.html?id=${encodeURIComponent(event.id)}" target="_blank" rel="noopener" style="--result-color:${era.color}"><b class="result-year">${shortDate(event.date)}</b><span><b>${escapeHtml(event.title)}</b><small>${escapeHtml(event.person)}</small></span><b class="arrow">↗</b></a>`;
+      return `<a class="search-result" href="event.html?id=${encodeURIComponent(event.id)}" style="--result-color:${era.color}"><b class="result-year">${escapeHtml(event.date)}</b><span><b>${escapeHtml(event.title)}</b><small>${escapeHtml(event.person)}</small></span><b class="arrow">→</b></a>`;
     }).join("") : `<div class="empty-results">No branch matches “${escapeHtml(query)}”.</div>`;
   }
 
@@ -243,9 +268,9 @@
   });
   document.addEventListener("keydown", event => {
     if (event.key === "/" && document.activeElement !== searchInput) { event.preventDefault(); searchInput.focus(); }
-    if ((event.key === "+" || event.key === "=") && document.activeElement !== searchInput) zoom(.82);
-    if (event.key === "-" && document.activeElement !== searchInput) zoom(1.22);
-    if (event.key === "0" && document.activeElement !== searchInput) focusAt(1600, 900, 3200, 1600);
+    if ((event.key === "+" || event.key === "=") && document.activeElement !== searchInput) zoom(.72);
+    if (event.key === "-" && document.activeElement !== searchInput) zoom(1.39);
+    if (event.key === "0" && document.activeElement !== searchInput) focusAt(world.width / 2, world.height / 2, bounds.maxW);
   });
 
   const aboutDialog = document.getElementById("aboutDialog");
