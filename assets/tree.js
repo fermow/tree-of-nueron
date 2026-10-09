@@ -12,6 +12,7 @@
   const ns = "http://www.w3.org/2000/svg";
 
   const eraMap = Object.fromEntries(eras.map(era => [era.id, era]));
+  const graph = window.NEURON_GRAPH;
   // Five concurrent lines of inquiry. Horizontal position follows approximate
   // chronology; vertical position shows which kind of evidence was developing.
   const laneY = { roots: 240, anatomy: 560, electricity: 880, cell: 1200, ions: 1520 };
@@ -19,7 +20,7 @@
     "word-before-cell": 370, alcmaeon: 690, "sacred-disease": 1010,
     aristotle: 1330, herophilus: 1650, galen: 1970,
     vesalius: 2300, willis: 2620, "leeuwenhoek-fontana": 2940,
-    "electrical-medicine": 3260, "haller-irritability": 3580,
+    "electrical-medicine": 3380, "haller-irritability": 3580,
     "walsh-electric-fish": 3900, "galvani-deliberate": 4220,
     "galvani-distant-spark": 4540, galvani: 4860, volta: 5180,
     nobili: 5500, "remak-schwann": 5810, matteucci: 5810,
@@ -30,7 +31,11 @@
   };
   const world = { width: 9400, height: 1840 };
   const card = { width: 276, height: 210 };
-  const points = events.map((event, index) => ({ event, index, x: xById[event.id], y: laneY[event.era], color: eraMap[event.era].color }));
+  const points = events.map((event, index) => ({
+    event, index, x: graph.positions[event.id]?.x ?? xById[event.id],
+    y: graph.positions[event.id]?.y ?? laneY[event.era],
+    color: graph.colors[event.id] ?? eraMap[event.era].color
+  }));
   const pointMap = Object.fromEntries(points.map(point => [point.event.id, point]));
   const terms = window.NEURON_TERMS.items;
 
@@ -41,37 +46,73 @@
     return element;
   };
 
-  // A thin connector within each lane denotes a research thread, while dashed
-  // cross-lane links denote selected conceptual influences, not ancestry.
-  eras.forEach(era => {
-    const y = laneY[era.id];
-    const lane = points.filter(point => point.event.era === era.id);
-    branchLayer.append(create("path", { d: `M 170 ${y} H ${world.width - 170}`, class: "lane-guide" }));
-    for (let i = 1; i < lane.length; i++) {
-      const before = lane[i - 1], after = lane[i];
+  // Every solid segment has a named source and target. The old full-width
+  // rails implied a single uninterrupted history and obscured parallel work.
+  const left = p => p.x - card.width / 2 - 10;
+  const right = p => p.x + card.width / 2 + 10;
+  const curve = (x1, y1, x2, y2) => {
+    const bend = Math.max(18, (x2 - x1) * .46);
+    return `M ${x1} ${y1} C ${x1 + bend} ${y1}, ${x2 - bend} ${y2}, ${x2} ${y2}`;
+  };
+  graph.strands.forEach(strand => {
+    strand.links.forEach(([from, to]) => {
+      const a = pointMap[from], b = pointMap[to];
       branchLayer.append(create("path", {
-        d: `M ${before.x + card.width / 2 + 10} ${y} H ${after.x - card.width / 2 - 10}`,
-        class: "thread-link", stroke: era.color
+        d: curve(right(a), a.y, left(b), b.y), class: "evidence-link",
+        stroke: eraMap[strand.color].color
       }));
-    }
+    });
   });
-  const crossLinks = [
-    ["herophilus", "galen"], ["willis", "electrical-medicine"],
-    ["nobili", "matteucci"],
-    ["remak-schwann", "deiters"], ["du-bois-reymond", "bernstein"],
-    ["overton", "bernstein"], ["bernstein", "hodgkin-huxley-1939"]
-  ];
-  crossLinks.forEach(([source, target]) => {
-    const a = pointMap[source], b = pointMap[target];
-    if (a.event.era === b.event.era) return;
-    const direction = Math.sign(b.y - a.y);
-    const startY = a.y + direction * (card.height / 2 + 8);
-    const endY = b.y - direction * (card.height / 2 + 8);
-    const midY = (startY + endY) / 2;
-    branchLayer.append(create("path", {
-      d: `M ${a.x} ${startY} C ${a.x + 30} ${midY}, ${b.x - 30} ${midY}, ${b.x} ${endY}`,
-      class: "cross-link"
+
+  // A shared research question branches into three independent approaches.
+  // They meet at Galvani's planned experiment; no direct influence among
+  // the three investigators is implied by their visual order.
+  const fork = graph.fork;
+  branchLayer.append(create("path", {
+    d: `M ${fork.x} ${fork.top} V ${fork.bottom}`, class: "fork-spine"
+  }));
+  fork.branches.forEach((id, i) => {
+    const target = pointMap[id];
+    branchLayer.append(create("circle", {
+      cx: fork.x, cy: target.y, r: 8, class: "fork-point", fill: target.color
     }));
+    branchLayer.append(create("path", {
+      d: curve(fork.x + 8, target.y, left(target), target.y),
+      class: "evidence-link", stroke: target.color
+    }));
+  });
+  const join = pointMap[fork.join];
+  const joinX = left(join) - 18;
+  fork.branches.forEach((id, i) => {
+    const source = pointMap[id];
+    const fromBelow = id === "walsh-electric-fish";
+    branchLayer.append(create("path", {
+      d: curve(fromBelow ? source.x + 45 : right(source),
+        fromBelow ? source.y + card.height / 2 + 10 : source.y, joinX, join.y),
+      class: "evidence-link", stroke: source.color
+    }));
+  });
+  branchLayer.append(create("circle", { cx: joinX, cy: join.y, r: 10, class: "join-point" }));
+  branchLayer.append(create("path", {
+    d: `M ${joinX + 10} ${join.y} H ${left(join)}`,
+    class: "evidence-link", stroke: eraMap.electricity.color
+  }));
+  eraLabelLayer.append(create("text", {
+    x: joinX - 94, y: join.y - 145, class: "join-label"
+  }, "EVIDENCE MEETS"));
+  const forkLabel = create("g", { class: "question-label", transform: `translate(${fork.x + 25} ${fork.bottom + 170})` });
+  forkLabel.append(create("text", { x: 0, y: 0 }, fork.label),
+    create("text", { x: 0, y: 22, class: "question-caption" }, "Three concurrent approaches · 1740s–1770s"));
+  eraLabelLayer.append(forkLabel);
+
+  // Dotted bridges summarize ideas brought together later, not direct
+  // scientist-to-scientist influence. Route the long one below cell cards.
+  graph.bridges.forEach(([from, to]) => {
+    const a = pointMap[from], b = pointMap[to];
+    const d = from === "du-bois-reymond"
+      ? `M ${right(a)} ${a.y} C ${right(a) + 50} ${a.y + 10}, ${right(a) + 65} 1370, ${right(a) + 120} 1370 H ${left(b) - 135} Q ${left(b) - 22} 1370 ${left(b)} ${b.y}`
+      : curve(right(a), a.y, left(b), b.y);
+    branchLayer.append(create("path", { d, class: "concept-link" }));
   });
 
   points.forEach(p => {
@@ -95,6 +136,9 @@
     number.className = "card-number";
     number.textContent = String(p.index + 1).padStart(2, "0");
     top.append(date, number);
+    const topic = document.createElementNS("http://www.w3.org/1999/xhtml", "span");
+    topic.className = "card-topic";
+    topic.textContent = graph.topics[p.event.id] || eraMap[p.event.era].label;
     const title = document.createElementNS("http://www.w3.org/1999/xhtml", "strong");
     title.className = "card-title";
     title.textContent = p.event.title;
@@ -106,7 +150,7 @@
     const arrow = document.createElementNS("http://www.w3.org/1999/xhtml", "span");
     arrow.textContent = "↗";
     bottom.append(person, arrow);
-    link.append(top, title, bottom);
+    link.append(top, topic, title, bottom);
     foreign.append(link);
     nodeLayer.append(foreign);
   });
@@ -160,7 +204,8 @@
     chip.addEventListener("click", () => {
       document.querySelectorAll(".era-chip").forEach(el => el.classList.remove("active"));
       chip.classList.add("active");
-      focusAt(first.x + 680, first.y, 1700);
+      focusAt(era.id === "electricity" ? 3800 : first.x + 680,
+        era.id === "electricity" ? 880 : first.y, 1700);
       document.getElementById("introCard").classList.add("dismissed");
     });
     eraRail.append(chip);
@@ -304,7 +349,7 @@
     searchResults.hidden = false;
     const eventResults = matches.map(event => {
       const era = eraMap[event.era];
-      return `<a class="search-result" href="event.html?id=${encodeURIComponent(event.id)}" style="--result-color:${era.color}"><b class="result-year">${escapeHtml(event.date)}</b><span><b>${escapeHtml(event.title)}</b><small>${escapeHtml(event.person)}</small></span><b class="arrow">→</b></a>`;
+      return `<a class="search-result" href="event.html?id=${encodeURIComponent(event.id)}" style="--result-color:${graph.colors[event.id] ?? era.color}"><b class="result-year">${escapeHtml(event.date)}</b><span><b>${escapeHtml(event.title)}</b><small>${escapeHtml(event.person)}</small></span><b class="arrow">→</b></a>`;
     });
     const wordResults = termMatches.map(term => `<a class="search-result" href="term.html?id=${encodeURIComponent(term.id)}" style="--result-color:#b15a72"><b class="result-year">${escapeHtml(term.date)}</b><span><b>${escapeHtml(term.word)}</b><small>Word history · ${escapeHtml(term.former)} → ${escapeHtml(term.current)}</small></span><b class="arrow">→</b></a>`);
     searchResults.innerHTML = eventResults.length || wordResults.length ? [...wordResults, ...eventResults].slice(0, 10).join("") : `<div class="empty-results">No branch matches “${escapeHtml(query)}”.</div>`;

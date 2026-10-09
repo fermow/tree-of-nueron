@@ -2,13 +2,14 @@ const fs = require("node:fs");
 const vm = require("node:vm");
 
 const context = { window: {} };
-for (const file of ["assets/data.js", "assets/research.js", "assets/terms.js"]) {
+for (const file of ["assets/data.js", "assets/research.js", "assets/terms.js", "assets/graph.js"]) {
   vm.runInNewContext(fs.readFileSync(file, "utf8"), context, { filename: file });
 }
 
 const { events, eras, references } = context.window.NEURON_HISTORY;
 const research = context.window.NEURON_RESEARCH;
 const terminology = context.window.NEURON_TERMS;
+const graph = context.window.NEURON_GRAPH;
 const detailCode = fs.readFileSync("assets/event.js", "utf8");
 const termCode = fs.readFileSync("assets/term.js", "utf8");
 const ids = new Set();
@@ -53,4 +54,17 @@ for (const term of terminology.items) {
   if (!["Where did the word come from?", "Names across the periods", "References"].every(label => root.innerHTML.includes(label))) throw new Error(`Incomplete word page: ${term.id}`);
 }
 for (const term of terminology.items) for (const related of term.related) if (!termIds.has(related)) throw new Error(`Broken word cross-link: ${term.id} → ${related}`);
+const byId = Object.fromEntries(events.map(event => [event.id, event]));
+const edges = graph.strands.flatMap(strand => strand.links).concat(graph.bridges);
+for (const strand of graph.strands) if (!eraIds.has(strand.color)) throw new Error(`Unknown graph category: ${strand.id}`);
+for (const [from, to] of edges) {
+  if (!byId[from] || !byId[to]) throw new Error(`Broken graph connection: ${from} → ${to}`);
+  if (byId[from].sort > byId[to].sort) throw new Error(`Backwards graph connection: ${from} → ${to}`);
+}
+if (!byId[graph.fork.join]) throw new Error("Missing fork convergence event");
+for (const id of graph.fork.branches) {
+  if (!byId[id] || byId[id].sort >= byId[graph.fork.join].sort) throw new Error(`Invalid parallel research branch: ${id}`);
+}
+if (new Set(graph.fork.branches.map(id => byId[id].sort)).size !== graph.fork.branches.length) throw new Error("Parallel branches have duplicate chronological positions");
+for (const id of Object.keys(graph.positions).concat(Object.keys(graph.topics), Object.keys(graph.colors))) if (!byId[id]) throw new Error(`Unknown graph position, topic or color: ${id}`);
 console.log(`${events.length} events and ${terminology.items.length} word histories have complete detail pages and valid references.`);

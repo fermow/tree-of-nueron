@@ -25,7 +25,7 @@ PORT=9000 make up
 ## What is included
 
 - 30 milestones sorted chronologically from c. 700 BCE to 1952
-- five concurrent, zoomable research threads with approximate chronological order from left to right
+- five named research categories and an explicit branching graph; electrical stimulation, muscle physiology, and electric-fish investigations meet at Galvani's planned experiment
 - 12 smaller terminology branches with separate etymology pages (from ancient neûron and Latin nervus to soma, dendrite, neuron, axon, and synapse)
 - search by scientist, discovery, date, question, or concept
 - a dedicated detail page for every node
@@ -46,7 +46,7 @@ PORT=9000 make up
 
 ## Content architecture
 
-All historical content lives in [`assets/data.js`](assets/data.js). Add another object to the `events` array and supply an `era` plus one or more reference IDs. For placement on the map, also add its id and approximate horizontal coordinate to `xById` in [`assets/tree.js`](assets/tree.js); the detail view then updates automatically. Coordinates reflect approximate order, not a proportional time scale. Colored horizontal paths indicate overlapping research, and dashed cross-links are selected conceptual relationships, not direct ancestry.
+All historical content lives in [`assets/data.js`](assets/data.js). Add another object to the `events` array and supply an `era` plus one or more reference IDs. For placement on the map, add its id and approximate horizontal coordinate to `xById` in [`assets/tree.js`](assets/tree.js). Define meaningful connections and optional position or topic overrides in [`assets/graph.js`](assets/graph.js). Coordinates reflect approximate order, not a proportional time scale. Solid paths show related evidence, the three-way branch before Galvani shows concurrent research contexts, and dotted bridges represent conceptual synthesis, not direct ancestry or proof of personal influence.
 
 The supplied PDFs are the core source corpus, supplemented where needed by linked historical scholarship and primary works. The pre-Galvani context, Galvani's 1780 laboratory program, and the 1781 distant-spark account rely especially on Piccolino's historical study and Galvani's 1791 publication. The PDFs are not duplicated in this repository; detail pages identify relevant PDF pages where applicable and link the cited primary and secondary references. The extra research notes are in [`assets/research.js`](assets/research.js). A historical reconstruction or summarized evidence sequence is not a complete laboratory replication protocol. Confidence statements distinguish support for a narrow observation from support for a broader historical model; they are qualitative, not numerical probabilities.
 

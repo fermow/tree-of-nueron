@@ -29,14 +29,14 @@
     <section class="intro-card" id="introCard">
       <p class="eyebrow">An evidence tree · c. 700 BCE-1952</p>
       <h1>How did a <em>cord</em><br>become a <em>neuron?</em></h1>
-      <p>Explore five overlapping lines of research and smaller word-history branches: how a cord, a cell and its parts acquired today's names.</p>
+      <p>Follow overlapping research paths. Some questions split into parallel experiments, then meet again as a new explanation takes shape.</p>
       <button id="beginButton" class="primary-button" type="button">Begin at the roots <span>→</span></button>
       <p class="microcopy">Drag to explore · Scroll or pinch to zoom · Click a large card or a small word node</p>
     </section>
 
     <svg id="tree" class="tree-canvas" viewBox="100 35 2100 1100" role="group" aria-labelledby="treeTitle treeDesc">
       <title id="treeTitle">Chronological tree of discoveries that formed the modern concept of the neuron</title>
-      <desc id="treeDesc">Twenty-five historical events and twelve smaller terminology nodes, ordered approximately from left to right. Click a card to read its explanation.</desc>
+      <desc id="treeDesc">Thirty historical events and twelve smaller terminology nodes, ordered approximately from left to right. Solid colored paths trace related evidence, including three parallel approaches that meet at Galvani's planned experiment. Dotted bridges indicate conceptual connections. Click a card to read its explanation.</desc>
       <rect width="9400" height="1840" fill="#F2EDE2"/>
       <g id="viewport">
         <g id="branches"></g>
@@ -58,7 +58,7 @@
 
     <aside class="mini-guide" aria-hidden="true">
       <span class="pulse-dot"></span>
-      <div><b>25 discoveries + 12 words</b><small>Small nodes trace names through time</small></div>
+      <div><b>30 events · 12 words</b><small>Solid paths connect evidence · dotted paths connect ideas</small></div>
     </aside>
 
     <section id="searchResults" class="search-results" aria-live="polite" hidden></section>
@@ -67,13 +67,14 @@
   <dialog id="aboutDialog" class="about-dialog">
     <button class="dialog-close" type="button" aria-label="Close">×</button>
     <p class="eyebrow">About the project</p>
-    <h2>Not a family tree - an evidence tree.</h2>
-    <p>Large cards record questions and evidence. Smaller nodes trace names such as nervus, soma, dendrite, axon and synapse through earlier descriptions. Their branches connect terminology to a related observation or synthesis. The horizontal axis is approximate historical order; colored lanes show overlapping research, and dashed connectors mark selected conceptual links.</p>
+    <h2>Research paths meet and branch.</h2>
+    <p>Large cards record questions and evidence; the label inside each card names its research topic. Solid colored connections follow related experiments and show a three-way fork before Galvani. Dotted connections show later concepts brought together, without claiming direct influence. Smaller pink nodes trace names such as nervus, soma, dendrite, axon and synapse. Left to right is approximate historical order, not a proportional time scale.</p>
     <p>Ancient evidence is incomplete, and several “first discovery” claims are disputed. The wording preserves those cautions instead of forcing a hero-only story.</p>
   </dialog>
 
   <script src="assets/data.js"></script>
   <script src="assets/terms.js"></script>
+  <script src="assets/graph.js"></script>
   <script src="assets/tree.js"></script>
 </body>
 </html>
