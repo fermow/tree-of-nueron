@@ -62,6 +62,12 @@ for (const term of terminology.items) {
 for (const term of terminology.items) for (const related of term.related) if (!termIds.has(related)) throw new Error(`Broken word cross-link: ${term.id} → ${related}`);
 const byId = Object.fromEntries(events.map(event => [event.id, event]));
 const edges = graph.strands.flatMap(strand => strand.links).concat(graph.bridges);
+const osmoticPath = ["nollet-osmosis", "dutrochet-osmosis", "nageli-cramer", "pfeffer-membrane", "overton"];
+for (let i = 1; i < osmoticPath.length; i++) {
+  if (!edges.some(([from, to]) => from === osmoticPath[i - 1] && to === osmoticPath[i])) {
+    throw new Error(`Broken osmosis pathway: ${osmoticPath[i - 1]} → ${osmoticPath[i]}`);
+  }
+}
 for (const strand of graph.strands) if (!eraIds.has(strand.color)) throw new Error(`Unknown graph category: ${strand.id}`);
 for (const [from, to] of edges) {
   if (!byId[from] || !byId[to]) throw new Error(`Broken graph connection: ${from} → ${to}`);

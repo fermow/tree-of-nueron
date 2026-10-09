@@ -20,13 +20,16 @@
     "word-before-cell": 370, alcmaeon: 690, "sacred-disease": 1010,
     aristotle: 1330, herophilus: 1650, galen: 1970,
     vesalius: 2300, willis: 2620, "leeuwenhoek-fontana": 2940,
-    "electrical-medicine": 3380, "haller-irritability": 3580,
+    "electrical-medicine": 3380, "nollet-osmosis": 3420,
+    "haller-irritability": 3580,
     "walsh-electric-fish": 3900, "galvani-deliberate": 4220,
     "galvani-distant-spark": 4540, galvani: 4860, volta: 5180,
-    nobili: 5500, "remak-schwann": 5810, matteucci: 5810,
+    nobili: 5500, "dutrochet-osmosis": 5500,
+    "remak-schwann": 5810, matteucci: 5810,
     "du-bois-reymond": 6130, helmholtz: 6450, deiters: 6450,
-    golgi: 6770, "cajal-waldeyer": 7090, names: 7410,
-    overton: 7730, bernstein: 8050, "hodgkin-huxley-1939": 8370,
+    "nageli-cramer": 6590, golgi: 6770, "pfeffer-membrane": 7090,
+    "cajal-waldeyer": 7090, names: 7410, overton: 7730,
+    bernstein: 8050, "hodgkin-huxley-1939": 8370,
     "hodgkin-katz-1949": 8690, "hodgkin-huxley-1952": 9010
   };
   const world = { width: 9400, height: 1840 };
@@ -100,7 +103,7 @@
   eraLabelLayer.append(create("text", {
     x: joinX - 94, y: join.y - 145, class: "join-label"
   }, "EVIDENCE MEETS"));
-  const forkLabel = create("g", { class: "question-label", transform: `translate(${fork.x + 25} ${fork.bottom + 170})` });
+  const forkLabel = create("g", { class: "question-label", transform: "translate(3900 1150)" });
   forkLabel.append(create("text", { x: 0, y: 0 }, fork.label),
     create("text", { x: 0, y: 22, class: "question-caption" }, "Three concurrent approaches · 1740s–1770s"));
   eraLabelLayer.append(forkLabel);

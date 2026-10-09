@@ -24,12 +24,12 @@ PORT=9000 make up
 
 ## What is included
 
-- 30 milestones sorted chronologically from c. 700 BCE to 1952
+- 34 milestones sorted chronologically from c. 700 BCE to 1952
 - five named research categories and an explicit branching graph; electrical stimulation, muscle physiology, and electric-fish investigations meet at Galvani's planned experiment
 - 12 smaller terminology branches with separate etymology pages (from ancient neûron and Latin nervus to soma, dendrite, neuron, axon, and synapse)
 - search by scientist, discovery, date, question, or concept
 - a dedicated detail page for every node
-- a visual evidence sketch for all 30 event pages and selected credited Wikimedia Commons historical images; if an image cannot load, its illustration remains visible
+- a visual evidence sketch for all 34 event pages and selected credited Wikimedia Commons historical images; if an image cannot load, its illustration remains visible
 - question, method, experimental steps, observation, result/model, limitation, next question, and references
 - for every milestone: why the question arose, the evidence type, a source-grounded procedure, what the result answers, and a qualitative assessment of its limits
 - responsive keyboard and touch controls
@@ -54,6 +54,8 @@ The supplied PDFs are the core source corpus, supplemented where needed by linke
 Terminology history lives in [`assets/terms.js`](assets/terms.js). Its nodes are smaller branches attached to related observations; their dates track documented usage or approximate periods, rather than implying every word was coined in one moment. In particular, the historical sources used here do not establish a precise first neuronal use of *soma*.
 
 The event page illustrations and image credits live in [`assets/visuals.js`](assets/visuals.js). Historical images load from Wikimedia Commons when online; captions distinguish original sources, later depictions and modern reconstructions. Each links to its Commons page for provenance and license. The three-part sketches are teaching abstractions, not facsimiles of historical apparatus.
+
+The osmosis and cell-boundary strand now starts with Nollet's natural-membrane observation (1748), continues through Dutrochet's endosmometer (1826), Nägeli and Cramer's plant-cell plasmolysis (1855), and Pfeffer's supported artificial membrane (1877), then reaches Overton's permeability comparisons (1895–1899). These are related questions, not one continuous experiment; especially, an animal bladder and an artificial copper-ferrocyanide film are not the living cell's lipid membrane.
 
 ## Validation
 

@@ -18,7 +18,11 @@ window.NEURON_GRAPH = {
     "walsh-electric-fish": "Animal electricity",
     "galvani-deliberate": "Nerve–muscle response",
     "galvani-distant-spark": "Distant stimulation",
-    galvani: "Animal electricity hypothesis"
+    galvani: "Animal electricity hypothesis",
+    "nollet-osmosis": "Natural membranes",
+    "dutrochet-osmosis": "Osmotic flow",
+    "nageli-cramer": "Cell plasmolysis",
+    "pfeffer-membrane": "Selective boundary"
   },
   // The three investigations are concurrent context for Galvani, not a
   // literal single predecessor. Their branches share a question marker.
@@ -49,6 +53,10 @@ window.NEURON_GRAPH = {
       ["golgi", "cajal-waldeyer"], ["cajal-waldeyer", "names"]
     ] },
     { id: "membrane", color: "ions", links: [
+      ["nollet-osmosis", "dutrochet-osmosis"],
+      ["dutrochet-osmosis", "nageli-cramer"],
+      ["nageli-cramer", "pfeffer-membrane"],
+      ["pfeffer-membrane", "overton"],
       ["overton", "bernstein"], ["bernstein", "hodgkin-huxley-1939"],
       ["hodgkin-huxley-1939", "hodgkin-katz-1949"],
       ["hodgkin-katz-1949", "hodgkin-huxley-1952"]

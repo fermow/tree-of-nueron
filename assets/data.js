@@ -10,7 +10,7 @@ window.NEURON_HISTORY = {
     { id: "anatomy", label: "Anatomy & function", range: "129-1781", color: "#54705A" },
     { id: "electricity", label: "Bioelectricity", range: "1740s-1850", color: "#B88A2D" },
     { id: "cell", label: "The neuron as a cell", range: "1836-1897", color: "#7B5F95" },
-    { id: "ions", label: "Membrane, ions & spike", range: "1895-1952", color: "#2F7180" }
+    { id: "ions", label: "Osmosis, membrane & spike", range: "1748-1952", color: "#2F7180" }
   ],
   references: {
     R1: { label: "Mehta et al. Etymology and the neuron(e). Brain (2020).", url: "https://doi.org/10.1093/brain/awz367" },
@@ -46,7 +46,12 @@ window.NEURON_HISTORY = {
     A7: { label: "Hodgkin & Huxley. A quantitative description of membrane current (1952).", url: "https://doi.org/10.1113/jphysiol.1952.sp004764" },
     A8: { label: "Hodgkin, Huxley & Katz. Measurement of current-voltage relations in giant squid axon (1952).", url: "https://doi.org/10.1113/jphysiol.1952.sp004716" },
     G1: { label: "Piccolino. Luigi Galvani's path to animal electricity. Comptes Rendus Biologies (2006).", url: "https://doi.org/10.1016/j.crvi.2006.03.002" },
-    G2: { label: "Galvani. De viribus electricitatis in motu musculari commentarius (1791). Smithsonian Libraries digitization.", url: "https://library.si.edu/digital-library/book/aloysiigalvanid00galv" }
+    G2: { label: "Galvani. De viribus electricitatis in motu musculari commentarius (1791). Smithsonian Libraries digitization.", url: "https://library.si.edu/digital-library/book/aloysiigalvanid00galv" },
+    M1: { label: "EBSCO. Nollet Discovers Osmosis; historical account of his 1748 experiment.", url: "https://www.ebsco.com/research-starters/chemistry/nollet-discovers-osmosis/" },
+    M2: { label: "Pickstone. Discovering the movement of life: osmosis and microstructure in Dutrochet (1994).", url: "https://pubmed.ncbi.nlm.nih.gov/7960449/" },
+    M3: { label: "Lyman et al. The lipid bilayer membrane and its protein constituents. Journal of General Physiology (2018), historical section.", url: "https://rupress.org/jgp/article/150/11/1472/120644/The-lipid-bilayer-membrane-and-its-protein" },
+    M4: { label: "Pfeffer. Osmotische Untersuchungen: Studien zur Zellmechanik (1877).", url: "https://wellcomecollection.org/works/fbffhdxt" },
+    M5: { label: "Embryo Project Encyclopedia. Pfeffer Cell Apparatus (2017).", url: "https://embryo.asu.edu/pages/pfeffer-cell-apparatus" }
   },
   events: [
     {
@@ -170,6 +175,18 @@ window.NEURON_HISTORY = {
       next: "Does the contracting force belong to muscle itself?", refs: ["G1"]
     },
     {
+      id: "nollet-osmosis", sort: 1748, date: "1748", person: "Jean-Antoine (Abbé) Nollet", era: "ions",
+      title: "Water crosses a natural membrane",
+      summary: "Water entered a vessel of alcohol closed with animal bladder, making the membrane bulge.",
+      question: "Can water pass through an animal membrane while the liquids on its two sides remain different?",
+      method: "A small vessel containing spirit of wine, sealed with moistened animal bladder and immersed in water.",
+      steps: ["Fill a vial with spirit of wine and fasten a damp bladder over its mouth.", "Submerge it in a larger vessel of water and wait several hours.", "Observe the tension and change in volume of the bladder covering the vial."],
+      observation: "The bladder became taut and convex as liquid entered the sealed vessel.",
+      result: "A natural membrane could participate in a directional movement of liquid, later understood as osmosis.",
+      limitation: "This was an animal bladder outside a living cell; the mechanism, composition and selectivity of a cell boundary were not established.",
+      next: "Could this flow be studied as a reproducible physical phenomenon?", refs: ["M1", "M3"]
+    },
+    {
       id: "haller-irritability", sort: 1753, date: "1752–1753", person: "Albrecht von Haller", era: "electricity",
       title: "Muscle has its own irritability",
       summary: "Haller distinguished the muscle's ability to contract from the nerve's sensitivity to stimulation.",
@@ -254,6 +271,18 @@ window.NEURON_HISTORY = {
       next: "Are nerve fibers themselves cellular structures?", refs: ["R12"]
     },
     {
+      id: "dutrochet-osmosis", sort: 1826, date: "1826", person: "René Joachim Henri Dutrochet", era: "ions",
+      title: "Osmosis becomes a physical question",
+      summary: "An endosmometer turned flow through a membrane into a visible change in liquid level.",
+      question: "Can the movement of liquid across a membrane help explain processes in plants and animals?",
+      method: "Place solutions on opposite sides of a membrane in a vessel connected to a narrow tube, then watch the liquid level.",
+      steps: ["Seal one end of a vessel with an animal membrane and fill it with a solution.", "Immerse the membrane in a different surrounding liquid.", "Watch fluid move through the membrane and the level in the attached tube change."],
+      observation: "Unequal solutions produced a measurable movement of liquid through the separating membrane.",
+      result: "Dutrochet described endosmosis and exosmosis and made membrane-mediated flow a subject of physical investigation.",
+      limitation: "He did not identify the molecular mechanism or demonstrate the structure of a living cell's boundary.",
+      next: "Do living cells show comparable behavior under osmotic stress?", refs: ["M2", "M5"]
+    },
+    {
       id: "remak-schwann", sort: 1837, date: "1836-1839", person: "Robert Remak & Theodor Schwann", era: "cell",
       title: "The nerve fiber enters Cell Theory",
       summary: "The fiber was reinterpreted as a solid, cell-related structure rather than a hollow tube.",
@@ -302,6 +331,18 @@ window.NEURON_HISTORY = {
       next: "What complete cellular structure carries this signal?", refs: ["R16"]
     },
     {
+      id: "nageli-cramer", sort: 1855, date: "1855", person: "Carl von Nägeli & Karl Cramer", era: "ions",
+      title: "Living cells reveal a pliable boundary",
+      summary: "Plant-cell contents shrank away from the wall in concentrated solutions and expanded again in dilute ones.",
+      question: "Does a living plant cell contain a flexible boundary distinct from its rigid cell wall?",
+      method: "Microscopic comparison of plant cells in concentrated and dilute salt or sugar solutions.",
+      steps: ["Observe plant cells before changing the surrounding solution.", "Increase external solute concentration and watch the protoplasm pull away from the wall.", "Return cells to a dilute solution and check whether volume recovers."],
+      observation: "The protoplasm changed shape with the surrounding concentration; isolated vacuoles also showed reversible volume changes.",
+      result: "Plasmolysis provided evidence for a deformable, selectively behaving boundary of living cell contents.",
+      limitation: "The membrane itself was not directly resolved or chemically identified; the cell wall and osmotic stress complicate interpretation.",
+      next: "Can such selectivity be modeled and measured with an artificial membrane?", refs: ["M3"]
+    },
+    {
       id: "deiters", sort: 1865, date: "1865", person: "Otto Deiters", era: "cell",
       title: "One cell body, short branches, one long process",
       summary: "Isolation and reconstruction assembled the recognizable geometry of a nerve cell.",
@@ -324,6 +365,18 @@ window.NEURON_HISTORY = {
       result: "Neuronal morphology could finally be followed at near-whole-cell scale.",
       limitation: "Golgi interpreted the processes as ultimately forming a continuous reticulum.",
       next: "Do the apparent endings actually remain separate?", refs: ["R18"]
+    },
+    {
+      id: "pfeffer-membrane", sort: 1877, date: "1877", person: "Wilhelm Pfeffer", era: "ions",
+      title: "A selective boundary becomes measurable",
+      summary: "A supported artificial semipermeable membrane made osmotic pressure measurable and informed the cell-boundary hypothesis.",
+      question: "Can a water-permeable barrier retain solutes and develop measurable pressure, as a cell appears to do?",
+      method: "Form a copper-ferrocyanide precipitation membrane within a porous porcelain cell, then measure pressure with a connected gauge.",
+      steps: ["Support a thin artificial membrane inside a porous porcelain vessel.", "Fill it with a sugar solution and immerse it in water.", "Measure the pressure that develops as water enters while much solute remains inside."],
+      observation: "Water entry produced a concentration-dependent pressure across the artificial barrier.",
+      result: "Selective transport could be tested quantitatively; Pfeffer also argued for a plasma membrane covering living protoplasm.",
+      limitation: "Traube developed earlier precipitation membranes. Pfeffer's artificial copper-ferrocyanide film was a model, not the chemical composition of a living cell membrane.",
+      next: "What is the living barrier made of, and why do some solutes cross more easily?", refs: ["M3", "M4", "M5"]
     },
     {
       id: "cajal-waldeyer", sort: 1889, date: "1888-1891", person: "Santiago Ramon y Cajal & Heinrich Waldeyer", era: "cell",

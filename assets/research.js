@@ -176,6 +176,34 @@ window.NEURON_RESEARCH = {
     answer: "A shared vocabulary made it possible to describe different parts and junctions without conflating them.",
     caution: "The origin and adoption of a term are different from discovery of the structure. A name cannot establish how a synapse transmits information.", source: "From ‘Fiber’ to ‘Neuron’, p. 9"
   },
+  "nollet-osmosis": {
+    kind: "Natural-membrane observation", strength: "Strong for the reported swelling; limited for the transport mechanism and its relevance to living cell boundaries.",
+    background: "Long before cell membranes were identified, experimenters could put liquids on opposite sides of an animal bladder and ask whether the separator let either one cross.",
+    procedure: "Nollet described filling a vial with spirit of wine, tying a wet piece of bladder over its mouth and submerging it in water. After several hours the bladder bulged. This is a historical account of his observation, not a modern quantitative permeability assay.",
+    answer: "A natural membrane could allow net liquid movement under these conditions, providing a concrete phenomenon later called osmosis.",
+    caution: "The bladder is not a cell membrane. Swelling alone does not show the exact molecular fluxes or a lipid boundary; simple claims that alcohol could not pass at all exceed what this observation measured.", source: "Nollet's 1748 report as discussed in M1; later membrane history M3"
+  },
+  "dutrochet-osmosis": {
+    kind: "Membrane flow and early osmometer", strength: "Strong for visible flow and reproducible liquid-level changes; limited for explaining all physiological water transport.",
+    background: "Nollet's membrane observation posed a physical question. Dutrochet studied how movement across a separator might contribute to phenomena in plants and animals.",
+    procedure: "Separate unequal liquids with an animal membrane in a vessel connected to a narrow measuring tube. Watch the height change as fluid passes and vary the liquids. Descriptions of the endosmometer summarize a research program rather than one standardized modern protocol.",
+    answer: "Membrane-mediated movement could be observed in an instrument and discussed as endosmosis and exosmosis, giving later cell studies a physical vocabulary.",
+    caution: "A height difference does not identify a living cell membrane's chemistry. Dutrochet's broader explanation of living movement was a historical interpretation, not a universal established mechanism.", source: "Pickstone 1994 (M2); Embryo Project account of early osmometers (M5)"
+  },
+  "nageli-cramer": {
+    kind: "Plant-cell plasmolysis microscopy", strength: "Strong for reversible shape and volume changes; indirect for the structure of an invisible boundary.",
+    background: "An artificial or animal membrane could carry fluid, but a rigid plant cell wall made it unclear whether the living contents had a separate flexible surface.",
+    procedure: "Place plant cells under a microscope, expose them to concentrated salt or sugar solution, then return them to a dilute solution. Compare protoplasm-wall separation and recovery; related tests examined isolated vacuoles.",
+    answer: "The living contents shrank from the wall and could expand again, supporting a pliable, selectively permeable boundary associated with the protoplasm.",
+    caution: "The observation did not image a lipid bilayer or prove one unique membrane model. Earlier related observations existed; 1855 marks the Nägeli–Cramer report, not the first occurrence of plasmolysis.", source: "Lyman et al. 2018 (M3), plasmolysis history"
+  },
+  "pfeffer-membrane": {
+    kind: "Artificial-membrane osmometry and cell-boundary interpretation", strength: "Strong for pressure across the supported artificial membrane; indirect for a specific living-cell membrane composition.",
+    background: "Plasmolysis suggested an invisible flexible barrier. Traube's artificial copper-ferrocyanide films offered a selective model, but unsupported films broke before pressure could be quantified well.",
+    procedure: "Pfeffer formed a copper-ferrocyanide film in a porous porcelain wall, filled the cell with sucrose solution, submerged it in water and read the pressure through an attached measuring tube. He compared conditions and used this system as an analogy for plant cells.",
+    answer: "A supported semipermeable barrier could retain some solutes while water entered and pressure developed. Pfeffer argued that living protoplasm likewise has a boundary or plasma membrane.",
+    caution: "The artificial film was not extracted from a cell; Pfeffer did not discover its lipid composition. The precipitation-membrane technique originated with Traube and should not be attributed to Pfeffer alone.", source: "Pfeffer 1877 (M4); Lyman et al. 2018 (M3); Embryo Project apparatus analysis (M5)"
+  },
   overton: {
     kind: "Comparative cell-permeability experiments", strength: "Strong for the broad permeability pattern; indirect for exact membrane structure.",
     background: "Scientists needed to explain why some substances entered cells readily while others caused osmotic shrinkage or swelling from outside.",
