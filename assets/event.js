@@ -69,6 +69,16 @@
         </div>
       </section>
 
+      ${event.id === "bernstein" ? `<section class="bernstein-synthesis" aria-label="Bernstein's synthesis and its limit">
+        <div class="map-heading"><b>THREE PATHS MEET · 1902</b><span>Conceptual map, not a claim of direct influence from every predecessor</span></div>
+        <div class="synthesis-paths">
+          <a href="event.html?id=bernstein-rheotome"><small>1868 · measurement</small><b>Traveling electrical change</b><span>What phenomenon needs an explanation?</span></a>
+          <a href="event.html?id=overton"><small>1895–1899 · cell biology</small><b>Selective cell boundary</b><span>Where can a gradient be maintained?</span></a>
+          <a href="event.html?id=nernst"><small>1889 · physical chemistry</small><b>Ion gradient → potential</b><span>How does the voltage depend on concentration?</span></a>
+        </div>
+        <div class="synthesis-model"><div><small>Modern ideal K⁺ equilibrium form · inside relative to outside</small><strong>Eₖ = (RT/F) ln([K⁺]out / [K⁺]in)</strong><p>T is absolute temperature; actual ion activities replace concentrations in the precise relation. This approximation assumes K⁺ dominates permeability.</p></div><div><small>Where the 1902 excitation model failed</small><strong>Negative rest → zero?</strong><p>Bernstein's simple loss-of-selectivity model stopped at zero. The later measured spike briefly went above zero; subsequent sodium experiments explained that peak.</p></div></div>
+      </section>` : ""}
+
       <div class="story-grid">
         <div class="story-main">
           ${research ? `<section class="story-section">

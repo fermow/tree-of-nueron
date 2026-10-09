@@ -57,6 +57,8 @@ The event page illustrations and image credits live in [`assets/visuals.js`](ass
 
 The osmosis and cell-boundary strand now starts with Nollet's natural-membrane observation (1748), continues through Dutrochet's endosmometer (1826), Nägeli and Cramer's plant-cell plasmolysis (1855), and Pfeffer's supported artificial membrane (1877), then reaches Overton's permeability comparisons (1895–1899). These are related questions, not one continuous experiment; especially, an animal bladder and an artificial copper-ferrocyanide film are not the living cell's lipid membrane.
 
+Bernstein's differential rheotome study (1868) and membrane hypothesis (1902) are separate milestones. The 1902 page maps three contributing paths: earlier electrical recordings, work on selective cell boundaries, and Nernst's electrochemical relation (1889). The temperature experiment measured a cut-to-intact frog-muscle injury current; it did not directly measure the intracellular resting voltage. The displayed K⁺ equilibrium equation is a modern teaching form under simplified assumptions, and the later positive overshoot exposed the limit of Bernstein's excitation proposal.
+
 ## Validation
 
 ```bash

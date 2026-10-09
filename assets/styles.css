@@ -357,6 +357,16 @@ kbd { padding: 2px 6px; border: 1px solid var(--line); border-radius: 5px; color
 .scene-symbol { flex: 1; display: grid; place-items: center; color: color-mix(in srgb, var(--hero-color) 70%, white); font: 600 59px var(--serif); }
 .scene-symbol svg { width: 82px; height: 72px; opacity: .75; }
 .scene-step strong { font: 600 22px/1.1 var(--serif); }
+.bernstein-synthesis { margin: 22px 0 12px; padding: clamp(22px,4vw,42px); border-radius: 28px; background: #e6efe9; border: 1px solid rgba(32,48,40,.12); }
+.synthesis-paths { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 14px; margin-top: 24px; }
+.synthesis-paths a { display: flex; flex-direction: column; gap: 12px; min-height: 148px; padding: 22px; border-radius: 18px; border: 1px solid rgba(32,48,40,.12); background: var(--white); text-decoration: none; }
+.synthesis-paths a:hover { border-color: var(--hero-color); }
+.synthesis-paths small, .synthesis-model small { color: var(--hero-color); font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+.synthesis-paths b { font: 600 22px/1.15 var(--serif); }
+.synthesis-paths span { color: var(--muted); font-size: 13px; line-height: 1.45; }
+.synthesis-model { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 24px; margin-top: 24px; padding-top: 23px; border-top: 1px solid rgba(32,48,40,.17); }
+.synthesis-model strong { display: block; margin-top: 12px; font: 600 clamp(19px,2.3vw,27px)/1.25 var(--serif); overflow-wrap: anywhere; }
+.synthesis-model p { margin-bottom: 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
 
 .visual-event .story-grid { display: block; padding: 55px 0 20px; }
 .visual-event .story-main { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 18px; }
@@ -383,7 +393,7 @@ kbd { padding: 2px 6px; border: 1px solid var(--line); border-radius: 5px; color
 }
 @media (max-width: 560px) {
   .archive-mat { height: 310px; min-height: 310px; }
-  .scene-steps, .visual-event .experiment-steps, .visual-event .story-side { grid-template-columns: 1fr; }
+  .scene-steps, .visual-event .experiment-steps, .visual-event .story-side, .synthesis-paths, .synthesis-model { grid-template-columns: 1fr; }
   .scene-step { min-height: 130px; }
   .scene-symbol { display: none; }
   .scene-step:not(:last-child)::after { right: 45%; top: auto; bottom: -23px; content: "↓"; }

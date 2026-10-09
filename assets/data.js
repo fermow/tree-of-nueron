@@ -51,7 +51,11 @@ window.NEURON_HISTORY = {
     M2: { label: "Pickstone. Discovering the movement of life: osmosis and microstructure in Dutrochet (1994).", url: "https://pubmed.ncbi.nlm.nih.gov/7960449/" },
     M3: { label: "Lyman et al. The lipid bilayer membrane and its protein constituents. Journal of General Physiology (2018), historical section.", url: "https://rupress.org/jgp/article/150/11/1472/120644/The-lipid-bilayer-membrane-and-its-protein" },
     M4: { label: "Pfeffer. Osmotische Untersuchungen: Studien zur Zellmechanik (1877).", url: "https://wellcomecollection.org/works/fbffhdxt" },
-    M5: { label: "Embryo Project Encyclopedia. Pfeffer Cell Apparatus (2017).", url: "https://embryo.asu.edu/pages/pfeffer-cell-apparatus" }
+    M5: { label: "Embryo Project Encyclopedia. Pfeffer Cell Apparatus (2017).", url: "https://embryo.asu.edu/pages/pfeffer-cell-apparatus" },
+    B1: { label: "Bernstein. Ueber den zeitlichen Verlauf der negativen Schwankung des Nervenstroms (1868), discussed in Schickore (2022).", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC9114097/" },
+    B2: { label: "Nernst. Die elektromotorische Wirksamkeit der Ionen (1889); Electrochemistry Encyclopedia historical entry.", url: "https://knowledge.electrochem.org/encycl/art-n02-nernst.htm" },
+    B3: { label: "Bernstein. Untersuchungen zur Thermodynamik der bioelektrischen Ströme (1902); historical analysis by Schickore (2022).", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC9114097/" },
+    B4: { label: "De Palma & Pareti. Bernstein's long path to membrane theory (2011).", url: "https://pubmed.ncbi.nlm.nih.gov/22003859/" }
   },
   events: [
     {
@@ -355,6 +359,18 @@ window.NEURON_HISTORY = {
       next: "Do nerve cells form one continuous reticulum or remain separate?", refs: ["R17", "R1"]
     },
     {
+      id: "bernstein-rheotome", sort: 1868, date: "1868 (expanded 1871)", person: "Julius Bernstein", era: "electricity",
+      title: "Slice time to see the traveling impulse",
+      summary: "A differential rheotome reconstructed the brief negative variation in frog nerve from many timed samples.",
+      question: "How quickly does the electrical change propagate, and does it travel with excitation?",
+      method: "Stimulate a frog nerve repeatedly; briefly connect its recording circuit to a slow galvanometer at successively varied delays after each stimulus.",
+      steps: ["Prepare a frog nerve and place recording contacts on it.", "Repeat comparable stimuli while the rheotome opens a narrow recording window at a chosen delay.", "Shift the delay to reconstruct the time course; repeat with different distances between stimulation and recording sites."],
+      observation: "The brief negative variation moved along the nerve with excitation; Bernstein estimated an average speed near 28.7 m/s in his preparations.",
+      result: "The electrical event could be timed and linked to impulse propagation. This was a measurement of the signal, before the 1902 ionic membrane explanation.",
+      limitation: "The reconstructed extracellular signal was not a direct intracellular membrane-voltage trace; its possible sign reversal remained historically contested.",
+      next: "What physical mechanism gives rise to the voltage that changes during an impulse?", refs: ["B1", "R16", "A1"]
+    },
+    {
       id: "golgi", sort: 1873, date: "1873", person: "Camillo Golgi", era: "cell",
       title: "The black reaction reveals whole cells",
       summary: "Sparse silver staining exposed almost complete neurons inside dense tissue.",
@@ -377,6 +393,18 @@ window.NEURON_HISTORY = {
       result: "Selective transport could be tested quantitatively; Pfeffer also argued for a plasma membrane covering living protoplasm.",
       limitation: "Traube developed earlier precipitation membranes. Pfeffer's artificial copper-ferrocyanide film was a model, not the chemical composition of a living cell membrane.",
       next: "What is the living barrier made of, and why do some solutes cross more easily?", refs: ["M3", "M4", "M5"]
+    },
+    {
+      id: "nernst", sort: 1889, date: "1889", person: "Walther Nernst", era: "ions",
+      title: "A concentration difference has a voltage",
+      summary: "Electrochemistry gave a quantitative relation between ion distribution, temperature and equilibrium potential.",
+      question: "What electrical potential balances an ion's tendency to diffuse down a concentration gradient?",
+      method: "Use thermodynamic and electrochemical reasoning about ionic solutions and electromotive force, then compare with electrochemical observations; this was not a nerve experiment.",
+      steps: ["Consider unequal ionic activities on opposite sides of an ion-selective interface.", "Balance the chemical drive to diffuse against the opposing electrical drive at equilibrium.", "Relate the equilibrium potential to absolute temperature and the logarithm of the activity ratio."],
+      observation: "Equilibrium voltage depends on temperature and the ratio of ionic activities, not just an absolute concentration.",
+      result: "For a K⁺-selective boundary, the modern inside-minus-outside convention gives Eₖ = (RT/F) ln(aₒᵤₜ/aᵢₙ). This supplied Bernstein with a quantitative tool.",
+      limitation: "A thermodynamic equilibrium relation alone does not establish which ions cross a living cell membrane or describe the changing spike.",
+      next: "Can a selective living boundary and a K⁺ gradient explain resting bioelectric voltage?", refs: ["B2", "R22", "B4"]
     },
     {
       id: "cajal-waldeyer", sort: 1889, date: "1888-1891", person: "Santiago Ramon y Cajal & Heinrich Waldeyer", era: "cell",
@@ -415,16 +443,16 @@ window.NEURON_HISTORY = {
       next: "Can unequal ion distributions across that membrane generate voltage?", refs: ["R21"]
     },
     {
-      id: "bernstein", sort: 1902, date: "1868 / 1902", person: "Julius Bernstein", era: "ions",
+      id: "bernstein", sort: 1902, date: "1902", person: "Julius Bernstein", era: "ions",
       title: "Membrane + ion gradient = voltage",
-      summary: "K+ gradients, selective permeability, and the Nernst relation became one physical model of resting potential.",
-      question: "What is the physical origin of nerve and muscle voltage?",
-      method: "Combine rheotome measurements, ion-distribution evidence, selective-membrane theory, and temperature tests of injury potential.",
-      steps: ["Measure electrical propagation with a differential rheotome.", "Record cut-versus-intact frog muscle under stable oil conditions.", "Vary temperature and compare voltage change with Nernst-style prediction."],
-      observation: "Electrical variation propagated with excitation, and potential changed with temperature as an ionic model predicted.",
-      result: "At rest the membrane was modeled as mainly permeable to K+, leaving the inside negative. Excitation was proposed to collapse selectivity toward zero.",
-      limitation: "The model predicted a return toward zero, but could not explain a positive overshoot or a specific Na+ role.",
-      next: "Does the real action potential stop at zero?", refs: ["R16", "R22", "R23", "R24", "A1"]
+      summary: "Selective membrane, K⁺ distribution and Nernst's relation became a physical model for resting voltage.",
+      question: "Can the unequal distribution of ions across a selective boundary explain the resting and injury potentials of muscle and nerve?",
+      method: "Measure the temperature dependence of the injury potential between the intact and cut surfaces of a frog muscle; interpret it with ionic thermodynamics.",
+      steps: ["Cut frog muscle; put one electrode on its cut end and another on its intact external surface.", "Immerse the preparation in oil and place a thermometer near the muscle.", "Change temperature, measure the electrical effect, and compare its temperature dependence with a Nernst-type prediction.", "Combine the result with evidence of intracellular K⁺ enrichment and selective cell-boundary permeability."],
+      observation: "The measured injury-current effect increased approximately linearly as temperature rose, consistent with the proposed ionic account.",
+      result: "Bernstein inferred a resting membrane primarily permeable to K⁺, giving an inside-negative potential. His excitation model proposed that loss of selectivity drives it toward zero.",
+      limitation: "An injury-current measurement is indirect evidence for resting membrane voltage. Temperature agreement does not uniquely prove K⁺ selectivity. A positive spike overshoot contradicts the simple zero-limit prediction.",
+      next: "Does the real action potential stop at zero or briefly become positive?", refs: ["B3", "B4", "R22", "R23", "A1"]
     },
     {
       id: "hodgkin-huxley-1939", sort: 1939, date: "21 October 1939", person: "A. L. Hodgkin & A. F. Huxley", era: "ions",

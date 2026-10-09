@@ -5,7 +5,9 @@ window.NEURON_GRAPH = {
     aristotle: { y: 560 },
     "electrical-medicine": { x: 3380, y: 880 },
     "haller-irritability": { y: 1200 },
-    "walsh-electric-fish": { y: 560 }
+    "walsh-electric-fish": { y: 560 },
+    "bernstein-rheotome": { x: 6610, y: 880 },
+    nernst: { x: 7440, y: 1520 }
   },
   colors: {
     "electrical-medicine": "#B88A2D",
@@ -22,7 +24,10 @@ window.NEURON_GRAPH = {
     "nollet-osmosis": "Natural membranes",
     "dutrochet-osmosis": "Osmotic flow",
     "nageli-cramer": "Cell plasmolysis",
-    "pfeffer-membrane": "Selective boundary"
+    "pfeffer-membrane": "Selective boundary",
+    "bernstein-rheotome": "Impulse timing",
+    nernst: "Ion equilibrium",
+    bernstein: "Research paths converge"
   },
   // The three investigations are concurrent context for Galvani, not a
   // literal single predecessor. Their branches share a question marker.
@@ -46,7 +51,8 @@ window.NEURON_GRAPH = {
       ["galvani-deliberate", "galvani-distant-spark"],
       ["galvani-distant-spark", "galvani"], ["galvani", "volta"],
       ["volta", "nobili"], ["nobili", "matteucci"],
-      ["matteucci", "du-bois-reymond"], ["du-bois-reymond", "helmholtz"]
+      ["matteucci", "du-bois-reymond"], ["du-bois-reymond", "helmholtz"],
+      ["du-bois-reymond", "bernstein-rheotome"]
     ] },
     { id: "cellular", color: "cell", links: [
       ["remak-schwann", "deiters"], ["deiters", "golgi"],
@@ -57,12 +63,13 @@ window.NEURON_GRAPH = {
       ["dutrochet-osmosis", "nageli-cramer"],
       ["nageli-cramer", "pfeffer-membrane"],
       ["pfeffer-membrane", "overton"],
-      ["overton", "bernstein"], ["bernstein", "hodgkin-huxley-1939"],
+      ["nernst", "bernstein"], ["overton", "bernstein"],
+      ["bernstein", "hodgkin-huxley-1939"],
       ["hodgkin-huxley-1939", "hodgkin-katz-1949"],
       ["hodgkin-katz-1949", "hodgkin-huxley-1952"]
     ] }
   ],
   // Dotted links mean related evidence came together, without asserting a
   // direct lineage of influence or a single uninterrupted experiment.
-  bridges: [["names", "bernstein"], ["du-bois-reymond", "bernstein"]]
+  bridges: [["bernstein-rheotome", "bernstein"], ["helmholtz", "bernstein-rheotome"]]
 };

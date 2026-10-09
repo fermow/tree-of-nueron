@@ -68,6 +68,10 @@ for (let i = 1; i < osmoticPath.length; i++) {
     throw new Error(`Broken osmosis pathway: ${osmoticPath[i - 1]} → ${osmoticPath[i]}`);
   }
 }
+for (const [from, to] of [["du-bois-reymond", "bernstein-rheotome"], ["bernstein-rheotome", "bernstein"], ["nernst", "bernstein"], ["overton", "bernstein"]]) {
+  if (!edges.some(edge => edge[0] === from && edge[1] === to)) throw new Error(`Broken Bernstein synthesis: ${from} → ${to}`);
+}
+if (byId["bernstein"].date.includes("1868")) throw new Error("Rheotome and membrane model have been conflated");
 for (const strand of graph.strands) if (!eraIds.has(strand.color)) throw new Error(`Unknown graph category: ${strand.id}`);
 for (const [from, to] of edges) {
   if (!byId[from] || !byId[to]) throw new Error(`Broken graph connection: ${from} → ${to}`);

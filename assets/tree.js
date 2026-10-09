@@ -27,8 +27,8 @@
     nobili: 5500, "dutrochet-osmosis": 5500,
     "remak-schwann": 5810, matteucci: 5810,
     "du-bois-reymond": 6130, helmholtz: 6450, deiters: 6450,
-    "nageli-cramer": 6590, golgi: 6770, "pfeffer-membrane": 7090,
-    "cajal-waldeyer": 7090, names: 7410, overton: 7730,
+    "nageli-cramer": 6590, "bernstein-rheotome": 6610, golgi: 6770, "pfeffer-membrane": 7090,
+    "cajal-waldeyer": 7090, names: 7410, nernst: 7440, overton: 7730,
     bernstein: 8050, "hodgkin-huxley-1939": 8370,
     "hodgkin-katz-1949": 8690, "hodgkin-huxley-1952": 9010
   };
