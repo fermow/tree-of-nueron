@@ -2,7 +2,11 @@
 
 An interactive, source-backed history of how the modern neuron concept emerged - from the ancient Greek word *neûron* to the Hodgkin-Huxley ionic model of the action potential.
 
-The repository name intentionally follows the requested spelling: `tree-of-nueron`.
+## Live website
+
+**[Open the public Tree of Neuron atlas](https://fermow.github.io/tree-of-nueron/)**
+
+The site is hosted free with GitHub Pages. Every push to `main` is published automatically by the workflow in `.github/workflows/pages.yml`.
 
 ## Run locally
 
