@@ -18,6 +18,9 @@
   const scene = window.NEURON_VISUALS.scenes[event.id];
   const media = window.NEURON_VISUALS.archive[event.id];
   document.title = `${event.person} · ${event.date} · Tree of Neuron`;
+  document.querySelectorAll?.('.detail-topbar .brand, .detail-topbar .back-link').forEach(link => {
+    link.href = `index.html#event-${encodeURIComponent(event.id)}`;
+  });
   document.documentElement.style.setProperty("--hero-color", era.color);
 
   const refs = event.refs.map(refId => {

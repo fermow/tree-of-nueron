@@ -3,73 +3,92 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="An interactive, source-backed history of the neuron from ancient anatomy to the ionic action-potential model.">
-  <title>Tree of Neuron</title>
+  <meta name="description" content="Explore the discoveries, experiments and words that shaped our understanding of neurons.">
+  <title>Tree of Neuron — An atlas of discovery</title>
   <link rel="stylesheet" href="assets/styles.css">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 </head>
-<body class="explorer-page">
+<body class="explorer-page atlas-page">
   <header class="topbar">
     <a class="brand" href="index.html" aria-label="Tree of Neuron home">
       <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
-      <span><b>Tree of Neuron</b><small>an experimental history</small></span>
+      <span><b>Tree of Neuron</b><small>the discovery atlas</small></span>
     </a>
     <div class="topbar-actions">
+      <span class="topbar-edition">AN INTERACTIVE HISTORY · c. 700 BCE—1962</span>
       <label class="search-box">
         <span class="sr-only">Search discoveries, scientists or historical words</span>
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.35-4.35m2.35-5.65a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"/></svg>
-        <input id="search" type="search" autocomplete="off" placeholder="Search discoveries or words...">
+        <input id="search" type="search" autocomplete="off" placeholder="Find a scientist, experiment, or word…">
         <kbd>/</kbd>
       </label>
       <button class="icon-button" id="aboutButton" type="button" aria-label="About this project">i</button>
+      <button class="mobile-menu-button" id="menuButton" type="button" aria-controls="atlasSidebar" aria-expanded="false">Explore</button>
     </div>
   </header>
 
-  <main id="explorer" class="explorer" aria-label="Interactive history tree">
-    <section class="intro-card" id="introCard">
-      <p class="eyebrow">An evidence tree · c. 700 BCE–1962</p>
-      <h1>How did a <em>cord</em><br>become a <em>neuron?</em></h1>
-      <p>Follow overlapping research paths. Some questions split into parallel experiments, then meet again as a new explanation takes shape.</p>
-      <button id="beginButton" class="primary-button" type="button">Begin at the roots <span>→</span></button>
-      <p class="microcopy">Drag to explore · Scroll or pinch to zoom · Click a large card or a small word node</p>
-    </section>
+  <main id="explorer" class="explorer atlas-layout" aria-label="Interactive history atlas">
+    <aside class="atlas-sidebar" id="atlasSidebar" aria-label="Guided exploration">
+      <div class="sidebar-scroll">
+        <div class="sidebar-intro intro-card" id="introCard">
+          <p class="eyebrow">THE DISCOVERY ATLAS <span class="sidebar-spark">✳</span></p>
+          <h1>How did we<br>discover the <em>neuron?</em></h1>
+          <p>One question opened many paths. Follow the experiments, see where ideas split, and find where they meet again.</p>
+          <button id="beginButton" class="primary-button" type="button">Start the story <span>↗</span></button>
+        </div>
 
-    <svg id="tree" class="tree-canvas" viewBox="100 35 2100 1100" role="group" aria-labelledby="treeTitle treeDesc">
-      <title id="treeTitle">Chronological tree of discoveries that formed the modern concept of the neuron</title>
-      <desc id="treeDesc">Forty-seven historical events and sixteen smaller terminology nodes, ordered approximately from left to right. Myelin anatomy, nodal conduction and glial origin run as parallel strands alongside nerve electricity and cell biology. Dotted bridges indicate conceptual connections. Click a card to read its explanation.</desc>
-      <rect width="10900" height="2820" fill="#F2EDE2"/>
-      <g id="viewport">
-        <g id="branches"></g>
-        <g id="termLinks"></g>
-        <g id="eraLabels"></g>
-        <g id="nodes"></g>
-        <g id="termNodes"></g>
-      </g>
-    </svg>
+        <section class="sidebar-section" aria-labelledby="chapterHeading">
+          <div class="sidebar-section-header"><span>01 / THE ESSENTIAL STORY</span><span>6 stops</span></div>
+          <h2 id="chapterHeading">Choose a turning point</h2>
+          <div class="chapter-list" id="chapterNav"></div>
+        </section>
 
-    <nav class="era-rail" id="eraRail" aria-label="Concurrent research threads"></nav>
+        <section class="sidebar-section track-section" aria-labelledby="trackHeading">
+          <div class="sidebar-section-header"><span>02 / PARALLEL RESEARCH</span><span>6 threads</span></div>
+          <h2 id="trackHeading">Follow one question</h2>
+          <p class="track-explainer">Colors group the type of evidence. Select a thread to trace it across time.</p>
+          <nav class="era-rail" id="eraRail" aria-label="Research threads"></nav>
+        </section>
 
-    <div class="controls" aria-label="Map controls">
-      <button id="homeButton" type="button" aria-label="Reset view" title="Reset view">⌂</button>
-      <button id="zoomIn" type="button" aria-label="Zoom in" title="Zoom in">+</button>
-      <button id="zoomOut" type="button" aria-label="Zoom out" title="Zoom out">−</button>
-      <label class="zoom-slider" title="Zoom level"><span class="sr-only">Zoom level</span><input id="zoomRange" type="range" min="0" max="100" value="58" aria-label="Zoom level"></label>
-    </div>
-
-    <aside class="mini-guide" aria-hidden="true">
-      <span class="pulse-dot"></span>
-      <div><b>47 events · 16 words</b><small>Solid paths connect evidence · dotted paths connect ideas</small></div>
+        <div class="sidebar-end"><b>47</b><span>historical events</span><i></i><b>16</b><span>word histories</span></div>
+      </div>
     </aside>
 
+    <section class="map-stage" aria-label="Branching historical map">
+      <div class="map-grain" aria-hidden="true"></div>
+      <div class="map-topline">
+        <div><span class="live-dot"></span><span>YOU ARE EXPLORING</span><strong id="currentLocation">Early ideas about the brain</strong></div>
+        <button id="mapReset" type="button" title="Return to the first chapter">Back to beginning ↗</button>
+      </div>
+      <svg id="tree" class="tree-canvas" viewBox="240 50 1050 850" role="group" aria-labelledby="treeTitle treeDesc">
+        <title id="treeTitle">Branching timeline of neuron discoveries</title>
+        <desc id="treeDesc">Forty-seven dated events across six color-coded research threads. Select a turning point in the left guide, then drag the map to follow evidence paths. Small pink cards open terminology histories.</desc>
+        <g id="viewport">
+          <g id="branches"></g>
+          <g id="termLinks"></g>
+          <g id="eraLabels"></g>
+          <g id="nodes"></g>
+          <g id="termNodes"></g>
+        </g>
+      </svg>
+      <div class="map-bottom-note"><span class="map-note-dot"></span>Drag to move <span class="map-note-separator">/</span> Pinch or scroll to zoom <span class="map-note-separator">/</span> Open a card to learn the experiment</div>
+      <div class="map-legend"><span><i class="legend-solid"></i>Evidence path</span><span><i class="legend-dashed"></i>Ideas meet</span><span><i class="legend-word"></i>Word history</span></div>
+      <div class="controls" aria-label="Map controls">
+        <button id="homeButton" type="button" aria-label="Return to starting view" title="Starting view">⌂</button>
+        <button id="zoomIn" type="button" aria-label="Zoom in" title="Zoom in">+</button>
+        <button id="zoomOut" type="button" aria-label="Zoom out" title="Zoom out">−</button>
+        <label class="zoom-slider" title="Zoom level"><span class="sr-only">Zoom level</span><input id="zoomRange" type="range" min="0" max="100" value="84" aria-label="Zoom level"></label>
+      </div>
+    </section>
     <section id="searchResults" class="search-results" aria-live="polite" hidden></section>
   </main>
 
   <dialog id="aboutDialog" class="about-dialog">
     <button class="dialog-close" type="button" aria-label="Close">×</button>
-    <p class="eyebrow">About the project</p>
-    <h2>Research paths meet and branch.</h2>
-    <p>Large cards record questions and evidence; the label inside each card names its research topic. Solid colored connections follow related experiments and show a three-way fork before Galvani. Dotted connections show later concepts brought together, without claiming direct influence. Smaller pink nodes trace names such as nervus, soma, dendrite, axon and synapse. Left to right is approximate historical order, not a proportional time scale.</p>
-    <p>Ancient evidence is incomplete, and several “first discovery” claims are disputed. The wording preserves those cautions instead of forcing a hero-only story.</p>
+    <p class="eyebrow">ABOUT THE ATLAS</p>
+    <h2>One history. Many questions.</h2>
+    <p>The six colored research threads are inquiries that often unfolded at the same time. Solid paths connect related evidence; dotted bridges show ideas that later met without implying every scientist directly influenced another. Small pink nodes follow the language of neuroscience. Horizontal spacing is for readable navigation, not a proportional date scale.</p>
+    <p>Each card opens a sourced explanation of the question, method, observation and limits of a discovery. Ancient evidence and several priority claims remain uncertain.</p>
   </dialog>
 
   <script src="assets/data.js"></script>

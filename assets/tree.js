@@ -38,7 +38,7 @@
     "myelin-wave-1952": 9600, "ben-geren": 10100, "bunge-central": 10500
   };
   const world = { width: 10900, height: 2820 };
-  const card = { width: 276, height: 210 };
+  const card = { width: 276, height: 220 };
   const points = events.map((event, index) => ({
     event, index, x: graph.positions[event.id]?.x ?? xById[event.id],
     y: graph.positions[event.id]?.y ?? laneY[event.era],
@@ -46,6 +46,19 @@
   }));
   const pointMap = Object.fromEntries(points.map(point => [point.event.id, point]));
   const terms = window.NEURON_TERMS.items;
+  const chapters = [
+    { id: "alcmaeon", title: "Where does sensation begin?", cue: "Brain or heart?" },
+    { id: "galvani-distant-spark", title: "Can electricity move us?", cue: "A frog leg responds" },
+    { id: "cajal-waldeyer", title: "What is one neuron?", cue: "Separate cells emerge" },
+    { id: "bernstein", title: "Where does voltage come from?", cue: "The ion gradient" },
+    { id: "hodgkin-huxley-1952", title: "What makes the spike?", cue: "Sodium and potassium" },
+    { id: "myelin-wave-1952", title: "How does a signal travel?", cue: "Myelin and nodes" }
+  ];
+  const chapterNav = document.getElementById("chapterNav");
+  const currentLocation = document.getElementById("currentLocation");
+  const sidebar = document.getElementById("atlasSidebar");
+  const menuButton = document.getElementById("menuButton");
+  let activeThread = null;
 
   const create = (name, attrs = {}, text = "") => {
     const element = document.createElementNS(ns, name);
@@ -67,7 +80,7 @@
       const a = pointMap[from], b = pointMap[to];
       branchLayer.append(create("path", {
         d: curve(right(a), a.y, left(b), b.y), class: "evidence-link",
-        stroke: eraMap[strand.color].color
+        stroke: eraMap[strand.color].color, "data-thread": strand.color
       }));
     });
   });
@@ -130,6 +143,7 @@
     });
     const link = document.createElementNS("http://www.w3.org/1999/xhtml", "a");
     link.className = "history-card event-link";
+    if (chapters.some(chapter => chapter.id === p.event.id)) link.classList.add("turning-point");
     link.href = `event.html?id=${encodeURIComponent(p.event.id)}`;
     link.dataset.id = p.event.id;
     link.dataset.era = p.event.era;
@@ -193,9 +207,41 @@
     termNodeLayer.append(foreign);
   });
 
+  function closeSidebar() {
+    sidebar.classList.remove("is-open");
+    menuButton.setAttribute("aria-expanded", "false");
+  }
+
+  function selectThread(thread, move = true) {
+    activeThread = thread;
+    document.querySelectorAll(".era-chip").forEach(chip => chip.classList.toggle("active", chip.dataset.thread === (thread || "all")));
+    document.querySelectorAll(".history-card").forEach(card => card.classList.toggle("is-muted", !!thread && (thread === "words" || card.dataset.era !== thread)));
+    document.querySelectorAll(".term-card").forEach(card => card.classList.toggle("is-muted", !!thread && thread !== "words"));
+    document.querySelectorAll(".evidence-link").forEach(path => path.classList.toggle("is-muted", !!thread && path.dataset.thread !== thread));
+    document.querySelectorAll(".concept-link, .fork-spine, .fork-point, .join-point").forEach(path => path.classList.toggle("is-muted", !!thread));
+    document.querySelectorAll(".thread-label").forEach(label => label.classList.toggle("is-muted", !!thread && label.dataset.thread !== thread));
+    if (move && thread) {
+      if (thread === "words") { currentLocation.textContent = "The names behind the discoveries"; focusAt(7130, 1090, 1180); }
+      else {
+        const first = points.find(point => point.event.era === thread);
+        currentLocation.textContent = eraMap[thread].label;
+        focusAt(first.x + 350, first.y, 1220);
+      }
+      closeSidebar();
+    }
+  }
+
+  const allChip = document.createElement("button");
+  allChip.type = "button";
+  allChip.className = "era-chip active";
+  allChip.dataset.thread = "all";
+  allChip.innerHTML = `<i style="--era-color:#C7A15E"></i><span>All research paths</span><small>${events.length}</small>`;
+  allChip.addEventListener("click", () => { selectThread(null, false); currentLocation.textContent = "All research paths"; closeSidebar(); });
+  eraRail.append(allChip);
+
   eras.forEach(era => {
     const first = points.find(point => point.event.era === era.id);
-    const label = create("g", { class: "thread-label", transform: `translate(${first.x - card.width / 2} ${first.y - 155})` });
+    const label = create("g", { class: "thread-label", "data-thread": era.id, transform: `translate(${first.x - card.width / 2} ${first.y - 155})` });
     label.append(
       create("circle", { r: 8, cx: 8, cy: -7, fill: era.color }),
       create("text", { x: 25, class: "thread-name" }, era.label),
@@ -206,35 +252,27 @@
     const chip = document.createElement("button");
     chip.type = "button";
     chip.className = "era-chip";
+    chip.dataset.thread = era.id;
     chip.style.setProperty("--era-color", era.color);
-    chip.innerHTML = `<i></i><span>${era.label}</span>`;
+    chip.innerHTML = `<i></i><span>${era.label}</span><small>${events.filter(event => event.era === era.id).length}</small>`;
     chip.title = `${era.label} (${era.range})`;
-    chip.addEventListener("click", () => {
-      document.querySelectorAll(".era-chip").forEach(el => el.classList.remove("active"));
-      chip.classList.add("active");
-      focusAt(era.id === "electricity" ? 3800 : first.x + 680,
-        era.id === "electricity" ? 880 : first.y, 1700);
-      document.getElementById("introCard").classList.add("dismissed");
-    });
+    chip.addEventListener("click", () => selectThread(era.id));
     eraRail.append(chip);
   });
   const wordChip = document.createElement("button");
   wordChip.type = "button";
   wordChip.className = "era-chip word-chip";
+  wordChip.dataset.thread = "words";
   wordChip.style.setProperty("--era-color", "#b15a72");
-  wordChip.innerHTML = "<i></i><span>Words & names</span>";
+  wordChip.innerHTML = `<i></i><span>Words & names</span><small>${terms.length}</small>`;
   wordChip.title = "Jump to the terminology branches";
-  wordChip.addEventListener("click", () => {
-    document.querySelectorAll(".era-chip").forEach(el => el.classList.remove("active"));
-    wordChip.classList.add("active");
-    focusAt(7100, 1100, 1750);
-    document.getElementById("introCard").classList.add("dismissed");
-  });
+  wordChip.addEventListener("click", () => selectThread("words"));
   eraRail.append(wordChip);
 
-  let camera = { x: 100, y: 35, w: 2100, h: 1100 };
+  const readableWidth = () => Math.max(590, Math.min(1200, svg.clientWidth * 1.3));
+  let camera = { x: 800 - readableWidth() / 2, y: -60, w: readableWidth(), h: 850 };
   let animationFrame = null;
-  const bounds = { minW: 670, maxW: world.width };
+  const bounds = { minW: 590, maxW: 2600 };
 
   function applyCamera() {
     const ratio = svg.clientWidth / Math.max(1, svg.clientHeight);
@@ -270,6 +308,36 @@
       if (t < 1) animationFrame = requestAnimationFrame(animate);
     };
     animationFrame = requestAnimationFrame(animate);
+  }
+
+  function openChapter(index, animate = true) {
+    const chapter = chapters[index];
+    const point = pointMap[chapter.id];
+    selectThread(null, false);
+    chapterNav.querySelectorAll(".chapter-button").forEach((button, i) => button.classList.toggle("active", i === index));
+    currentLocation.textContent = chapter.title;
+    if (animate) focusAt(point.x, point.y, readableWidth());
+    closeSidebar();
+  }
+
+  chapters.forEach((chapter, index) => {
+    const point = pointMap[chapter.id];
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "chapter-button" + (index === 0 ? " active" : "");
+    button.innerHTML = `<span class="chapter-index">${String(index + 1).padStart(2, "0")}</span><span class="chapter-copy"><small>${escapeHtml(point.event.date)} <i>·</i> ${escapeHtml(chapter.cue)}</small><strong>${escapeHtml(chapter.title)}</strong></span><span class="chapter-arrow">↗</span>`;
+    button.addEventListener("click", () => openChapter(index));
+    chapterNav.append(button);
+  });
+
+  menuButton.addEventListener("click", () => {
+    const isOpen = sidebar.classList.toggle("is-open");
+    menuButton.setAttribute("aria-expanded", String(isOpen));
+  });
+
+  function resetToBeginning() {
+    openChapter(0);
+    focusAt(810, 440, readableWidth());
   }
 
   function zoom(factor, clientX, clientY) {
@@ -326,13 +394,10 @@
   document.getElementById("zoomIn").addEventListener("click", () => zoom(.72));
   document.getElementById("zoomOut").addEventListener("click", () => zoom(1.39));
   document.getElementById("homeButton").addEventListener("click", () => {
-    focusAt(world.width / 2, world.height / 2, bounds.maxW);
-    document.querySelectorAll(".era-chip").forEach(el => el.classList.remove("active"));
+    resetToBeginning();
   });
-  document.getElementById("beginButton").addEventListener("click", () => {
-    document.getElementById("introCard").classList.add("dismissed");
-    focusAt(1060, 400, 1700);
-  });
+  document.getElementById("mapReset").addEventListener("click", resetToBeginning);
+  document.getElementById("beginButton").addEventListener("click", resetToBeginning);
   document.getElementById("zoomRange")?.addEventListener("input", event => {
     const amount = Number(event.target.value) / 100;
     const targetW = bounds.maxW * (bounds.minW / bounds.maxW) ** amount;
@@ -347,6 +412,7 @@
       nodeEls.forEach(node => node.classList.remove("dimmed", "match"));
       return;
     }
+    if (activeThread) selectThread(null, false);
     const matches = events.filter(event => [event.date, event.person, event.title, event.summary, event.question].join(" ").toLowerCase().includes(normalized));
     const termMatches = terms.filter(term => [term.date, term.word, term.former, term.current, term.origin, term.transition, ...term.lineage.map(item => item.term)].join(" ").toLowerCase().includes(normalized));
     const ids = new Set([...matches, ...termMatches].map(item => item.id));
@@ -375,7 +441,7 @@
     if (event.key === "/" && document.activeElement !== searchInput) { event.preventDefault(); searchInput.focus(); }
     if ((event.key === "+" || event.key === "=") && document.activeElement !== searchInput) zoom(.72);
     if (event.key === "-" && document.activeElement !== searchInput) zoom(1.39);
-    if (event.key === "0" && document.activeElement !== searchInput) focusAt(world.width / 2, world.height / 2, bounds.maxW);
+    if (event.key === "0" && document.activeElement !== searchInput) resetToBeginning();
   });
 
   const aboutDialog = document.getElementById("aboutDialog");
@@ -393,8 +459,15 @@
   if (selectedTerm.startsWith("term-")) {
     const term = terms.find(item => item.id === selectedTerm.slice(5));
     if (term) {
-      document.getElementById("introCard").classList.add("dismissed");
-      focusAt(term.x, term.y, 1050);
+      selectThread("words", false);
+      currentLocation.textContent = term.word + " · word history";
+      focusAt(term.x, term.y, 960);
+    }
+  } else if (selectedTerm.startsWith("event-")) {
+    const point = pointMap[selectedTerm.slice(6)];
+    if (point) {
+      currentLocation.textContent = point.event.title;
+      focusAt(point.x, point.y, 960);
     }
   }
 })();

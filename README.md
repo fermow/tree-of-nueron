@@ -26,7 +26,7 @@ PORT=9000 make up
 
 - 47 milestones sorted chronologically from c. 700 BCE to 1962
 - six named research categories and an explicit branching graph; electrical stimulation, muscle physiology, and electric-fish investigations meet at Galvani's planned experiment
-- 12 smaller terminology branches with separate etymology pages (from ancient neûron and Latin nervus to soma, dendrite, neuron, axon, and synapse)
+- 16 smaller terminology branches with separate etymology pages (from ancient neûron and Latin nervus to soma, dendrite, axon, synapse, myelin, and saltatory conduction)
 - search by scientist, discovery, date, question, or concept
 - a dedicated detail page for every node
 - a visual evidence sketch for all 47 event pages and selected credited Wikimedia Commons historical images or modern diagrams; if an image cannot load, its illustration remains visible
@@ -39,11 +39,13 @@ PORT=9000 make up
 
 - drag to move through the tree
 - scroll, pinch, use `+` / `-`, or adjust the on-screen zoom slider
-- use the colored thread buttons to jump between lines of inquiry
+- choose one of six turning points in the left guide for a readable starting view
+- use the colored research-thread buttons to focus and highlight one line of inquiry
 - press `/` to search
-- press `0` to reset the view
+- press `0` to return to the beginning; use the home control or “Back to beginning” for the same action
 - click a card to open its full evidence page; use the back link to return
 - click a smaller pink word node for its origin, earlier names, dating caveats, and cited sources
+- on smaller screens, open the Explore drawer to navigate chapters and threads
 
 ## Content architecture
 
